@@ -1,0 +1,6 @@
+.git
+**/node_modules
+**/.next
+.yarn/cache
+.yarn/install-state.gz
+*.log
