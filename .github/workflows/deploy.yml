@@ -1,0 +1,45 @@
+# Deploy to the fi-platform box on every push to main.
+# This job only rewrites the image tag in fi-workers/infra (platform/stacks/apps/w0nder-land/compose.yaml)
+# to this commit. Komodo on the box notices the change within a minute, builds this commit and swaps
+# containers without downtime (bootstrap/app-deploy.sh). Rollback = revert that infra commit.
+# INFRA_DEPLOY_KEY is a write deploy key on fi-workers/infra.
+name: Deploy
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md", "docs/**"]
+  workflow_dispatch:
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+permissions: {}
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Point the box at this commit
+        env:
+          APP: w0nder-land
+          INFRA_DEPLOY_KEY: ${{ secrets.INFRA_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          T="$RUNNER_TEMP/infra-deploy"; rm -rf "$T"; mkdir -p "$T"
+          printf '%s\n' "$INFRA_DEPLOY_KEY" > "$T/key"; chmod 600 "$T/key"
+          echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$T/known_hosts"
+          # The self-hosted runners share a user account: never touch ~/.ssh or the global git config.
+          export GIT_SSH_COMMAND="ssh -i $T/key -o IdentitiesOnly=yes -o UserKnownHostsFile=$T/known_hosts"
+          export GIT_CONFIG_GLOBAL="$T/gitconfig"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git clone -q --depth 1 git@github.com:fi-workers/infra.git "$T/infra"; cd "$T/infra"
+          F="platform/stacks/apps/$APP/compose.yaml"
+          for i in 1 2 3 4 5; do
+            perl -pi -e "s#(image: fi-platform/[a-z0-9-]+:)[0-9a-f]{40}#\${1}$GITHUB_SHA#g" "$F"
+            if git diff --quiet; then echo "already at $GITHUB_SHA"; break; fi
+            git commit -qam "deploy($APP): ${GITHUB_SHA:0:7}" -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+            if git push -q origin HEAD:main; then echo "infra → $APP@${GITHUB_SHA:0:7}"; break; fi
+            [ "$i" = 5 ] && exit 1
+            sleep $((i * 3)); git fetch -q --depth 1 origin main; git reset -q --hard origin/main
+          done
+          rm -rf "$T"
