@@ -1,6 +1,12 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // 셀프호스팅(도커)용 standalone 출력. 모노레포라 추적 기준을 레포 루트로.
+  output: 'standalone',
+  outputFileTracingRoot: path.join(path.dirname(fileURLToPath(import.meta.url)), '../..'),
   images: {
     remotePatterns: [
       {
