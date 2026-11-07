@@ -5,7 +5,7 @@ import { BrutalButton } from '@/components/ui/BrutalButton';
 import { getTexts } from '@/components/editor/utils';
 import { Configure } from '@/constants/configure';
 import { ellipsis } from '@/libs/utils/string';
-import { getPostSlug, getPostUrl } from '@/libs/utils/urls';
+import { getPostRouteParam, getPostUrl, isPostSlugOf } from '@/libs/utils/urls';
 import { getAllPosts, Post } from '@/repository/posts';
 import { DateTime } from 'luxon';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -40,7 +40,7 @@ const PostPage = ({ post }: PostProps) => {
     if (slug === post.uuid) {
       router.replace(canonicalPath);
     }
-  }, [router.isReady, router.query.slug, post]);
+  }, [router, router.isReady, router.query.slug, post]);
 
   // 80자 이상이 되면 검색엔진에서 잘 처리해주지 못한다 80자 이상이면 ellipsis 처리를 해준다.
   const title = useMemo(() => ellipsis(post?.title ?? '', 80), [post]);
@@ -187,8 +187,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  const canonicalSlug = getPostSlug(post.uuid, post.title);
-  if (slug !== canonicalSlug && slug !== post.uuid) {
+  // slug 는 Next 가 한 번 디코딩한 값이다. 인코딩된 문자열과만 비교하면 정식 주소가 404 가 된다(#15).
+  if (!isPostSlugOf(slug, post.uuid, post.title)) {
     return { notFound: true };
   }
 
@@ -200,7 +200,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = getAllPosts();
   const paths = posts.map(post => ({
-    params: { slug: getPostSlug(post.uuid, post.title) },
+    // 디코딩된 형태를 넘겨야 getPostUrl 주소(한 번 인코딩)로 prerender 된다.
+    params: { slug: getPostRouteParam(post.uuid, post.title) },
   }));
 
   return {
