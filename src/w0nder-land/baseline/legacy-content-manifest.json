@@ -1,0 +1,4918 @@
+{
+  "schema": "LegacyContentManifestV1",
+  "schemaVersion": 1,
+  "generator": "src/w0nder-land/scripts/baseline/build-manifest.mjs",
+  "source": {
+    "repo": "w0nder-official/w0nder.land",
+    "git": {
+      "sha": "3039b94245c69876206075225c8d54d9435e0ed5",
+      "publicDirDirty": false
+    }
+  },
+  "notes": [
+    "원본은 읽기 전용으로만 다뤘다. 해시는 디스크 바이트 기준 sha256 이다.",
+    "routes 는 소스 규칙에서 파생한 주소다. 실제 HTTP 동작은 baseline/url-observations.*.json 에 따로 기록한다.",
+    "canonical <link> 태그는 현재 어떤 페이지에도 없다(src 전체 검색). 이 작업에서 새로 추가하지 않는다."
+  ],
+  "counts": {
+    "articles": 82,
+    "articleAssets": 32,
+    "staticFiles": 18,
+    "derivedArticleRoutes": 328
+  },
+  "integrity": {
+    "duplicateShortPaths": [],
+    "duplicateCanonicalPaths": [],
+    "articlesWithoutShortUrl": [],
+    "articlesWithoutTitle": [],
+    "idsContainingHyphen": [],
+    "missingLocalReferences": [],
+    "unresolvedInternalRoutes": [],
+    "missingAuthorProfiles": [
+      {
+        "authorProfile": "/images/profile_image.jpg",
+        "legacyIds": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "66",
+          "67",
+          "68",
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "76",
+          "77",
+          "78",
+          "79",
+          "80",
+          "81",
+          "82"
+        ]
+      }
+    ],
+    "strayPostDirs": []
+  },
+  "listOrder": [
+    "82",
+    "81",
+    "80",
+    "79",
+    "78",
+    "77",
+    "76",
+    "75",
+    "74",
+    "73",
+    "72",
+    "71",
+    "70",
+    "69",
+    "68",
+    "67",
+    "66",
+    "65",
+    "64",
+    "63",
+    "62",
+    "61",
+    "60",
+    "59",
+    "58",
+    "57",
+    "56",
+    "55",
+    "54",
+    "53",
+    "52",
+    "51",
+    "50",
+    "49",
+    "48",
+    "47",
+    "46",
+    "45",
+    "44",
+    "43",
+    "42",
+    "41",
+    "40",
+    "39",
+    "38",
+    "37",
+    "36",
+    "35",
+    "34",
+    "33",
+    "32",
+    "31",
+    "30",
+    "29",
+    "28",
+    "27",
+    "26",
+    "25",
+    "24",
+    "23",
+    "22",
+    "21",
+    "20",
+    "19",
+    "18",
+    "17",
+    "16",
+    "15",
+    "14",
+    "13",
+    "12",
+    "11",
+    "10",
+    "9",
+    "8",
+    "7",
+    "6",
+    "5",
+    "4",
+    "3",
+    "2",
+    "1"
+  ],
+  "siteRoutes": [
+    {
+      "path": "/",
+      "kind": "page",
+      "source": "src/pages/index.tsx"
+    },
+    {
+      "path": "/posts",
+      "kind": "page",
+      "source": "src/pages/posts/index.tsx"
+    },
+    {
+      "path": "/posts/latest",
+      "kind": "redirect",
+      "source": "src/pages/posts/latest.tsx",
+      "expectedTarget": "/posts/82-%EC%95%84%EC%9D%B4%EC%99%80(AIWA)%EB%8A%94%20%EA%B8%B0%EC%96%B5%EB%82%98%EB%8A%94%EB%8D%B0",
+      "note": "최신 글이 바뀌면 대상도 바뀐다"
+    },
+    {
+      "path": "/about",
+      "kind": "redirect",
+      "source": "next.config.mjs redirects (permanent:false)",
+      "expectedTarget": "/"
+    },
+    {
+      "path": "/rss.xml",
+      "kind": "feed",
+      "source": "src/pages/rss.xml.tsx",
+      "note": "guid=legacyId, date=createdAt, pubDate=요청 시각(변동)"
+    },
+    {
+      "path": "/sitemap.xml",
+      "kind": "feed",
+      "source": "src/pages/sitemap.xml.tsx",
+      "note": "loc=canonicalPath, lastmod=createdAt"
+    },
+    {
+      "path": "/robots.txt",
+      "kind": "static",
+      "source": "public/robots.txt"
+    },
+    {
+      "path": "/api/og/t-001",
+      "kind": "api",
+      "source": "src/pages/api/og/t-001.tsx",
+      "expectedStatus": 404,
+      "note": "url 쿼리 없으면 설계상 404"
+    },
+    {
+      "path": "/api/og/t-001?url=https%3A%2F%2Fw0nder.land%2F",
+      "kind": "api",
+      "source": "src/pages/api/og/t-001.tsx",
+      "note": "주어진 url 의 HTML 을 가져와 OG 이미지를 만든다"
+    },
+    {
+      "path": "/posts/28626b62da0242528bfe5f6873bb32bb",
+      "kind": "redirect",
+      "source": "src/middleware.ts",
+      "expectedTarget": "/posts/1"
+    },
+    {
+      "path": "/posts/28626b62da0242528bfe5f6873bb32bb-legacy-title",
+      "kind": "redirect",
+      "source": "src/middleware.ts (prefix 일치 시 제목 무관)",
+      "expectedTarget": "/posts/1"
+    },
+    {
+      "path": "/s/__baseline_missing__",
+      "kind": "redirect",
+      "source": "src/pages/s/[slug].tsx (없는 단축 주소)",
+      "expectedTarget": "/posts"
+    }
+  ],
+  "articles": [
+    {
+      "legacyId": "1",
+      "title": "ShowYourTime 개발후기",
+      "frontmatter": {
+        "raw": "---\ntitle: 'ShowYourTime 개발후기'\nauthor: 'w0nder'\nshortUrl: 'epilogue'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['개발', 'ReactNative', 'RN', '카메라', '타임스탬프', 'ShowYourTime']\ncreatedAt: '2024-01-01T09:00:00Z'\nupdatedAt: '2024-01-01T09:00:00Z'\n---",
+        "parsed": {
+          "title": "ShowYourTime 개발후기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "epilogue",
+          "category": "TECH",
+          "keywords": [
+            "개발",
+            "ReactNative",
+            "RN",
+            "카메라",
+            "타임스탬프",
+            "ShowYourTime"
+          ],
+          "tags": null,
+          "createdAt": "2024-01-01T09:00:00Z",
+          "updatedAt": "2024-01-01T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/1/post.md",
+        "bytes": 10981,
+        "sha256": "10a05b0d09db23956d2015bed8cb1a4cea2955140bd635ed89f902a036e175f0",
+        "bodySha256": "5ac2673b64b5e120655201a2206eaffe8233f81581a57eca987b59293b631e5d"
+      },
+      "routes": {
+        "canonicalPath": "/posts/1-ShowYourTime%20%EA%B0%9C%EB%B0%9C%ED%9B%84%EA%B8%B0",
+        "doubleEncodedPath": "/posts/1-ShowYourTime%2520%25EA%25B0%259C%25EB%25B0%259C%25ED%259B%2584%25EA%25B8%25B0",
+        "bareIdPath": "/posts/1",
+        "shortPath": "/s/epilogue",
+        "rssGuid": "1"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/1/assets/fe9af87f16c040ada0139646b8e73641.jpg",
+          "bytes": 140832,
+          "sha256": "0303451a29a253e9ea85aec5c15e47aa19615518a698721fc45874284310f42c"
+        },
+        {
+          "publicPath": "/posts/1/assets/fe9af87f16c040ada0139646b8e73642.png",
+          "bytes": 7392233,
+          "sha256": "b0f925df71330502c47a92af50d700987fc0a85d644c2dd86aed9c8bb5d34073"
+        },
+        {
+          "publicPath": "/posts/1/assets/fe9af87f16c040ada0139646b8e73644.webp",
+          "bytes": 1467442,
+          "sha256": "a740b843728462c6a3aecb96f70c284f9ee93ce19d250ab5a6ded4523319110c"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/1/assets/fe9af87f16c040ada0139646b8e73641.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/1/assets/fe9af87f16c040ada0139646b8e73642.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/1/assets/fe9af87f16c040ada0139646b8e73644.webp",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://showyourti.me",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.nanasan.co.kr/showyourtime-app-story/",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.nanasan.co.kr/static/096e1edb9550b472bf19c0bd199e9fe0/e5166/nanasan.jpg",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.showyourti.me/images/og.png",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "2",
+      "title": "ShowYourTime 앱 트래픽 10배 증가 사례: 간단한 ASO 전략으로 성공하기",
+      "frontmatter": {
+        "raw": "---\ntitle: 'ShowYourTime 앱 트래픽 10배 증가 사례: 간단한 ASO 전략으로 성공하기'\nauthor: 'w0nder'\nshortUrl: 'aso'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'BUSINESS'\nkeywords:\n  [\n    'ASO',\n    'app store search optimization',\n    'ShowYourTime',\n    '앱',\n    '트래픽',\n    'traffic',\n    '검색',\n    'seo',\n    '앱스토어',\n    'appstore',\n    '플레이스토어',\n    'googleplaystore',\n    'appstoreoptimization',\n    '앱스토어최적화',\n    '인증',\n    '타임스탬프',\n    'timestamp',\n    '앱개발',\n  ]\ncreatedAt: '2024-03-02T22:10:00Z'\nupdatedAt: '2024-03-02T22:10:00Z'\n---",
+        "parsed": {
+          "title": "ShowYourTime 앱 트래픽 10배 증가 사례: 간단한 ASO 전략으로 성공하기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "aso",
+          "category": "BUSINESS",
+          "keywords": [
+            "ASO",
+            "app store search optimization",
+            "ShowYourTime",
+            "앱",
+            "트래픽",
+            "traffic",
+            "검색",
+            "seo",
+            "앱스토어",
+            "appstore",
+            "플레이스토어",
+            "googleplaystore",
+            "appstoreoptimization",
+            "앱스토어최적화",
+            "인증",
+            "타임스탬프",
+            "timestamp",
+            "앱개발"
+          ],
+          "tags": null,
+          "createdAt": "2024-03-02T22:10:00Z",
+          "updatedAt": "2024-03-02T22:10:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/2/post.md",
+        "bytes": 6241,
+        "sha256": "32406e63763635d26951c72c3d408825520ffbdabff115ed910fdb1c09ebf577",
+        "bodySha256": "b5be8fa55ca6b2ebb50a235b8b8fcfeb4c059bfcf408db8ae5dc91faa21bf905"
+      },
+      "routes": {
+        "canonicalPath": "/posts/2-ShowYourTime%20%EC%95%B1%20%ED%8A%B8%EB%9E%98%ED%94%BD%2010%EB%B0%B0%20%EC%A6%9D%EA%B0%80%20%EC%82%AC%EB%A1%80%3A%20%EA%B0%84%EB%8B%A8%ED%95%9C%20ASO%20%EC%A0%84%EB%9E%B5%EC%9C%BC%EB%A1%9C%20%EC%84%B1%EA%B3%B5%ED%95%98%EA%B8%B0",
+        "doubleEncodedPath": "/posts/2-ShowYourTime%2520%25EC%2595%25B1%2520%25ED%258A%25B8%25EB%259E%2598%25ED%2594%25BD%252010%25EB%25B0%25B0%2520%25EC%25A6%259D%25EA%25B0%2580%2520%25EC%2582%25AC%25EB%25A1%2580%253A%2520%25EA%25B0%2584%25EB%258B%25A8%25ED%2595%259C%2520ASO%2520%25EC%25A0%2584%25EB%259E%25B5%25EC%259C%25BC%25EB%25A1%259C%2520%25EC%2584%25B1%25EA%25B3%25B5%25ED%2595%2598%25EA%25B8%25B0",
+        "bareIdPath": "/posts/2",
+        "shortPath": "/s/aso",
+        "rssGuid": "2"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/2/assets/chart_conversion.png",
+          "bytes": 189302,
+          "sha256": "7713937afac1ee2396031547f5fcca622ae70fe914ca976f6abd9f5e630e4edf"
+        },
+        {
+          "publicPath": "/posts/2/assets/chart_downloads.png",
+          "bytes": 193705,
+          "sha256": "411be5cfb6842b5940193693fb4fd36ca0a6233b62bd0568615c4724dfc1cc41"
+        },
+        {
+          "publicPath": "/posts/2/assets/chart_impressions.png",
+          "bytes": 153565,
+          "sha256": "284cbc0e3aac107b93c1cde89d7a8025c22c258003e43db90a07b0dee53033fd"
+        },
+        {
+          "publicPath": "/posts/2/assets/chart_product_page_view.png",
+          "bytes": 179781,
+          "sha256": "e7d09959247d13806f8ed5cc0ea12e3aa545a76af0d6d4faf477fb435bc5c513"
+        },
+        {
+          "publicPath": "/posts/2/assets/rank_chart.png",
+          "bytes": 1159696,
+          "sha256": "928ad6b54149a768b72a0435315c77ea427eb54e23b00b8023ffe4115f1b96ee"
+        },
+        {
+          "publicPath": "/posts/2/assets/review.png",
+          "bytes": 34134,
+          "sha256": "ab3859f81b9e94c781d09f289568d3ddc55c4b79e24ac548a597a172d73a259e"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/2/assets/chart_conversion.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/2/assets/chart_downloads.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/2/assets/chart_impressions.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/2/assets/chart_product_page_view.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/2/assets/rank_chart.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/2/assets/review.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://showyourti.me",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.showyourti.me/images/og.png",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "3",
+      "title": "레드닷(Red Dot)으로 기록탭 인지 시키기",
+      "frontmatter": {
+        "raw": "---\ntitle: '레드닷(Red Dot)으로 기록탭 인지 시키기'\nauthor: 'w0nder'\nshortUrl: 'red-dot'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'DESIGN'\nkeywords:\n  [\n    'ShowYourTime',\n    'Record tab',\n    'Little Red Dot experiment',\n    'UI/UX design',\n    'A/B testing',\n    'Daily Active Users (DAU)',\n    'Click-through rate (CTR)',\n    'User experience (UX)',\n    'User interface (UI)',\n    'User engagement',\n    '기록탭',\n    '레드닷 실험',\n    'UI/UX 디자인',\n    'A/B 테스트',\n    '일일 활성 사용자 (DAU)',\n    '클릭률 (CTR)',\n    '사용자 경험 (UX)',\n    '사용자 인터페이스 (UI)',\n    '사용자 참여',\n  ]\ncreatedAt: '2024-05-06T09:00:00Z'\nupdatedAt: '2024-05-06T09:00:00Z'\n---",
+        "parsed": {
+          "title": "레드닷(Red Dot)으로 기록탭 인지 시키기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "red-dot",
+          "category": "DESIGN",
+          "keywords": [
+            "ShowYourTime",
+            "Record tab",
+            "Little Red Dot experiment",
+            "UI/UX design",
+            "A/B testing",
+            "Daily Active Users (DAU)",
+            "Click-through rate (CTR)",
+            "User experience (UX)",
+            "User interface (UI)",
+            "User engagement",
+            "기록탭",
+            "레드닷 실험",
+            "UI/UX 디자인",
+            "A/B 테스트",
+            "일일 활성 사용자 (DAU)",
+            "클릭률 (CTR)",
+            "사용자 경험 (UX)",
+            "사용자 인터페이스 (UI)",
+            "사용자 참여"
+          ],
+          "tags": null,
+          "createdAt": "2024-05-06T09:00:00Z",
+          "updatedAt": "2024-05-06T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/3/post.md",
+        "bytes": 7055,
+        "sha256": "fb3c677700e21aa234632dd827bc64b7e3378d9417bea9f5853a14ab4f0aa538",
+        "bodySha256": "b397380c982e04b31dad9c898782fbca2ad611e8affb203c4e9f3c4a85f74935"
+      },
+      "routes": {
+        "canonicalPath": "/posts/3-%EB%A0%88%EB%93%9C%EB%8B%B7(Red%20Dot)%EC%9C%BC%EB%A1%9C%20%EA%B8%B0%EB%A1%9D%ED%83%AD%20%EC%9D%B8%EC%A7%80%20%EC%8B%9C%ED%82%A4%EA%B8%B0",
+        "doubleEncodedPath": "/posts/3-%25EB%25A0%2588%25EB%2593%259C%25EB%258B%25B7(Red%2520Dot)%25EC%259C%25BC%25EB%25A1%259C%2520%25EA%25B8%25B0%25EB%25A1%259D%25ED%2583%25AD%2520%25EC%259D%25B8%25EC%25A7%2580%2520%25EC%258B%259C%25ED%2582%25A4%25EA%25B8%25B0",
+        "bareIdPath": "/posts/3",
+        "shortPath": "/s/red-dot",
+        "rssGuid": "3"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/3/assets/click-red-dot-graph.png",
+          "bytes": 62307,
+          "sha256": "deabf7bd2e8bf67b8d836ba716db71e5ba4f562f271779c978f455f466e9572b"
+        },
+        {
+          "publicPath": "/posts/3/assets/dau-graph.png",
+          "bytes": 228258,
+          "sha256": "6cf0a584fcfb7b72e3bfed2c6b375056a8cf1913c867fd458d5ac81f13cd09dc"
+        },
+        {
+          "publicPath": "/posts/3/assets/red-dot-ui.png",
+          "bytes": 116323,
+          "sha256": "fa5fd723fab5fac2389cb3ab8b11530cb28b1c087a63ad839cf8659f98b4f07f"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/3/assets/click-red-dot-graph.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/3/assets/dau-graph.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/3/assets/red-dot-ui.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://showyourti.me",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.showyourti.me/images/og.png",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "4",
+      "title": "ShowYourTime에 3:4 비율 기능을 다시 도입하며",
+      "frontmatter": {
+        "raw": "---\ntitle: 'ShowYourTime에 3:4 비율 기능을 다시 도입하며'\nauthor: 'w0nder'\nshortUrl: '3-4-ratio'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'ShowYourTime',\n    '4:3 ratio',\n    'app development',\n    'user experience improvement',\n    'camera ratio adjustment',\n    'screen shake issue',\n    'aspect ratio change',\n    'rounded corners',\n    'SVG implementation',\n    'camera view',\n    'video quality enhancement',\n    'app update',\n    'seamless transition',\n    'user feedback',\n    'UI design',\n    '4:3 비율',\n    '앱 개발',\n    '사용자 경험 개선',\n    '카메라 비율 조정',\n    '영상 안정화',\n    '화면 비율 변경',\n    '모서리 라운드',\n    'SVG 구현',\n    '카메라 화면',\n    '영상 품질 향상',\n    '부드러운 전환',\n    '사용자 피드백',\n    'UI 디자인',\n  ]\ncreatedAt: '2024-05-28T09:00:00Z'\nupdatedAt: '2024-05-28T09:00:00Z'\n---",
+        "parsed": {
+          "title": "ShowYourTime에 3:4 비율 기능을 다시 도입하며",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "3-4-ratio",
+          "category": "TECH",
+          "keywords": [
+            "ShowYourTime",
+            "4:3 ratio",
+            "app development",
+            "user experience improvement",
+            "camera ratio adjustment",
+            "screen shake issue",
+            "aspect ratio change",
+            "rounded corners",
+            "SVG implementation",
+            "camera view",
+            "video quality enhancement",
+            "app update",
+            "seamless transition",
+            "user feedback",
+            "UI design",
+            "4:3 비율",
+            "앱 개발",
+            "사용자 경험 개선",
+            "카메라 비율 조정",
+            "영상 안정화",
+            "화면 비율 변경",
+            "모서리 라운드",
+            "SVG 구현",
+            "카메라 화면",
+            "영상 품질 향상",
+            "부드러운 전환",
+            "사용자 피드백",
+            "UI 디자인"
+          ],
+          "tags": null,
+          "createdAt": "2024-05-28T09:00:00Z",
+          "updatedAt": "2024-05-28T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/4/post.md",
+        "bytes": 6581,
+        "sha256": "7de472a0d86dd528cc51e23d199b7eb8e95e1c87fd1cd99344ae7671034cfba5",
+        "bodySha256": "17c55b24a3e00e464b9f521c1d9422d7a5f3e25dcc4365b2b9c014c91d61fcf7"
+      },
+      "routes": {
+        "canonicalPath": "/posts/4-ShowYourTime%EC%97%90%203%3A4%20%EB%B9%84%EC%9C%A8%20%EA%B8%B0%EB%8A%A5%EC%9D%84%20%EB%8B%A4%EC%8B%9C%20%EB%8F%84%EC%9E%85%ED%95%98%EB%A9%B0",
+        "doubleEncodedPath": "/posts/4-ShowYourTime%25EC%2597%2590%25203%253A4%2520%25EB%25B9%2584%25EC%259C%25A8%2520%25EA%25B8%25B0%25EB%258A%25A5%25EC%259D%2584%2520%25EB%258B%25A4%25EC%258B%259C%2520%25EB%258F%2584%25EC%259E%2585%25ED%2595%2598%25EB%25A9%25B0",
+        "bareIdPath": "/posts/4",
+        "shortPath": "/s/3-4-ratio",
+        "rssGuid": "4"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/4/assets/intro-ratio.mp4",
+          "bytes": 9677493,
+          "sha256": "bb32aa6f3c30a1daf6d0d58807d8676f712637c171395906d8c32a3528d371f0"
+        },
+        {
+          "publicPath": "/posts/4/assets/isometric.png",
+          "bytes": 1648752,
+          "sha256": "e0f9f2a0534105ff58ff95abb9a98754891569293e4722617d1e408f595c2cc3"
+        },
+        {
+          "publicPath": "/posts/4/assets/ratio-develop.png",
+          "bytes": 2067524,
+          "sha256": "9f12c096f32194f06a55518ddf7619d0b9ed3068fb3164f1165f1c8e91f650aa"
+        },
+        {
+          "publicPath": "/posts/4/assets/round.png",
+          "bytes": 2061483,
+          "sha256": "876da91c75c5865bb2bec6e5289b5382edd919ea80a08d679b99c7c7b6ed5dbf"
+        },
+        {
+          "publicPath": "/posts/4/assets/shake.mp4",
+          "bytes": 4232590,
+          "sha256": "f64d5736ee2085a1c1d940ee6888927bc5e692b96b5ad372adfb00fbeed6fb14"
+        },
+        {
+          "publicPath": "/posts/4/assets/user-review.png",
+          "bytes": 57910,
+          "sha256": "60585e0fbca3c1e8f5ea9ee6432f8270bbbb6edf5f1ec1d11b6763af4428820c"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/4/assets/intro-ratio.mp4",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/4/assets/isometric.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/4/assets/round.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/4/assets/shake.mp4",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/4/assets/user-review.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://showyourti.me",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.showyourti.me/images/og.png",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "5",
+      "title": "[리뷰] 구글 임원에서 실리콘밸리 알바생이 되었습니다",
+      "frontmatter": {
+        "raw": "---\ntitle: '[리뷰] 구글 임원에서 실리콘밸리 알바생이 되었습니다'\nauthor: 'w0nder'\nshortUrl: 'review-google-to-part-timer'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'REVIEW'\nkeywords: []\ncreatedAt: '2024-09-08T09:00:00Z'\nupdatedAt: '2024-09-08T09:00:00Z'\n---",
+        "parsed": {
+          "title": "[리뷰] 구글 임원에서 실리콘밸리 알바생이 되었습니다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "review-google-to-part-timer",
+          "category": "REVIEW",
+          "keywords": [],
+          "tags": null,
+          "createdAt": "2024-09-08T09:00:00Z",
+          "updatedAt": "2024-09-08T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/5/post.md",
+        "bytes": 12131,
+        "sha256": "e4c453fe7db604176f97b174c89e80c5a3927f7ea94d16763523bda2feb2f5f5",
+        "bodySha256": "dcd3fd2fcb790466944269107ea69e29faf52f25f954937ba486aa81320458fb"
+      },
+      "routes": {
+        "canonicalPath": "/posts/5-%5B%EB%A6%AC%EB%B7%B0%5D%20%EA%B5%AC%EA%B8%80%20%EC%9E%84%EC%9B%90%EC%97%90%EC%84%9C%20%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC%20%EC%95%8C%EB%B0%94%EC%83%9D%EC%9D%B4%20%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4",
+        "doubleEncodedPath": "/posts/5-%255B%25EB%25A6%25AC%25EB%25B7%25B0%255D%2520%25EA%25B5%25AC%25EA%25B8%2580%2520%25EC%259E%2584%25EC%259B%2590%25EC%2597%2590%25EC%2584%259C%2520%25EC%258B%25A4%25EB%25A6%25AC%25EC%25BD%2598%25EB%25B0%25B8%25EB%25A6%25AC%2520%25EC%2595%258C%25EB%25B0%2594%25EC%2583%259D%25EC%259D%25B4%2520%25EB%2590%2598%25EC%2597%2588%25EC%258A%25B5%25EB%258B%2588%25EB%258B%25A4",
+        "bareIdPath": "/posts/5",
+        "shortPath": "/s/review-google-to-part-timer",
+        "rssGuid": "5"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://img.ridicdn.net/cover/734002694/xxlarge",
+          "kind": "external"
+        },
+        {
+          "url": "https://ridibooks.com/books/734002694",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "6",
+      "title": "나는 열린 마음의 소유자인가",
+      "frontmatter": {
+        "raw": "---\ntitle: '나는 열린 마음의 소유자인가'\nauthor: 'w0nder'\nshortUrl: 'am-i-open-minded'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '열린마음',\n    '자기성찰',\n    '에고',\n    '확신',\n    '편견',\n    '전문가',\n    '성장방해',\n    '논리적사고',\n    '직관',\n    '경험',\n    '동료',\n    '의견수용',\n    '실패',\n    '성장',\n  ]\ncreatedAt: '2024-11-21T09:00:00Z'\nupdatedAt: '2024-11-21T09:00:00Z'\n---",
+        "parsed": {
+          "title": "나는 열린 마음의 소유자인가",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "am-i-open-minded",
+          "category": "LIFE",
+          "keywords": [
+            "열린마음",
+            "자기성찰",
+            "에고",
+            "확신",
+            "편견",
+            "전문가",
+            "성장방해",
+            "논리적사고",
+            "직관",
+            "경험",
+            "동료",
+            "의견수용",
+            "실패",
+            "성장"
+          ],
+          "tags": null,
+          "createdAt": "2024-11-21T09:00:00Z",
+          "updatedAt": "2024-11-21T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/6/post.md",
+        "bytes": 2102,
+        "sha256": "5b1e69b11ecfdac6e6440ef6041a7c32d4e6a9ac90c2fd789cad15959811cdcb",
+        "bodySha256": "e9b69e172dbb12de926076ac9640a9e00e37deb80c301e3c56123eec4989b6ea"
+      },
+      "routes": {
+        "canonicalPath": "/posts/6-%EB%82%98%EB%8A%94%20%EC%97%B4%EB%A6%B0%20%EB%A7%88%EC%9D%8C%EC%9D%98%20%EC%86%8C%EC%9C%A0%EC%9E%90%EC%9D%B8%EA%B0%80",
+        "doubleEncodedPath": "/posts/6-%25EB%2582%2598%25EB%258A%2594%2520%25EC%2597%25B4%25EB%25A6%25B0%2520%25EB%25A7%2588%25EC%259D%258C%25EC%259D%2598%2520%25EC%2586%258C%25EC%259C%25A0%25EC%259E%2590%25EC%259D%25B8%25EA%25B0%2580",
+        "bareIdPath": "/posts/6",
+        "shortPath": "/s/am-i-open-minded",
+        "rssGuid": "6"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "7",
+      "title": "[리뷰] AI 트루스",
+      "frontmatter": {
+        "raw": "---\ntitle: '[리뷰] AI 트루스'\nauthor: 'w0nder'\nshortUrl: 'reading-ai-truth'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'REVIEW'\nkeywords:\n  [\n    'AI 트루스',\n    'AI 한계',\n    '임백준',\n    '인간 창의성',\n    'AI 보조도구',\n    '기술 현실주의',\n    '인간중심 가치',\n    'AI 공존',\n    '창의적 문제해결',\n    '기술 활용',\n    'AI 시대',\n  ]\ncreatedAt: '2024-11-22T09:00:00Z'\nupdatedAt: '2024-11-22T09:00:00Z'\n---",
+        "parsed": {
+          "title": "[리뷰] AI 트루스",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "reading-ai-truth",
+          "category": "REVIEW",
+          "keywords": [
+            "AI 트루스",
+            "AI 한계",
+            "임백준",
+            "인간 창의성",
+            "AI 보조도구",
+            "기술 현실주의",
+            "인간중심 가치",
+            "AI 공존",
+            "창의적 문제해결",
+            "기술 활용",
+            "AI 시대"
+          ],
+          "tags": null,
+          "createdAt": "2024-11-22T09:00:00Z",
+          "updatedAt": "2024-11-22T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/7/post.md",
+        "bytes": 4391,
+        "sha256": "aa0d2e01afcd0d66e2efa460624820849bacbfef87b164428fcf4e1843c2a752",
+        "bodySha256": "605c6aacb768f4bf3a86318a611a1aef328290a1a10178bba34eaa06e58c031b"
+      },
+      "routes": {
+        "canonicalPath": "/posts/7-%5B%EB%A6%AC%EB%B7%B0%5D%20AI%20%ED%8A%B8%EB%A3%A8%EC%8A%A4",
+        "doubleEncodedPath": "/posts/7-%255B%25EB%25A6%25AC%25EB%25B7%25B0%255D%2520AI%2520%25ED%258A%25B8%25EB%25A3%25A8%25EC%258A%25A4",
+        "bareIdPath": "/posts/7",
+        "shortPath": "/s/reading-ai-truth",
+        "rssGuid": "7"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://img.ridicdn.net/cover/443001374/xxlarge",
+          "kind": "external"
+        },
+        {
+          "url": "https://ridibooks.com/books/443001374",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "8",
+      "title": "2025년 만다라트",
+      "frontmatter": {
+        "raw": "---\ntitle: '2025년 만다라트'\nauthor: 'w0nder'\nshortUrl: '2025-mandarat'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'PLAN'\nkeywords: ['만다라트', '2025년', '만다라트 2025', '만다라트 2025년', '신년 계획']\ncreatedAt: '2024-12-31T09:00:00Z'\nupdatedAt: '2024-12-31T09:00:00Z'\n---",
+        "parsed": {
+          "title": "2025년 만다라트",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "2025-mandarat",
+          "category": "PLAN",
+          "keywords": [
+            "만다라트",
+            "2025년",
+            "만다라트 2025",
+            "만다라트 2025년",
+            "신년 계획"
+          ],
+          "tags": null,
+          "createdAt": "2024-12-31T09:00:00Z",
+          "updatedAt": "2024-12-31T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/8/post.md",
+        "bytes": 3791,
+        "sha256": "b08a1b138565a70af49cad5ed3b13441a81f82756ffcc667ee4300644e770dba",
+        "bodySha256": "1ef764259145d09d04ea57ba9cf5eff28de21b7766a717845b37d752509072be"
+      },
+      "routes": {
+        "canonicalPath": "/posts/8-2025%EB%85%84%20%EB%A7%8C%EB%8B%A4%EB%9D%BC%ED%8A%B8",
+        "doubleEncodedPath": "/posts/8-2025%25EB%2585%2584%2520%25EB%25A7%258C%25EB%258B%25A4%25EB%259D%25BC%25ED%258A%25B8",
+        "bareIdPath": "/posts/8",
+        "shortPath": "/s/2025-mandarat",
+        "rssGuid": "8"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/8/assets/2025-mandarat.png",
+          "bytes": 235823,
+          "sha256": "63de997b8be299c32cbd4d8604b1b5eafde102146afe06f03a2548b122dd8835"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/8/assets/2025-mandarat.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1DQskMNMXyxKGtOO7lZesjWRhNGremKSwNkDoMPAhp94/edit?gid=950869988#gid=950869988",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "9",
+      "title": "함께한다는 것에 대하여: 말하지 못한 진심들",
+      "frontmatter": {
+        "raw": "---\ntitle: '함께한다는 것에 대하여: 말하지 못한 진심들'\nauthor: 'w0nder'\nshortUrl: 'honest-relationship'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '함께하기의 어려움',\n    '세대 간 소통',\n    '직장 내 소통',\n    '관계의 솔직함',\n    '부모 자식 여행',\n    '가족 관계',\n    '세대 차이',\n    '직장 내 세대 차이',\n    '부모님과 해외여행 팁',\n    '직장 상사와 소통하는 방법',\n    '세대 차이 극복하기',\n    '가족여행 갈등 해결',\n    '조직 내 소통 방법',\n    '관계에서 솔직해지는 법',\n    '부서간 협업 방법',\n    '세대 간 이해하기',\n  ]\ncreatedAt: '2025-01-12T09:00:00Z'\nupdatedAt: '2025-01-12T09:00:00Z'\n---",
+        "parsed": {
+          "title": "함께한다는 것에 대하여: 말하지 못한 진심들",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "honest-relationship",
+          "category": "LIFE",
+          "keywords": [
+            "함께하기의 어려움",
+            "세대 간 소통",
+            "직장 내 소통",
+            "관계의 솔직함",
+            "부모 자식 여행",
+            "가족 관계",
+            "세대 차이",
+            "직장 내 세대 차이",
+            "부모님과 해외여행 팁",
+            "직장 상사와 소통하는 방법",
+            "세대 차이 극복하기",
+            "가족여행 갈등 해결",
+            "조직 내 소통 방법",
+            "관계에서 솔직해지는 법",
+            "부서간 협업 방법",
+            "세대 간 이해하기"
+          ],
+          "tags": null,
+          "createdAt": "2025-01-12T09:00:00Z",
+          "updatedAt": "2025-01-12T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/9/post.md",
+        "bytes": 5585,
+        "sha256": "329cd3fe52cc7ebd4c717fdb9e8c61386f59a3a0d6ef69084f504021a1909c82",
+        "bodySha256": "114ec12758bdb3f2f19d23d23e1bed1d9b9ac48a8a9ce28dafb4bd3300cd24d2"
+      },
+      "routes": {
+        "canonicalPath": "/posts/9-%ED%95%A8%EA%BB%98%ED%95%9C%EB%8B%A4%EB%8A%94%20%EA%B2%83%EC%97%90%20%EB%8C%80%ED%95%98%EC%97%AC%3A%20%EB%A7%90%ED%95%98%EC%A7%80%20%EB%AA%BB%ED%95%9C%20%EC%A7%84%EC%8B%AC%EB%93%A4",
+        "doubleEncodedPath": "/posts/9-%25ED%2595%25A8%25EA%25BB%2598%25ED%2595%259C%25EB%258B%25A4%25EB%258A%2594%2520%25EA%25B2%2583%25EC%2597%2590%2520%25EB%258C%2580%25ED%2595%2598%25EC%2597%25AC%253A%2520%25EB%25A7%2590%25ED%2595%2598%25EC%25A7%2580%2520%25EB%25AA%25BB%25ED%2595%259C%2520%25EC%25A7%2584%25EC%258B%25AC%25EB%2593%25A4",
+        "bareIdPath": "/posts/9",
+        "shortPath": "/s/honest-relationship",
+        "rssGuid": "9"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "10",
+      "title": "AI 시대의 역설: 두려움과 희망 사이에서",
+      "frontmatter": {
+        "raw": "---\ntitle: 'AI 시대의 역설: 두려움과 희망 사이에서'\nauthor: 'w0nder'\nshortUrl: 'ai-fear-reality'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    'AI 시대의 두려움',\n    'AI의 현실',\n    '기술 변화',\n    'AI 미래전망',\n    'ChatGPT 전망',\n    'AI 일자리 전망',\n    '인공지능 발전 한계',\n    'AI 위협론',\n    '엔트로피 법칙',\n    'AI 공포마케팅',\n    'FOMO 마케팅',\n    'AI 협업',\n    'AI 도구 활용법',\n    'ChatGPT 활용',\n    'AI 시대 생존법',\n    'AI 리터러시',\n    'AI 시대 준비하기',\n    '디지털 트랜스포메이션',\n    'Github Copilot',\n    'DALL-E',\n    'Midjourney',\n    '생성형 AI',\n    'AI 기술 한계',\n    'AI 윤리',\n    'AI 리스크',\n    '디지털 격차',\n    'AI 리터러시',\n    '미래 일자리',\n  ]\ncreatedAt: '2025-01-19T09:00:00Z'\nupdatedAt: '2025-01-19T09:00:00Z'\n---",
+        "parsed": {
+          "title": "AI 시대의 역설: 두려움과 희망 사이에서",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "ai-fear-reality",
+          "category": "LIFE",
+          "keywords": [
+            "AI 시대의 두려움",
+            "AI의 현실",
+            "기술 변화",
+            "AI 미래전망",
+            "ChatGPT 전망",
+            "AI 일자리 전망",
+            "인공지능 발전 한계",
+            "AI 위협론",
+            "엔트로피 법칙",
+            "AI 공포마케팅",
+            "FOMO 마케팅",
+            "AI 협업",
+            "AI 도구 활용법",
+            "ChatGPT 활용",
+            "AI 시대 생존법",
+            "AI 리터러시",
+            "AI 시대 준비하기",
+            "디지털 트랜스포메이션",
+            "Github Copilot",
+            "DALL-E",
+            "Midjourney",
+            "생성형 AI",
+            "AI 기술 한계",
+            "AI 윤리",
+            "AI 리스크",
+            "디지털 격차",
+            "AI 리터러시",
+            "미래 일자리"
+          ],
+          "tags": null,
+          "createdAt": "2025-01-19T09:00:00Z",
+          "updatedAt": "2025-01-19T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/10/post.md",
+        "bytes": 10045,
+        "sha256": "572e91feefcdaf1d60514687151b455f26ef0fa4491a39717ea059baeb0f8775",
+        "bodySha256": "5fb37e4e7494f4c4ba6207d079a9f80342de0b5e46884369417d56ddfde9b968"
+      },
+      "routes": {
+        "canonicalPath": "/posts/10-AI%20%EC%8B%9C%EB%8C%80%EC%9D%98%20%EC%97%AD%EC%84%A4%3A%20%EB%91%90%EB%A0%A4%EC%9B%80%EA%B3%BC%20%ED%9D%AC%EB%A7%9D%20%EC%82%AC%EC%9D%B4%EC%97%90%EC%84%9C",
+        "doubleEncodedPath": "/posts/10-AI%2520%25EC%258B%259C%25EB%258C%2580%25EC%259D%2598%2520%25EC%2597%25AD%25EC%2584%25A4%253A%2520%25EB%2591%2590%25EB%25A0%25A4%25EC%259B%2580%25EA%25B3%25BC%2520%25ED%259D%25AC%25EB%25A7%259D%2520%25EC%2582%25AC%25EC%259D%25B4%25EC%2597%2590%25EC%2584%259C",
+        "bareIdPath": "/posts/10",
+        "shortPath": "/s/ai-fear-reality",
+        "rssGuid": "10"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "11",
+      "title": "그 많던 사이드 프로젝트는 다 어디로 갔을까",
+      "frontmatter": {
+        "raw": "---\ntitle: '그 많던 사이드 프로젝트는 다 어디로 갔을까'\nauthor: 'w0nder'\nshortUrl: 'side-project-failure'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '사이드 프로젝트',\n    '실패',\n    '성공',\n    'MVP',\n    '피드백',\n    '동력',\n    '흥미',\n    '지속성',\n    'GitHub',\n    'Show Your Time',\n    '낭비 최소화',\n    '스타트업',\n  ]\ncreatedAt: '2025-01-25T09:00:00Z'\nupdatedAt: '2025-01-25T09:00:00Z'\n---",
+        "parsed": {
+          "title": "그 많던 사이드 프로젝트는 다 어디로 갔을까",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "side-project-failure",
+          "category": "LIFE",
+          "keywords": [
+            "사이드 프로젝트",
+            "실패",
+            "성공",
+            "MVP",
+            "피드백",
+            "동력",
+            "흥미",
+            "지속성",
+            "GitHub",
+            "Show Your Time",
+            "낭비 최소화",
+            "스타트업"
+          ],
+          "tags": null,
+          "createdAt": "2025-01-25T09:00:00Z",
+          "updatedAt": "2025-01-25T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/11/post.md",
+        "bytes": 7118,
+        "sha256": "5f317f4d9d5cdb6e2fcfd40ec4b773ec79ff6fc9c731412128a6ea65af8f18fd",
+        "bodySha256": "9f40ac06d8799a5c4bdfab7a7c14bdde666b49481486083e8c3c51d948c6a5b0"
+      },
+      "routes": {
+        "canonicalPath": "/posts/11-%EA%B7%B8%20%EB%A7%8E%EB%8D%98%20%EC%82%AC%EC%9D%B4%EB%93%9C%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%8A%94%20%EB%8B%A4%20%EC%96%B4%EB%94%94%EB%A1%9C%20%EA%B0%94%EC%9D%84%EA%B9%8C",
+        "doubleEncodedPath": "/posts/11-%25EA%25B7%25B8%2520%25EB%25A7%258E%25EB%258D%2598%2520%25EC%2582%25AC%25EC%259D%25B4%25EB%2593%259C%2520%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8%25EB%258A%2594%2520%25EB%258B%25A4%2520%25EC%2596%25B4%25EB%2594%2594%25EB%25A1%259C%2520%25EA%25B0%2594%25EC%259D%2584%25EA%25B9%258C",
+        "bareIdPath": "/posts/11",
+        "shortPath": "/s/side-project-failure",
+        "rssGuid": "11"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/11/assets/first-step.jpg",
+          "bytes": 83060,
+          "sha256": "f6f102718df4f8a9ff6c8d264b48a094dcb8cb69c9f7cd1977597ad9fd5880d5"
+        },
+        {
+          "publicPath": "/posts/11/assets/second-step.jpg",
+          "bytes": 48283,
+          "sha256": "c7d10462ef9ca37db9bf35e3eaeca9dccf00897a7c6742fdb871a4bab1c6aa61"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/11/assets/first-step.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/11/assets/second-step.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://files.speakerdeck.com/presentations/c6632b76be284d7ca1cef0d5744eef75/preview_slide_0.jpg",
+          "kind": "external"
+        },
+        {
+          "url": "https://speakerdeck.com/w0nder_official/geu-manhdeon-saideu-peurojegteuneun-da-eodiro-gasseulgga",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.nanasan.co.kr/showyourtime-app-story/",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.nanasan.co.kr/static/096e1edb9550b472bf19c0bd199e9fe0/e5166/nanasan.jpg",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "12",
+      "title": "창백한 푸른 점 위에서",
+      "frontmatter": {
+        "raw": "---\ntitle: '창백한 푸른 점 위에서'\nauthor: 'w0nder'\nshortUrl: 'starry-sky'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '코스모스',\n    '우주',\n    '천문학',\n    '우주적관점',\n    '일상성찰',\n    '배려',\n    '코스모스',\n    '개발자일상',\n    'SNS',\n    '공유정신',\n    '관계',\n    '여유',\n    '삶의태도',\n    '손해보기',\n    '함께살기',\n    '창백한푸른점',\n    '개발커뮤니티',\n    '배려하는삶',\n    '일상의깨달음',\n  ]\ncreatedAt: '2025-02-09T09:00:00Z'\nupdatedAt: '2025-02-09T09:00:00Z'\n---",
+        "parsed": {
+          "title": "창백한 푸른 점 위에서",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "starry-sky",
+          "category": "LIFE",
+          "keywords": [
+            "코스모스",
+            "우주",
+            "천문학",
+            "우주적관점",
+            "일상성찰",
+            "배려",
+            "코스모스",
+            "개발자일상",
+            "SNS",
+            "공유정신",
+            "관계",
+            "여유",
+            "삶의태도",
+            "손해보기",
+            "함께살기",
+            "창백한푸른점",
+            "개발커뮤니티",
+            "배려하는삶",
+            "일상의깨달음"
+          ],
+          "tags": null,
+          "createdAt": "2025-02-09T09:00:00Z",
+          "updatedAt": "2025-02-09T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/12/post.md",
+        "bytes": 4013,
+        "sha256": "989538312fc179b5d458e614748bdf954b0fd272e5e4b0cbbfa6a6bfaa83f540",
+        "bodySha256": "7d5b16096cf55d1f322e57b7f7963a9c9115efa527d11b7ebc907fa804087365"
+      },
+      "routes": {
+        "canonicalPath": "/posts/12-%EC%B0%BD%EB%B0%B1%ED%95%9C%20%ED%91%B8%EB%A5%B8%20%EC%A0%90%20%EC%9C%84%EC%97%90%EC%84%9C",
+        "doubleEncodedPath": "/posts/12-%25EC%25B0%25BD%25EB%25B0%25B1%25ED%2595%259C%2520%25ED%2591%25B8%25EB%25A5%25B8%2520%25EC%25A0%2590%2520%25EC%259C%2584%25EC%2597%2590%25EC%2584%259C",
+        "bareIdPath": "/posts/12",
+        "shortPath": "/s/starry-sky",
+        "rssGuid": "12"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://img.ridicdn.net/cover/786000077",
+          "kind": "external"
+        },
+        {
+          "url": "https://ridibooks.com/books/786000077",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "13",
+      "title": "좋은건 팔린다는 안일한 생각은 버려라",
+      "frontmatter": {
+        "raw": "---\ntitle: '좋은건 팔린다는 안일한 생각은 버려라'\nauthor: 'w0nder'\nshortUrl: 'good-product-is-not-enough'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'BUSINESS'\nkeywords:\n  [\n    '라면요리왕',\n    '제품 완성도',\n    '퀄리티',\n    '제품 전략',\n    '비즈니스 성공',\n    '스타트업',\n    '제품 개발',\n    '비즈니스 인사이트',\n    'IT 비즈니스',\n    '제품 관리',\n    '사업 전략',\n    '마케팅',\n  ]\ncreatedAt: '2025-02-15T09:00:00Z'\nupdatedAt: '2025-02-15T09:00:00Z'\n---",
+        "parsed": {
+          "title": "좋은건 팔린다는 안일한 생각은 버려라",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "good-product-is-not-enough",
+          "category": "BUSINESS",
+          "keywords": [
+            "라면요리왕",
+            "제품 완성도",
+            "퀄리티",
+            "제품 전략",
+            "비즈니스 성공",
+            "스타트업",
+            "제품 개발",
+            "비즈니스 인사이트",
+            "IT 비즈니스",
+            "제품 관리",
+            "사업 전략",
+            "마케팅"
+          ],
+          "tags": null,
+          "createdAt": "2025-02-15T09:00:00Z",
+          "updatedAt": "2025-02-15T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/13/post.md",
+        "bytes": 5055,
+        "sha256": "c375a47c97c530f0d31c1cb6755ab7b3108bb7a36c9e1355c819b756973baa72",
+        "bodySha256": "066aafcbb0ad63aa46ef110665b1b38177053cc207761601df71718a2e895619"
+      },
+      "routes": {
+        "canonicalPath": "/posts/13-%EC%A2%8B%EC%9D%80%EA%B1%B4%20%ED%8C%94%EB%A6%B0%EB%8B%A4%EB%8A%94%20%EC%95%88%EC%9D%BC%ED%95%9C%20%EC%83%9D%EA%B0%81%EC%9D%80%20%EB%B2%84%EB%A0%A4%EB%9D%BC",
+        "doubleEncodedPath": "/posts/13-%25EC%25A2%258B%25EC%259D%2580%25EA%25B1%25B4%2520%25ED%258C%2594%25EB%25A6%25B0%25EB%258B%25A4%25EB%258A%2594%2520%25EC%2595%2588%25EC%259D%25BC%25ED%2595%259C%2520%25EC%2583%259D%25EA%25B0%2581%25EC%259D%2580%2520%25EB%25B2%2584%25EB%25A0%25A4%25EB%259D%25BC",
+        "bareIdPath": "/posts/13",
+        "shortPath": "/s/good-product-is-not-enough",
+        "rssGuid": "13"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/13/assets/1.jpg",
+          "bytes": 86226,
+          "sha256": "668862638136875903c4f31e21cc594a544b0a69c8f754f53e4bb6d0d81730aa"
+        },
+        {
+          "publicPath": "/posts/13/assets/2.png",
+          "bytes": 50993,
+          "sha256": "3c3fa4e27ded21763b87e4f02f2f6310a97edab9b670970e22906a1555457001"
+        },
+        {
+          "publicPath": "/posts/13/assets/3.jpg",
+          "bytes": 29651,
+          "sha256": "7b35d2afb9eeee1faeb3d732f7bbe31a8f9fef6d72a630ebebf1cef8eb086956"
+        },
+        {
+          "publicPath": "/posts/13/assets/4.png",
+          "bytes": 107007,
+          "sha256": "b4b2e1697d88d663de500f85f8e07593fa16feb2cbe1207f158181d1786e8924"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/13/assets/1.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/13/assets/2.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/13/assets/3.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/13/assets/4.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788952811660.jpg",
+          "kind": "external"
+        },
+        {
+          "url": "https://product.kyobobook.co.kr/detail/S000000736055",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "14",
+      "title": "커피챗 1년 후기",
+      "frontmatter": {
+        "raw": "---\ntitle: '커피챗 1년 후기'\nauthor: 'w0nder'\nshortUrl: 'coffee-chat-1-year-review'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '커피챗',\n    '1년 후기',\n    '커피챗 후기',\n    '개발자 커피챗',\n    '주니어 개발자 멘토링',\n    '개발자 이력서 첨삭',\n    '커리어 상담',\n    '개발자 네트워킹',\n    '테크 커뮤니티',\n    '개발자 성장',\n    '비전공자 개발자',\n    '개발자 브랜딩',\n  ]\ncreatedAt: '2025-02-16T09:00:00Z'\nupdatedAt: '2025-02-16T09:00:00Z'\n---",
+        "parsed": {
+          "title": "커피챗 1년 후기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "coffee-chat-1-year-review",
+          "category": "LIFE",
+          "keywords": [
+            "커피챗",
+            "1년 후기",
+            "커피챗 후기",
+            "개발자 커피챗",
+            "주니어 개발자 멘토링",
+            "개발자 이력서 첨삭",
+            "커리어 상담",
+            "개발자 네트워킹",
+            "테크 커뮤니티",
+            "개발자 성장",
+            "비전공자 개발자",
+            "개발자 브랜딩"
+          ],
+          "tags": null,
+          "createdAt": "2025-02-16T09:00:00Z",
+          "updatedAt": "2025-02-16T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/14/post.md",
+        "bytes": 7838,
+        "sha256": "ca0dc8926877bfb62d74a3c12b8c9d07aa6d16bc0d062b4ff614233426c88185",
+        "bodySha256": "afc88919c676ec34f60ef07b82811938ba281e511790efe9169b352fde084e80"
+      },
+      "routes": {
+        "canonicalPath": "/posts/14-%EC%BB%A4%ED%94%BC%EC%B1%97%201%EB%85%84%20%ED%9B%84%EA%B8%B0",
+        "doubleEncodedPath": "/posts/14-%25EC%25BB%25A4%25ED%2594%25BC%25EC%25B1%2597%25201%25EB%2585%2584%2520%25ED%259B%2584%25EA%25B8%25B0",
+        "bareIdPath": "/posts/14",
+        "shortPath": "/s/coffee-chat-1-year-review",
+        "rssGuid": "14"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://www.latpeed.com/products/rSNlW",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "15",
+      "title": "모닝페이지, 나를 만나는 시간",
+      "frontmatter": {
+        "raw": "---\ntitle: '모닝페이지, 나를 만나는 시간'\nauthor: 'w0nder'\nshortUrl: 'morning-page'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['모닝페이지', '글쓰기', '일기', '습관', '자기계발', '아침루틴', '내면탐구', '성장', '챌린지', '마음정리']\ncreatedAt: '2025-03-07T09:00:00Z'\nupdatedAt: '2025-03-07T09:00:00Z'\n---",
+        "parsed": {
+          "title": "모닝페이지, 나를 만나는 시간",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "morning-page",
+          "category": "LIFE",
+          "keywords": [
+            "모닝페이지",
+            "글쓰기",
+            "일기",
+            "습관",
+            "자기계발",
+            "아침루틴",
+            "내면탐구",
+            "성장",
+            "챌린지",
+            "마음정리"
+          ],
+          "tags": null,
+          "createdAt": "2025-03-07T09:00:00Z",
+          "updatedAt": "2025-03-07T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/15/post.md",
+        "bytes": 5460,
+        "sha256": "49a9ea6e9b05f70d129043b65c46fef489a72a573ec91aca9eb84ff6388f000a",
+        "bodySha256": "74f9403608ee4b88ab8761e557cedc7b34a11a7b4b95cf73be58f5c8521a4719"
+      },
+      "routes": {
+        "canonicalPath": "/posts/15-%EB%AA%A8%EB%8B%9D%ED%8E%98%EC%9D%B4%EC%A7%80%2C%20%EB%82%98%EB%A5%BC%20%EB%A7%8C%EB%82%98%EB%8A%94%20%EC%8B%9C%EA%B0%84",
+        "doubleEncodedPath": "/posts/15-%25EB%25AA%25A8%25EB%258B%259D%25ED%258E%2598%25EC%259D%25B4%25EC%25A7%2580%252C%2520%25EB%2582%2598%25EB%25A5%25BC%2520%25EB%25A7%258C%25EB%2582%2598%25EB%258A%2594%2520%25EC%258B%259C%25EA%25B0%2584",
+        "bareIdPath": "/posts/15",
+        "shortPath": "/s/morning-page",
+        "rssGuid": "15"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "16",
+      "title": "거절의 미학",
+      "frontmatter": {
+        "raw": "---\ntitle: '거절의 미학'\nauthor: 'w0nder'\nshortUrl: 'the-art-of-saying-no'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['거절', '심리', '인간관계', '경계설정', '자존감', '감정관리', '성찰', '자기수용', '성숙', '인생관']\ncreatedAt: '2025-04-13T09:00:00Z'\nupdatedAt: '2025-04-13T09:00:00Z'\n---",
+        "parsed": {
+          "title": "거절의 미학",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "the-art-of-saying-no",
+          "category": "LIFE",
+          "keywords": [
+            "거절",
+            "심리",
+            "인간관계",
+            "경계설정",
+            "자존감",
+            "감정관리",
+            "성찰",
+            "자기수용",
+            "성숙",
+            "인생관"
+          ],
+          "tags": null,
+          "createdAt": "2025-04-13T09:00:00Z",
+          "updatedAt": "2025-04-13T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/16/post.md",
+        "bytes": 5335,
+        "sha256": "dccf5486b0bfd0e5c4bc9c307702bd443d7c03b5f30c31620c6867b60cb631db",
+        "bodySha256": "b6857b418091857793b7891ee4ad10e9edeb54c8082d7b662149b1ad9f260488"
+      },
+      "routes": {
+        "canonicalPath": "/posts/16-%EA%B1%B0%EC%A0%88%EC%9D%98%20%EB%AF%B8%ED%95%99",
+        "doubleEncodedPath": "/posts/16-%25EA%25B1%25B0%25EC%25A0%2588%25EC%259D%2598%2520%25EB%25AF%25B8%25ED%2595%2599",
+        "bareIdPath": "/posts/16",
+        "shortPath": "/s/the-art-of-saying-no",
+        "rssGuid": "16"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "17",
+      "title": "필사의 즐거움",
+      "frontmatter": {
+        "raw": "---\ntitle: '필사의 즐거움'\nauthor: 'w0nder'\nshortUrl: 'the-pleasure-of-copying'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['필사', '어린왕자', '망상', '상상력', '글쓰기', '독서', '명상', '자기성찰', '창의성', '마음챙김']\ncreatedAt: '2025-04-17T09:00:00Z'\nupdatedAt: '2025-04-17T09:00:00Z'\n---",
+        "parsed": {
+          "title": "필사의 즐거움",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "the-pleasure-of-copying",
+          "category": "LIFE",
+          "keywords": [
+            "필사",
+            "어린왕자",
+            "망상",
+            "상상력",
+            "글쓰기",
+            "독서",
+            "명상",
+            "자기성찰",
+            "창의성",
+            "마음챙김"
+          ],
+          "tags": null,
+          "createdAt": "2025-04-17T09:00:00Z",
+          "updatedAt": "2025-04-17T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/17/post.md",
+        "bytes": 7847,
+        "sha256": "2b29d4f75342ce86ec2237bd67766c0adb6ddb9562e818c506f7a0c8e4e82c04",
+        "bodySha256": "4635c314d1974d3d4891ef5bf4797028dbe2f3a68f0d9fa696e17bcbf47fc6d5"
+      },
+      "routes": {
+        "canonicalPath": "/posts/17-%ED%95%84%EC%82%AC%EC%9D%98%20%EC%A6%90%EA%B1%B0%EC%9B%80",
+        "doubleEncodedPath": "/posts/17-%25ED%2595%2584%25EC%2582%25AC%25EC%259D%2598%2520%25EC%25A6%2590%25EA%25B1%25B0%25EC%259B%2580",
+        "bareIdPath": "/posts/17",
+        "shortPath": "/s/the-pleasure-of-copying",
+        "rssGuid": "17"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/17/assets/post.jpg",
+          "bytes": 195168,
+          "sha256": "3a771e9e7efc40c81e0db3ebb15f35d1d5eedfe37dfe259a411fef9ee2b3a430"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/17/assets/post.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://www.instagram.com/walk.0ng/p/DH-VslTTcqM/?img_index=1",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "18",
+      "title": "사이드킥 후기",
+      "frontmatter": {
+        "raw": "---\ntitle: '사이드킥 후기'\nauthor: 'w0nder'\nshortUrl: 'sidekick-review'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '사이드킥',\n    '사이드프로젝트',\n    '프로그램운영',\n    '커뮤니티',\n    '멘토링',\n    '프로덕트',\n    '개발자',\n    '디자이너',\n    '네트워킹',\n    '후기',\n  ]\ncreatedAt: '2025-04-27T09:00:00Z'\nupdatedAt: '2025-04-27T09:00:00Z'\n---",
+        "parsed": {
+          "title": "사이드킥 후기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "sidekick-review",
+          "category": "LIFE",
+          "keywords": [
+            "사이드킥",
+            "사이드프로젝트",
+            "프로그램운영",
+            "커뮤니티",
+            "멘토링",
+            "프로덕트",
+            "개발자",
+            "디자이너",
+            "네트워킹",
+            "후기"
+          ],
+          "tags": null,
+          "createdAt": "2025-04-27T09:00:00Z",
+          "updatedAt": "2025-04-27T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/18/post.md",
+        "bytes": 5099,
+        "sha256": "bbce3fb6d7047465f9fcb80dc4a20e8582095877d70fa6779ad7aa078e654377",
+        "bodySha256": "7a0ef01c4a771eb907798915a8e6284086ea24cc6268c17ed64d4b661d1d1e64"
+      },
+      "routes": {
+        "canonicalPath": "/posts/18-%EC%82%AC%EC%9D%B4%EB%93%9C%ED%82%A5%20%ED%9B%84%EA%B8%B0",
+        "doubleEncodedPath": "/posts/18-%25EC%2582%25AC%25EC%259D%25B4%25EB%2593%259C%25ED%2582%25A5%2520%25ED%259B%2584%25EA%25B8%25B0",
+        "bareIdPath": "/posts/18",
+        "shortPath": "/s/sidekick-review",
+        "rssGuid": "18"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "19",
+      "title": "콩트가 시작된다.",
+      "frontmatter": {
+        "raw": "---\ntitle: '콩트가 시작된다.'\nauthor: 'w0nder'\nshortUrl: 'konto-start'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '콩트가 시작된다',\n    '일본드라마',\n    '자기성찰',\n    '자기확신',\n    '성과주의',\n    '일과삶',\n    '자기계발',\n    '마음챙김',\n    '일상',\n    '에세이',\n  ]\ncreatedAt: '2025-05-06T09:00:00Z'\nupdatedAt: '2025-05-06T09:00:00Z'\n---",
+        "parsed": {
+          "title": "콩트가 시작된다.",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "konto-start",
+          "category": "LIFE",
+          "keywords": [
+            "콩트가 시작된다",
+            "일본드라마",
+            "자기성찰",
+            "자기확신",
+            "성과주의",
+            "일과삶",
+            "자기계발",
+            "마음챙김",
+            "일상",
+            "에세이"
+          ],
+          "tags": null,
+          "createdAt": "2025-05-06T09:00:00Z",
+          "updatedAt": "2025-05-06T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/19/post.md",
+        "bytes": 2827,
+        "sha256": "34dc8b463eba9822aa7fe256d93f183189f3f6634e79eaa7a481560afe10bc10",
+        "bodySha256": "3b7d6ca40de18c5c288c62161f110da7cd3d0d5587a1c736d3bb1421f66e4d30"
+      },
+      "routes": {
+        "canonicalPath": "/posts/19-%EC%BD%A9%ED%8A%B8%EA%B0%80%20%EC%8B%9C%EC%9E%91%EB%90%9C%EB%8B%A4.",
+        "doubleEncodedPath": "/posts/19-%25EC%25BD%25A9%25ED%258A%25B8%25EA%25B0%2580%2520%25EC%258B%259C%25EC%259E%2591%25EB%2590%259C%25EB%258B%25A4.",
+        "bareIdPath": "/posts/19",
+        "shortPath": "/s/konto-start",
+        "rssGuid": "19"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://an2-img.amz.wtchn.net/image/v2/-2g58PlFxQEYEYN2wvVd_A.webp?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1USTRNSGczTWpCeE9EQWlYU3dpY0NJNklpOTJNaTl6ZEc5eVpTOXBiV0ZuWlM4eE5qSXdNemMzTVRReE16RTFNamd4TWpZNEluMC52R2lSdHhyQ0ppakhpcVpCOGRmMXo0Q2ZTd1kyWUFHNjBFNVRGOWNGWUxF",
+          "kind": "external"
+        },
+        {
+          "url": "https://watcha.com/ko-KR/contents/tRwGxbD",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "20",
+      "title": "어디에 살고 싶으세요",
+      "frontmatter": {
+        "raw": "---\ntitle: '어디에 살고 싶으세요'\nauthor: 'w0nder'\nshortUrl: 'where-to-live'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  ['자유', '정착', '삶의 방향성', '자기성찰', '삶의 의미', '독립', '자아실현', '삶의 선택', '자기발견', '삶의 변화']\ncreatedAt: '2025-05-10T09:00:00Z'\nupdatedAt: '2025-05-10T09:00:00Z'\n---",
+        "parsed": {
+          "title": "어디에 살고 싶으세요",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "where-to-live",
+          "category": "LIFE",
+          "keywords": [
+            "자유",
+            "정착",
+            "삶의 방향성",
+            "자기성찰",
+            "삶의 의미",
+            "독립",
+            "자아실현",
+            "삶의 선택",
+            "자기발견",
+            "삶의 변화"
+          ],
+          "tags": null,
+          "createdAt": "2025-05-10T09:00:00Z",
+          "updatedAt": "2025-05-10T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/20/post.md",
+        "bytes": 4357,
+        "sha256": "288ea5c606637a747867467b4c00cec244760ddec576839a4c95c9a83c0c36b5",
+        "bodySha256": "7dd592575d78039a1719d7b37a40c5917681970f3302e12570dd0427f5eb7eca"
+      },
+      "routes": {
+        "canonicalPath": "/posts/20-%EC%96%B4%EB%94%94%EC%97%90%20%EC%82%B4%EA%B3%A0%20%EC%8B%B6%EC%9C%BC%EC%84%B8%EC%9A%94",
+        "doubleEncodedPath": "/posts/20-%25EC%2596%25B4%25EB%2594%2594%25EC%2597%2590%2520%25EC%2582%25B4%25EA%25B3%25A0%2520%25EC%258B%25B6%25EC%259C%25BC%25EC%2584%25B8%25EC%259A%2594",
+        "bareIdPath": "/posts/20",
+        "shortPath": "/s/where-to-live",
+        "rssGuid": "20"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "21",
+      "title": "일본 여행을 다녀왔습니다.",
+      "frontmatter": {
+        "raw": "---\ntitle: '일본 여행을 다녀왔습니다.'\nauthor: 'w0nder'\nshortUrl: 'japan-trip-and-thoughts'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['일본여행', '사색', '관찰', '사업', '자기성찰', '고민', '성장']\ncreatedAt: '2025-05-18T09:00:00Z'\nupdatedAt: '2025-05-18T09:00:00Z'\n---",
+        "parsed": {
+          "title": "일본 여행을 다녀왔습니다.",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "japan-trip-and-thoughts",
+          "category": "LIFE",
+          "keywords": [
+            "일본여행",
+            "사색",
+            "관찰",
+            "사업",
+            "자기성찰",
+            "고민",
+            "성장"
+          ],
+          "tags": null,
+          "createdAt": "2025-05-18T09:00:00Z",
+          "updatedAt": "2025-05-18T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/21/post.md",
+        "bytes": 2629,
+        "sha256": "2b2f77c0cbfa2c7df2b6d4583ec6b34136b5c0ab4d4c25a6ca74a1c334ff255a",
+        "bodySha256": "6393de71f0ebe3d4cbe7b881ecf6bbb6dd06fecc3e15be749c5068936c34a9fa"
+      },
+      "routes": {
+        "canonicalPath": "/posts/21-%EC%9D%BC%EB%B3%B8%20%EC%97%AC%ED%96%89%EC%9D%84%20%EB%8B%A4%EB%85%80%EC%99%94%EC%8A%B5%EB%8B%88%EB%8B%A4.",
+        "doubleEncodedPath": "/posts/21-%25EC%259D%25BC%25EB%25B3%25B8%2520%25EC%2597%25AC%25ED%2596%2589%25EC%259D%2584%2520%25EB%258B%25A4%25EB%2585%2580%25EC%2599%2594%25EC%258A%25B5%25EB%258B%2588%25EB%258B%25A4.",
+        "bareIdPath": "/posts/21",
+        "shortPath": "/s/japan-trip-and-thoughts",
+        "rssGuid": "21"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/21/assets/birds.jpg",
+          "bytes": 10335191,
+          "sha256": "00452c23ada43930106255214dc76d7a8c72cce9d81d182e5aa2aba1b8c3542f"
+        },
+        {
+          "publicPath": "/posts/21/assets/heart.jpg",
+          "bytes": 85184,
+          "sha256": "68cbc814bff029cf24589b4ff49761ef3de8464786957a1e9807160689b9b3e4"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/21/assets/birds.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "/posts/21/assets/heart.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        }
+      ]
+    },
+    {
+      "legacyId": "22",
+      "title": "단단한 사람",
+      "frontmatter": {
+        "raw": "---\ntitle: '단단한 사람'\nauthor: 'w0nder'\nshortUrl: 'finding-my-strength'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '멘토링',\n    '자기성찰',\n    '자존감',\n    '임포스터 신드롬',\n    '회복탄력성',\n    '내적 통제감',\n    '객관적 시선',\n    '자기 발견',\n    '성장통',\n    '단단함',\n  ]\ncreatedAt: '2025-05-25T09:00:00Z'\nupdatedAt: '2025-05-25T10:30:00Z'\n---",
+        "parsed": {
+          "title": "단단한 사람",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "finding-my-strength",
+          "category": "LIFE",
+          "keywords": [
+            "멘토링",
+            "자기성찰",
+            "자존감",
+            "임포스터 신드롬",
+            "회복탄력성",
+            "내적 통제감",
+            "객관적 시선",
+            "자기 발견",
+            "성장통",
+            "단단함"
+          ],
+          "tags": null,
+          "createdAt": "2025-05-25T09:00:00Z",
+          "updatedAt": "2025-05-25T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/22/post.md",
+        "bytes": 5861,
+        "sha256": "eac4fa2351738b5e36fd30d902a3a373d83eebed6fe646aa2a3b2bfd7618c354",
+        "bodySha256": "467a8b7e19d263e4a1e320a34511da2d81ee414203c25021722939db41fb1a41"
+      },
+      "routes": {
+        "canonicalPath": "/posts/22-%EB%8B%A8%EB%8B%A8%ED%95%9C%20%EC%82%AC%EB%9E%8C",
+        "doubleEncodedPath": "/posts/22-%25EB%258B%25A8%25EB%258B%25A8%25ED%2595%259C%2520%25EC%2582%25AC%25EB%259E%258C",
+        "bareIdPath": "/posts/22",
+        "shortPath": "/s/finding-my-strength",
+        "rssGuid": "22"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/s/coffee-chat-1-year-review",
+          "kind": "internalRoute"
+        }
+      ]
+    },
+    {
+      "legacyId": "23",
+      "title": "자격증 하나, 책 한 권",
+      "frontmatter": {
+        "raw": "---\ntitle: '자격증 하나, 책 한 권'\nauthor: 'w0nder'\nshortUrl: 'certificate-and-book'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '정보보안기사',\n    '자격증',\n    'AI',\n    '책 집필',\n    '만다라트',\n    '스터디',\n    '정보관리기술사',\n    'LLM',\n    '생성형 AI',\n    '기술서',\n    '자기계발',\n    '목표달성',\n    '온라인스터디',\n  ]\ncreatedAt: '2025-06-01T09:00:00Z'\nupdatedAt: '2025-06-01T10:30:00Z'\n---",
+        "parsed": {
+          "title": "자격증 하나, 책 한 권",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "certificate-and-book",
+          "category": "LIFE",
+          "keywords": [
+            "정보보안기사",
+            "자격증",
+            "AI",
+            "책 집필",
+            "만다라트",
+            "스터디",
+            "정보관리기술사",
+            "LLM",
+            "생성형 AI",
+            "기술서",
+            "자기계발",
+            "목표달성",
+            "온라인스터디"
+          ],
+          "tags": null,
+          "createdAt": "2025-06-01T09:00:00Z",
+          "updatedAt": "2025-06-01T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/23/post.md",
+        "bytes": 3342,
+        "sha256": "932e90c802cf53dabf1f9d28d7f5819e0804b27860ed9697672ff48aba5c1560",
+        "bodySha256": "08dd45ef0324c054bc1e44616e4228d51a63d173720efa67c756c6a4e8964486"
+      },
+      "routes": {
+        "canonicalPath": "/posts/23-%EC%9E%90%EA%B2%A9%EC%A6%9D%20%ED%95%98%EB%82%98%2C%20%EC%B1%85%20%ED%95%9C%20%EA%B6%8C",
+        "doubleEncodedPath": "/posts/23-%25EC%259E%2590%25EA%25B2%25A9%25EC%25A6%259D%2520%25ED%2595%2598%25EB%2582%2598%252C%2520%25EC%25B1%2585%2520%25ED%2595%259C%2520%25EA%25B6%258C",
+        "bareIdPath": "/posts/23",
+        "shortPath": "/s/certificate-and-book",
+        "rssGuid": "23"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/s/2025-mandarat",
+          "kind": "internalRoute"
+        }
+      ]
+    },
+    {
+      "legacyId": "24",
+      "title": "구글 지도가 없는 도시에서",
+      "frontmatter": {
+        "raw": "---\ntitle: '구글 지도가 없는 도시에서'\nauthor: 'w0nder'\nshortUrl: 'qingdao-cafe-moment'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['칭다오', '여행', '카페', '선택', '성찰', '여행기']\ncreatedAt: '2025-06-08T09:00:00Z'\nupdatedAt: '2025-06-08T10:30:00Z'\n---",
+        "parsed": {
+          "title": "구글 지도가 없는 도시에서",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "qingdao-cafe-moment",
+          "category": "LIFE",
+          "keywords": [
+            "칭다오",
+            "여행",
+            "카페",
+            "선택",
+            "성찰",
+            "여행기"
+          ],
+          "tags": null,
+          "createdAt": "2025-06-08T09:00:00Z",
+          "updatedAt": "2025-06-08T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/24/post.md",
+        "bytes": 3546,
+        "sha256": "7dda1b6324bda186de0531ee11bd54eec67cebb313491c8fb766218e538c8e23",
+        "bodySha256": "78920acf2a716249299ecf6736f0e41f5664e800a72d8a87ba3b91ab758e0b46"
+      },
+      "routes": {
+        "canonicalPath": "/posts/24-%EA%B5%AC%EA%B8%80%20%EC%A7%80%EB%8F%84%EA%B0%80%20%EC%97%86%EB%8A%94%20%EB%8F%84%EC%8B%9C%EC%97%90%EC%84%9C",
+        "doubleEncodedPath": "/posts/24-%25EA%25B5%25AC%25EA%25B8%2580%2520%25EC%25A7%2580%25EB%258F%2584%25EA%25B0%2580%2520%25EC%2597%2586%25EB%258A%2594%2520%25EB%258F%2584%25EC%258B%259C%25EC%2597%2590%25EC%2584%259C",
+        "bareIdPath": "/posts/24",
+        "shortPath": "/s/qingdao-cafe-moment",
+        "rssGuid": "24"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "25",
+      "title": "\"NO완벽\" 개발기",
+      "frontmatter": {
+        "raw": "---\ntitle: '\"NO완벽\" 개발기'\nauthor: 'w0nder'\nshortUrl: 'no-perfect-dev'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['완벽주의', '개발일지', 'Satori', 'Canvas', 'Vercel', '이미지생성', '웹개발', 'vercel/og', 'NO완벽']\ncreatedAt: '2025-06-15T09:00:00Z'\nupdatedAt: '2025-06-15T10:30:00Z'\n---",
+        "parsed": {
+          "title": "\"NO완벽\" 개발기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "no-perfect-dev",
+          "category": "TECH",
+          "keywords": [
+            "완벽주의",
+            "개발일지",
+            "Satori",
+            "Canvas",
+            "Vercel",
+            "이미지생성",
+            "웹개발",
+            "vercel/og",
+            "NO완벽"
+          ],
+          "tags": null,
+          "createdAt": "2025-06-15T09:00:00Z",
+          "updatedAt": "2025-06-15T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/25/post.md",
+        "bytes": 6886,
+        "sha256": "80d24cfd4679d1adefc29717095dd9f82f35c1adb7013157da02b1f156466696",
+        "bodySha256": "9c48f2e7ffa1b14da9f3ddd7b0b01ee49079ebadcd0497d4e07c4cb10106604a"
+      },
+      "routes": {
+        "canonicalPath": "/posts/25-%22NO%EC%99%84%EB%B2%BD%22%20%EA%B0%9C%EB%B0%9C%EA%B8%B0",
+        "doubleEncodedPath": "/posts/25-%2522NO%25EC%2599%2584%25EB%25B2%25BD%2522%2520%25EA%25B0%259C%25EB%25B0%259C%25EA%25B8%25B0",
+        "bareIdPath": "/posts/25",
+        "shortPath": "/s/no-perfect-dev",
+        "rssGuid": "25"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://showyourti.me/quote",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "26",
+      "title": "책방(1)",
+      "frontmatter": {
+        "raw": "---\ntitle: '책방(1)'\nauthor: 'w0nder'\nshortUrl: 'bookstore-1'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['책방', '서점', '창업', '큐레이션', '오프라인', '개발자']\ncreatedAt: '2025-06-22T09:00:00Z'\nupdatedAt: '2025-06-22T10:30:00Z'\n---",
+        "parsed": {
+          "title": "책방(1)",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "bookstore-1",
+          "category": "LIFE",
+          "keywords": [
+            "책방",
+            "서점",
+            "창업",
+            "큐레이션",
+            "오프라인",
+            "개발자"
+          ],
+          "tags": null,
+          "createdAt": "2025-06-22T09:00:00Z",
+          "updatedAt": "2025-06-22T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/26/post.md",
+        "bytes": 5093,
+        "sha256": "05314508d0abafdbd5b3082645424b3f4bd2e49c630d4d8eab317d2043287204",
+        "bodySha256": "0bbe31c9347f189a06e0df048519f9d11b49c6454aa3def27c3b7c78343bcec7"
+      },
+      "routes": {
+        "canonicalPath": "/posts/26-%EC%B1%85%EB%B0%A9(1)",
+        "doubleEncodedPath": "/posts/26-%25EC%25B1%2585%25EB%25B0%25A9(1)",
+        "bareIdPath": "/posts/26",
+        "shortPath": "/s/bookstore-1",
+        "rssGuid": "26"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://img.ridicdn.net/cover/3330000006/xxlarge?dpi=xxhdpi#1",
+          "kind": "external"
+        },
+        {
+          "url": "https://img.ridicdn.net/cover/3330000007/xxlarge?dpi=xxhdpi#1",
+          "kind": "external"
+        },
+        {
+          "url": "https://ridibooks.com/books/3330000006",
+          "kind": "external"
+        },
+        {
+          "url": "https://ridibooks.com/books/3330000007",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "27",
+      "title": "2025년 반년 회고",
+      "frontmatter": {
+        "raw": "---\ntitle: '2025년 반년 회고'\nauthor: 'w0nder'\nshortUrl: '2025-half-year-retrospect'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  ['회고', '2025년', '반년', '사업', 'AI도서', '겸임교수', 'SaaS', 'Checkable', '대표', '개발자', '정체성', '고민']\ncreatedAt: '2025-06-29T09:00:00Z'\nupdatedAt: '2025-06-29T10:30:00Z'\n---",
+        "parsed": {
+          "title": "2025년 반년 회고",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "2025-half-year-retrospect",
+          "category": "LIFE",
+          "keywords": [
+            "회고",
+            "2025년",
+            "반년",
+            "사업",
+            "AI도서",
+            "겸임교수",
+            "SaaS",
+            "Checkable",
+            "대표",
+            "개발자",
+            "정체성",
+            "고민"
+          ],
+          "tags": null,
+          "createdAt": "2025-06-29T09:00:00Z",
+          "updatedAt": "2025-06-29T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/27/post.md",
+        "bytes": 3880,
+        "sha256": "376bba8d373c7a95afe818a1977e65481d4fb2e59f11ab467c6236b2f7a81eee",
+        "bodySha256": "fa6fe93c1f8959dd2434280600b16383c1939958783f6b6ab4961d020748902a"
+      },
+      "routes": {
+        "canonicalPath": "/posts/27-2025%EB%85%84%20%EB%B0%98%EB%85%84%20%ED%9A%8C%EA%B3%A0",
+        "doubleEncodedPath": "/posts/27-2025%25EB%2585%2584%2520%25EB%25B0%2598%25EB%2585%2584%2520%25ED%259A%258C%25EA%25B3%25A0",
+        "bareIdPath": "/posts/27",
+        "shortPath": "/s/2025-half-year-retrospect",
+        "rssGuid": "27"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://checkable.app",
+          "kind": "external"
+        },
+        {
+          "url": "https://checkable.app/images/og.png",
+          "kind": "external"
+        },
+        {
+          "url": "https://w0nder.land/api/og/t-001?url=https%3A%2F%2Fw0nder.land%2Fposts%2F8-2025%25EB%2585%2584%2520%25EB%25A7%258C%25EB%258B%25A4%25EB%259D%25BC%25ED%258A%25B8",
+          "kind": "external"
+        },
+        {
+          "url": "https://w0nder.land/s/2025-mandarat",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "28",
+      "title": "경험주의자의 선택",
+      "frontmatter": {
+        "raw": "---\ntitle: '경험주의자의 선택'\nauthor: 'w0nder'\nshortUrl: 'mentoring-experience'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['경험', '멘토링', '강의', '자기성장', '창업']\ncreatedAt: '2025-07-06T09:00:00Z'\nupdatedAt: '2025-07-06T10:30:00Z'\n---",
+        "parsed": {
+          "title": "경험주의자의 선택",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "mentoring-experience",
+          "category": "LIFE",
+          "keywords": [
+            "경험",
+            "멘토링",
+            "강의",
+            "자기성장",
+            "창업"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-06T09:00:00Z",
+          "updatedAt": "2025-07-06T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/28/post.md",
+        "bytes": 2869,
+        "sha256": "d9a2963d63938f049201f49a8c669e9da122e009d7e95e39bf9fed4db24a4789",
+        "bodySha256": "8bd165351dcef832a99084727c5ba76ae37038cfbbd284712a549c7f5c5f1c5a"
+      },
+      "routes": {
+        "canonicalPath": "/posts/28-%EA%B2%BD%ED%97%98%EC%A3%BC%EC%9D%98%EC%9E%90%EC%9D%98%20%EC%84%A0%ED%83%9D",
+        "doubleEncodedPath": "/posts/28-%25EA%25B2%25BD%25ED%2597%2598%25EC%25A3%25BC%25EC%259D%2598%25EC%259E%2590%25EC%259D%2598%2520%25EC%2584%25A0%25ED%2583%259D",
+        "bareIdPath": "/posts/28",
+        "shortPath": "/s/mentoring-experience",
+        "rssGuid": "28"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "29",
+      "title": "책방 (2)",
+      "frontmatter": {
+        "raw": "---\ntitle: '책방 (2)'\nauthor: 'w0nder'\nshortUrl: 'bookstore-2'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['책방', '서점', '창업', '큐레이션', '오프라인', '개발자']\ncreatedAt: '2025-07-13T09:00:00Z'\nupdatedAt: '2025-07-13T10:30:00Z'\n---",
+        "parsed": {
+          "title": "책방 (2)",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "bookstore-2",
+          "category": "LIFE",
+          "keywords": [
+            "책방",
+            "서점",
+            "창업",
+            "큐레이션",
+            "오프라인",
+            "개발자"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-13T09:00:00Z",
+          "updatedAt": "2025-07-13T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/29/post.md",
+        "bytes": 6457,
+        "sha256": "db364dbb4fde2856c5c57e8dec7d88d02f688c57076321847843bbe928d09dc1",
+        "bodySha256": "f4fbcc2015ca9fa9ce2a8740417d77558504fd524575023a57db910a3b56b403"
+      },
+      "routes": {
+        "canonicalPath": "/posts/29-%EC%B1%85%EB%B0%A9%20(2)",
+        "doubleEncodedPath": "/posts/29-%25EC%25B1%2585%25EB%25B0%25A9%2520(2)",
+        "bareIdPath": "/posts/29",
+        "shortPath": "/s/bookstore-2",
+        "rssGuid": "29"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://w0nder.land/s/bookstore-1",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "30",
+      "title": "Tailscale + Caddy + DNS Challenge로 VPN 환경에서 SSL 인증서 발급하기",
+      "frontmatter": {
+        "raw": "---\ntitle: 'Tailscale + Caddy + DNS Challenge로 VPN 환경에서 SSL 인증서 발급하기'\nauthor: 'w0nder'\nshortUrl: 'tailscale-caddy-dns-challenge'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  ['Tailscale', 'Caddy', 'DNS Challenge', 'SSL 인증서', 'Lets Encrypt', 'VPN', 'Docker', 'Cloudflare', '인프라', '보안']\ncreatedAt: '2025-07-15T09:00:00Z'\nupdatedAt: '2025-07-15T10:30:00Z'\n---",
+        "parsed": {
+          "title": "Tailscale + Caddy + DNS Challenge로 VPN 환경에서 SSL 인증서 발급하기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "tailscale-caddy-dns-challenge",
+          "category": "TECH",
+          "keywords": [
+            "Tailscale",
+            "Caddy",
+            "DNS Challenge",
+            "SSL 인증서",
+            "Lets Encrypt",
+            "VPN",
+            "Docker",
+            "Cloudflare",
+            "인프라",
+            "보안"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-15T09:00:00Z",
+          "updatedAt": "2025-07-15T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/30/post.md",
+        "bytes": 7032,
+        "sha256": "60ba436dd5b56bb2478b3f53926aa32e42c0b5cdaa15b918fac6796b0c1a39c1",
+        "bodySha256": "e8046198135fa256ee840d774fc50ca210a3fc755604386d6a7aa801da547216"
+      },
+      "routes": {
+        "canonicalPath": "/posts/30-Tailscale%20%2B%20Caddy%20%2B%20DNS%20Challenge%EB%A1%9C%20VPN%20%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%20SSL%20%EC%9D%B8%EC%A6%9D%EC%84%9C%20%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0",
+        "doubleEncodedPath": "/posts/30-Tailscale%2520%252B%2520Caddy%2520%252B%2520DNS%2520Challenge%25EB%25A1%259C%2520VPN%2520%25ED%2599%2598%25EA%25B2%25BD%25EC%2597%2590%25EC%2584%259C%2520SSL%2520%25EC%259D%25B8%25EC%25A6%259D%25EC%2584%259C%2520%25EB%25B0%259C%25EA%25B8%2589%25ED%2595%2598%25EA%25B8%25B0",
+        "bareIdPath": "/posts/30",
+        "shortPath": "/s/tailscale-caddy-dns-challenge",
+        "rssGuid": "30"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "31",
+      "title": "react-native-app-auth - Data intent is null 이슈 해결",
+      "frontmatter": {
+        "raw": "---\ntitle: 'react-native-app-auth - Data intent is null 이슈 해결'\nauthor: 'w0nder'\nshortUrl: 'react-native-app-auth-data-intent-null'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'React Native',\n    'OAuth',\n    'react-native-app-auth',\n    'Android',\n    'iOS',\n    '인증',\n    '딥링킹',\n    'Intent',\n    'Data intent is null',\n    'OAuth 인증',\n  ]\ncreatedAt: '2025-07-16T09:00:00Z'\nupdatedAt: '2025-07-16T10:30:00Z'\n---",
+        "parsed": {
+          "title": "react-native-app-auth - Data intent is null 이슈 해결",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "react-native-app-auth-data-intent-null",
+          "category": "TECH",
+          "keywords": [
+            "React Native",
+            "OAuth",
+            "react-native-app-auth",
+            "Android",
+            "iOS",
+            "인증",
+            "딥링킹",
+            "Intent",
+            "Data intent is null",
+            "OAuth 인증"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-16T09:00:00Z",
+          "updatedAt": "2025-07-16T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/31/post.md",
+        "bytes": 7056,
+        "sha256": "e9ef9a1baa985ce8a83b28555552dfea5020a2e306b8a71c2e0b7ae97f2046fa",
+        "bodySha256": "80407456a803a125403500fa308e1251fd4d02bb0fa7edd6f075821b1bab13fd"
+      },
+      "routes": {
+        "canonicalPath": "/posts/31-react-native-app-auth%20-%20Data%20intent%20is%20null%20%EC%9D%B4%EC%8A%88%20%ED%95%B4%EA%B2%B0",
+        "doubleEncodedPath": "/posts/31-react-native-app-auth%2520-%2520Data%2520intent%2520is%2520null%2520%25EC%259D%25B4%25EC%258A%2588%2520%25ED%2595%25B4%25EA%25B2%25B0",
+        "bareIdPath": "/posts/31",
+        "shortPath": "/s/react-native-app-auth-data-intent-null",
+        "rssGuid": "31"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://checkable.app",
+          "kind": "external"
+        },
+        {
+          "url": "https://showyourti.me",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.checkable.app/images/og.png",
+          "kind": "external"
+        },
+        {
+          "url": "https://www.showyourti.me/images/og.png",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "32",
+      "title": "보드리야르가 ChatGPT를 만났다면",
+      "frontmatter": {
+        "raw": "---\ntitle: '보드리야르가 ChatGPT를 만났다면'\nauthor: 'w0nder'\nshortUrl: 'baudrillard-meets-chatgpt'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '보드리야르',\n    '시뮬라르크',\n    '시뮬라시옹',\n    'AI',\n    'LLM',\n    '하이퍼리얼리티',\n    '철학',\n    '현실',\n    '가상',\n    'ChatGPT',\n    '대형언어모델',\n    '진짜',\n    '가짜',\n  ]\ncreatedAt: '2025-07-20T09:00:00Z'\nupdatedAt: '2025-07-20T10:30:00Z'\n---",
+        "parsed": {
+          "title": "보드리야르가 ChatGPT를 만났다면",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "baudrillard-meets-chatgpt",
+          "category": "LIFE",
+          "keywords": [
+            "보드리야르",
+            "시뮬라르크",
+            "시뮬라시옹",
+            "AI",
+            "LLM",
+            "하이퍼리얼리티",
+            "철학",
+            "현실",
+            "가상",
+            "ChatGPT",
+            "대형언어모델",
+            "진짜",
+            "가짜"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-20T09:00:00Z",
+          "updatedAt": "2025-07-20T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/32/post.md",
+        "bytes": 7257,
+        "sha256": "f4ac1db6509a663fdfad152c16de83056b8642dee4e9ea4798a9b1e70070bd53",
+        "bodySha256": "29293b3a80a7fb14f12a9c8eeaddd6d47b82952d95738a093f98ccca6205c796"
+      },
+      "routes": {
+        "canonicalPath": "/posts/32-%EB%B3%B4%EB%93%9C%EB%A6%AC%EC%95%BC%EB%A5%B4%EA%B0%80%20ChatGPT%EB%A5%BC%20%EB%A7%8C%EB%82%AC%EB%8B%A4%EB%A9%B4",
+        "doubleEncodedPath": "/posts/32-%25EB%25B3%25B4%25EB%2593%259C%25EB%25A6%25AC%25EC%2595%25BC%25EB%25A5%25B4%25EA%25B0%2580%2520ChatGPT%25EB%25A5%25BC%2520%25EB%25A7%258C%25EB%2582%25AC%25EB%258B%25A4%25EB%25A9%25B4",
+        "bareIdPath": "/posts/32",
+        "shortPath": "/s/baudrillard-meets-chatgpt",
+        "rssGuid": "32"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "33",
+      "title": "목소리만 큰 할아버지가 되지 않기 위해",
+      "frontmatter": {
+        "raw": "---\ntitle: '목소리만 큰 할아버지가 되지 않기 위해'\nauthor: 'w0nder'\nshortUrl: 'voice-of-humility'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  ['소통', '대화', '자기성찰', '확신', '겸손', '관계', '경청', '공감', '헌터헌터', '곤', '자기인식', '성장', '태도']\ncreatedAt: '2025-07-27T09:00:00Z'\nupdatedAt: '2025-07-27T10:30:00Z'\n---",
+        "parsed": {
+          "title": "목소리만 큰 할아버지가 되지 않기 위해",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "voice-of-humility",
+          "category": "LIFE",
+          "keywords": [
+            "소통",
+            "대화",
+            "자기성찰",
+            "확신",
+            "겸손",
+            "관계",
+            "경청",
+            "공감",
+            "헌터헌터",
+            "곤",
+            "자기인식",
+            "성장",
+            "태도"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-27T09:00:00Z",
+          "updatedAt": "2025-07-27T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/33/post.md",
+        "bytes": 5970,
+        "sha256": "fa0248bc713ae7d0d6eb2d4bf8a166e037c76d83699da4ec58b4020a5410a7b0",
+        "bodySha256": "2d0a44777818a9e08fed8429cad4ad273da30e40de3ec2b875af7e4c11a11ede"
+      },
+      "routes": {
+        "canonicalPath": "/posts/33-%EB%AA%A9%EC%86%8C%EB%A6%AC%EB%A7%8C%20%ED%81%B0%20%ED%95%A0%EC%95%84%EB%B2%84%EC%A7%80%EA%B0%80%20%EB%90%98%EC%A7%80%20%EC%95%8A%EA%B8%B0%20%EC%9C%84%ED%95%B4",
+        "doubleEncodedPath": "/posts/33-%25EB%25AA%25A9%25EC%2586%258C%25EB%25A6%25AC%25EB%25A7%258C%2520%25ED%2581%25B0%2520%25ED%2595%25A0%25EC%2595%2584%25EB%25B2%2584%25EC%25A7%2580%25EA%25B0%2580%2520%25EB%2590%2598%25EC%25A7%2580%2520%25EC%2595%258A%25EA%25B8%25B0%2520%25EC%259C%2584%25ED%2595%25B4",
+        "bareIdPath": "/posts/33",
+        "shortPath": "/s/voice-of-humility",
+        "rssGuid": "33"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "34",
+      "title": "한 박자 쉬고 다시",
+      "frontmatter": {
+        "raw": "---\ntitle: '한 박자 쉬고 다시'\nauthor: 'w0nder'\nshortUrl: 'magic-word-pause-again'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '영상촬영',\n    '완벽주의',\n    '실수',\n    '성장',\n    '두려움',\n    '첫경험',\n    '카메라',\n    '압박감',\n    '편집',\n    '한박자쉬고다시',\n    '마법의단어',\n    '자기성찰',\n    '용기',\n    '도전',\n    '편집자',\n    '이지',\n  ]\ncreatedAt: '2025-07-31T09:00:00Z'\nupdatedAt: '2025-07-31T10:30:00Z'\n---",
+        "parsed": {
+          "title": "한 박자 쉬고 다시",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "magic-word-pause-again",
+          "category": "LIFE",
+          "keywords": [
+            "영상촬영",
+            "완벽주의",
+            "실수",
+            "성장",
+            "두려움",
+            "첫경험",
+            "카메라",
+            "압박감",
+            "편집",
+            "한박자쉬고다시",
+            "마법의단어",
+            "자기성찰",
+            "용기",
+            "도전",
+            "편집자",
+            "이지"
+          ],
+          "tags": null,
+          "createdAt": "2025-07-31T09:00:00Z",
+          "updatedAt": "2025-07-31T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/34/post.md",
+        "bytes": 5114,
+        "sha256": "7f6a18f1e1a53ea54c20e5aee5cf43afdaa1ace4187035773e1f181287ad7581",
+        "bodySha256": "17ae8e08a716634d9165b53da316e7dee42a846119834660c705d6b0c54574f9"
+      },
+      "routes": {
+        "canonicalPath": "/posts/34-%ED%95%9C%20%EB%B0%95%EC%9E%90%20%EC%89%AC%EA%B3%A0%20%EB%8B%A4%EC%8B%9C",
+        "doubleEncodedPath": "/posts/34-%25ED%2595%259C%2520%25EB%25B0%2595%25EC%259E%2590%2520%25EC%2589%25AC%25EA%25B3%25A0%2520%25EB%258B%25A4%25EC%258B%259C",
+        "bareIdPath": "/posts/34",
+        "shortPath": "/s/magic-word-pause-again",
+        "rssGuid": "34"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/34/assets/bgimage.png",
+          "bytes": 2095764,
+          "sha256": "0dba89be0bedf692a68bd53b9453a1c2210f3d5bcbbbd88d5ec4f7fce2596008"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/34/assets/bgimage.png",
+          "kind": "local",
+          "existsInPublic": true
+        }
+      ]
+    },
+    {
+      "legacyId": "35",
+      "title": "fl!p fl!p 개발기 1부: 바이브 코딩",
+      "frontmatter": {
+        "raw": "---\ntitle: 'fl!p fl!p 개발기 1부: 바이브 코딩'\nauthor: 'w0nder'\nshortUrl: 'flip-flip-dev-1-vibe-coding'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'flipflip',\n    '게임개발',\n    '바이브코딩',\n    'LLM',\n    'AI개발',\n    '프로토타입',\n    '벽돌깨기',\n    '충돌처리',\n    '게임물리',\n    '점진적개선',\n    '린스타트업',\n    '개발방법론',\n    'AI협업',\n    '게임디자인',\n    '코딩실험',\n    '개발일기',\n  ]\ncreatedAt: '2025-08-07T09:00:00Z'\nupdatedAt: '2025-08-07T10:30:00Z'\n---",
+        "parsed": {
+          "title": "fl!p fl!p 개발기 1부: 바이브 코딩",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "flip-flip-dev-1-vibe-coding",
+          "category": "TECH",
+          "keywords": [
+            "flipflip",
+            "게임개발",
+            "바이브코딩",
+            "LLM",
+            "AI개발",
+            "프로토타입",
+            "벽돌깨기",
+            "충돌처리",
+            "게임물리",
+            "점진적개선",
+            "린스타트업",
+            "개발방법론",
+            "AI협업",
+            "게임디자인",
+            "코딩실험",
+            "개발일기"
+          ],
+          "tags": null,
+          "createdAt": "2025-08-07T09:00:00Z",
+          "updatedAt": "2025-08-07T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/35/post.md",
+        "bytes": 6738,
+        "sha256": "0696b30a7d2b05648785be901052fa9c45269d834d032fd1fb3ac4d0255884de",
+        "bodySha256": "10c9daef05173ee72b88fe116c72c0aea90c5a85672a25766c6da2d189774601"
+      },
+      "routes": {
+        "canonicalPath": "/posts/35-fl!p%20fl!p%20%EA%B0%9C%EB%B0%9C%EA%B8%B0%201%EB%B6%80%3A%20%EB%B0%94%EC%9D%B4%EB%B8%8C%20%EC%BD%94%EB%94%A9",
+        "doubleEncodedPath": "/posts/35-fl!p%2520fl!p%2520%25EA%25B0%259C%25EB%25B0%259C%25EA%25B8%25B0%25201%25EB%25B6%2580%253A%2520%25EB%25B0%2594%25EC%259D%25B4%25EB%25B8%258C%2520%25EC%25BD%2594%25EB%2594%25A9",
+        "bareIdPath": "/posts/35",
+        "shortPath": "/s/flip-flip-dev-1-vibe-coding",
+        "rssGuid": "35"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/35/assets/flipflip-og.png",
+          "bytes": 706467,
+          "sha256": "a3a8cd0e8fe80af6f095f5180c1667bfc1e89392d4f8cf19393a17d81a4d9646"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/35/assets/flipflip-og.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://flipflip.cc/",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "36",
+      "title": "fl!p fl!p 개발기 2부: 거리의 역설",
+      "frontmatter": {
+        "raw": "---\ntitle: 'fl!p fl!p 개발기 2부: 거리의 역설'\nauthor: 'w0nder'\nshortUrl: 'flip-flip-dev-2-distance-paradox'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'flipflip',\n    '게임개발',\n    '바이브코딩',\n    '거리의역설',\n    '창발성',\n    '동적균형',\n    '메커닉디자인',\n    '게임밸런싱',\n    '별모드',\n    '프로토타입',\n    '리액트네이티브',\n    'Firebase',\n    'CodePush',\n    '오프라인지원',\n    '코딩실험',\n    '개발일기',\n  ]\ncreatedAt: '2025-08-14T09:00:00Z'\nupdatedAt: '2025-08-14T10:30:00Z'\n---",
+        "parsed": {
+          "title": "fl!p fl!p 개발기 2부: 거리의 역설",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "flip-flip-dev-2-distance-paradox",
+          "category": "TECH",
+          "keywords": [
+            "flipflip",
+            "게임개발",
+            "바이브코딩",
+            "거리의역설",
+            "창발성",
+            "동적균형",
+            "메커닉디자인",
+            "게임밸런싱",
+            "별모드",
+            "프로토타입",
+            "리액트네이티브",
+            "Firebase",
+            "CodePush",
+            "오프라인지원",
+            "코딩실험",
+            "개발일기"
+          ],
+          "tags": null,
+          "createdAt": "2025-08-14T09:00:00Z",
+          "updatedAt": "2025-08-14T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/36/post.md",
+        "bytes": 4878,
+        "sha256": "0e059d1a69020a822c4445b5532246186485b7990fa0b4e37de8cdbbd4e251f6",
+        "bodySha256": "a17a58bb7d14fdeeb700ac67866962adeb0f95eaa40c328e7e0170c9f1799afc"
+      },
+      "routes": {
+        "canonicalPath": "/posts/36-fl!p%20fl!p%20%EA%B0%9C%EB%B0%9C%EA%B8%B0%202%EB%B6%80%3A%20%EA%B1%B0%EB%A6%AC%EC%9D%98%20%EC%97%AD%EC%84%A4",
+        "doubleEncodedPath": "/posts/36-fl!p%2520fl!p%2520%25EA%25B0%259C%25EB%25B0%259C%25EA%25B8%25B0%25202%25EB%25B6%2580%253A%2520%25EA%25B1%25B0%25EB%25A6%25AC%25EC%259D%2598%2520%25EC%2597%25AD%25EC%2584%25A4",
+        "bareIdPath": "/posts/36",
+        "shortPath": "/s/flip-flip-dev-2-distance-paradox",
+        "rssGuid": "36"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/36/assets/flipflip-og.png",
+          "bytes": 706467,
+          "sha256": "a3a8cd0e8fe80af6f095f5180c1667bfc1e89392d4f8cf19393a17d81a4d9646"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/35/assets/flipflip-og.png",
+          "kind": "local",
+          "existsInPublic": true
+        },
+        {
+          "url": "https://flipflip.cc/",
+          "kind": "external"
+        },
+        {
+          "url": "https://w0nder.land/api/og/t-001?url=https%3A%2F%2Fw0nder.land%2Fposts%2F35-fl!p%2520fl!p%2520%25EA%25B0%259C%25EB%25B0%259C%25EA%25B8%25B0%25201%25EB%25B6%2580%253A%2520%25EB%25B0%2594%25EC%259D%25B4%25EB%25B8%258C%2520%25EC%25BD%2594%25EB%2594%25A9",
+          "kind": "external"
+        },
+        {
+          "url": "https://w0nder.land/s/flip-flip-dev-1-vibe-coding",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "37",
+      "title": "안 간 면접",
+      "frontmatter": {
+        "raw": "---\ntitle: '안 간 면접'\nauthor: 'w0nder'\nshortUrl: 'interview-fear-overcoming'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '면접',\n    '두려움',\n    '스타트업',\n    '주니어개발자',\n    '영업',\n    '성장',\n    '심리',\n    '의사결정',\n    '리더십',\n    '멘토링',\n    '경험담',\n    '개발자커리어',\n    '직장생활',\n    '자기계발',\n    '마음가짐',\n    '도전',\n  ]\ncreatedAt: '2025-08-21T09:00:00Z'\nupdatedAt: '2025-08-21T10:30:00Z'\n---",
+        "parsed": {
+          "title": "안 간 면접",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "interview-fear-overcoming",
+          "category": "LIFE",
+          "keywords": [
+            "면접",
+            "두려움",
+            "스타트업",
+            "주니어개발자",
+            "영업",
+            "성장",
+            "심리",
+            "의사결정",
+            "리더십",
+            "멘토링",
+            "경험담",
+            "개발자커리어",
+            "직장생활",
+            "자기계발",
+            "마음가짐",
+            "도전"
+          ],
+          "tags": null,
+          "createdAt": "2025-08-21T09:00:00Z",
+          "updatedAt": "2025-08-21T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/37/post.md",
+        "bytes": 4541,
+        "sha256": "9c5aa0afbc9e4c60f25e5818e4d3c29ec63f332e1cc74b53f57eafeff86854ca",
+        "bodySha256": "c3561c1f94e8504e2316763eef758ed5a8b9a75c54b51d68bd0084df359310ab"
+      },
+      "routes": {
+        "canonicalPath": "/posts/37-%EC%95%88%20%EA%B0%84%20%EB%A9%B4%EC%A0%91",
+        "doubleEncodedPath": "/posts/37-%25EC%2595%2588%2520%25EA%25B0%2584%2520%25EB%25A9%25B4%25EC%25A0%2591",
+        "bareIdPath": "/posts/37",
+        "shortPath": "/s/interview-fear-overcoming",
+        "rssGuid": "37"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "38",
+      "title": "책방 아비투스",
+      "frontmatter": {
+        "raw": "---\ntitle: '책방 아비투스'\nauthor: 'w0nder'\nshortUrl: 'habitus'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '아비투스',\n    '부르디외',\n    '책방',\n    '큐레이션',\n    '독서',\n    '문화',\n    '사회학',\n    '철학',\n    '커뮤니티',\n    '독서모임',\n    '문화공간',\n    '사회적습관',\n    '무의식',\n    '성찰',\n    '문화자본',\n    '실천철학',\n  ]\ncreatedAt: '2025-08-28T09:00:00Z'\nupdatedAt: '2025-08-28T10:30:00Z'\n---",
+        "parsed": {
+          "title": "책방 아비투스",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "habitus",
+          "category": "LIFE",
+          "keywords": [
+            "아비투스",
+            "부르디외",
+            "책방",
+            "큐레이션",
+            "독서",
+            "문화",
+            "사회학",
+            "철학",
+            "커뮤니티",
+            "독서모임",
+            "문화공간",
+            "사회적습관",
+            "무의식",
+            "성찰",
+            "문화자본",
+            "실천철학"
+          ],
+          "tags": null,
+          "createdAt": "2025-08-28T09:00:00Z",
+          "updatedAt": "2025-08-28T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/38/post.md",
+        "bytes": 5048,
+        "sha256": "f3c3bbaf3a11821d0e7435eae74d6b1f6f61525c9a7f42457ba3f3b1fa700074",
+        "bodySha256": "220ff411974e8369522325b0e4fd61b0c1dc6c311d7027f6acf3ff54d0af44f4"
+      },
+      "routes": {
+        "canonicalPath": "/posts/38-%EC%B1%85%EB%B0%A9%20%EC%95%84%EB%B9%84%ED%88%AC%EC%8A%A4",
+        "doubleEncodedPath": "/posts/38-%25EC%25B1%2585%25EB%25B0%25A9%2520%25EC%2595%2584%25EB%25B9%2584%25ED%2588%25AC%25EC%258A%25A4",
+        "bareIdPath": "/posts/38",
+        "shortPath": "/s/habitus",
+        "rssGuid": "38"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://maily.so/habitus",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "39",
+      "title": "모바일 환경에서의 OAuth 2.0 보안 구현",
+      "frontmatter": {
+        "raw": "---\ntitle: '모바일 환경에서의 OAuth 2.0 보안 구현'\nauthor: 'w0nder'\nshortUrl: 'oauth-mobile-security'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'OAuth',\n    'OAuth2.0',\n    '모바일보안',\n    'PKCE',\n    '모바일앱',\n    '인증',\n    '보안',\n    'CSRF',\n    '토큰관리',\n    '리디렉션',\n    '모바일개발',\n    '보안구현',\n    'AuthorizationCode',\n    'AccessToken',\n    'RefreshToken',\n    '모바일OAuth',\n  ]\ncreatedAt: '2025-09-02T09:00:00Z'\nupdatedAt: '2025-09-02T10:30:00Z'\n---",
+        "parsed": {
+          "title": "모바일 환경에서의 OAuth 2.0 보안 구현",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "oauth-mobile-security",
+          "category": "TECH",
+          "keywords": [
+            "OAuth",
+            "OAuth2.0",
+            "모바일보안",
+            "PKCE",
+            "모바일앱",
+            "인증",
+            "보안",
+            "CSRF",
+            "토큰관리",
+            "리디렉션",
+            "모바일개발",
+            "보안구현",
+            "AuthorizationCode",
+            "AccessToken",
+            "RefreshToken",
+            "모바일OAuth"
+          ],
+          "tags": null,
+          "createdAt": "2025-09-02T09:00:00Z",
+          "updatedAt": "2025-09-02T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/39/post.md",
+        "bytes": 8782,
+        "sha256": "b1d1c041199859adc1800c25c59613d95fae5b5507584dc0ec06a124d512059b",
+        "bodySha256": "d50db64769349118f20c6b0678ec1761493c08b86c251e9e7c02c65f2d7ee1dd"
+      },
+      "routes": {
+        "canonicalPath": "/posts/39-%EB%AA%A8%EB%B0%94%EC%9D%BC%20%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98%20OAuth%202.0%20%EB%B3%B4%EC%95%88%20%EA%B5%AC%ED%98%84",
+        "doubleEncodedPath": "/posts/39-%25EB%25AA%25A8%25EB%25B0%2594%25EC%259D%25BC%2520%25ED%2599%2598%25EA%25B2%25BD%25EC%2597%2590%25EC%2584%259C%25EC%259D%2598%2520OAuth%25202.0%2520%25EB%25B3%25B4%25EC%2595%2588%2520%25EA%25B5%25AC%25ED%2598%2584",
+        "bareIdPath": "/posts/39",
+        "shortPath": "/s/oauth-mobile-security",
+        "rssGuid": "39"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/",
+          "kind": "external"
+        },
+        {
+          "url": "https://datatracker.ietf.org/doc/html/rfc6749",
+          "kind": "external"
+        },
+        {
+          "url": "https://datatracker.ietf.org/doc/html/rfc7636",
+          "kind": "external"
+        },
+        {
+          "url": "https://datatracker.ietf.org/doc/html/rfc8252",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "40",
+      "title": "한 테이블 팀",
+      "frontmatter": {
+        "raw": "---\ntitle: '한 테이블 팀'\nauthor: 'w0nder'\nshortUrl: 'one-table-team'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '팀워크',\n    '조직문화',\n    '소통',\n    '협업',\n    '사고확장',\n    '토론',\n    '의사결정',\n    '팀빌딩',\n    '조직관리',\n    '커뮤니케이션',\n    '피자팀',\n    '하우스',\n    'AI',\n    '사고교류',\n    '시너지',\n    '팀문화',\n  ]\ncreatedAt: '2025-09-04T09:00:00Z'\nupdatedAt: '2025-09-04T10:30:00Z'\n---",
+        "parsed": {
+          "title": "한 테이블 팀",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "one-table-team",
+          "category": "TECH",
+          "keywords": [
+            "팀워크",
+            "조직문화",
+            "소통",
+            "협업",
+            "사고확장",
+            "토론",
+            "의사결정",
+            "팀빌딩",
+            "조직관리",
+            "커뮤니케이션",
+            "피자팀",
+            "하우스",
+            "AI",
+            "사고교류",
+            "시너지",
+            "팀문화"
+          ],
+          "tags": null,
+          "createdAt": "2025-09-04T09:00:00Z",
+          "updatedAt": "2025-09-04T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/40/post.md",
+        "bytes": 5018,
+        "sha256": "f074d7478d40fd290aef2461a17b43a9261462257afcaaa268271012b024a82c",
+        "bodySha256": "9bf7f6d5327364e7daa6ed035efab4d043247985dde4b32380a4adef3a1c1630"
+      },
+      "routes": {
+        "canonicalPath": "/posts/40-%ED%95%9C%20%ED%85%8C%EC%9D%B4%EB%B8%94%20%ED%8C%80",
+        "doubleEncodedPath": "/posts/40-%25ED%2595%259C%2520%25ED%2585%258C%25EC%259D%25B4%25EB%25B8%2594%2520%25ED%258C%2580",
+        "bareIdPath": "/posts/40",
+        "shortPath": "/s/one-table-team",
+        "rssGuid": "40"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "41",
+      "title": "인디해커들은 어떻게 살고 있나",
+      "frontmatter": {
+        "raw": "---\ntitle: '인디해커들은 어떻게 살고 있나'\nauthor: 'w0nder'\nshortUrl: 'how-indie-hackers-live'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '인디해커',\n    '창업',\n    '파트너',\n    '독립개발자',\n    '스타트업',\n    '개인사업',\n    '창업파트너',\n    '헤어짐',\n    '독립',\n    '개발자',\n    '기술창업',\n    '솔로창업',\n    '인디게임',\n    '개인프로젝트',\n    '창업동기',\n    '창업고민',\n  ]\ncreatedAt: '2025-09-09T09:00:00Z'\nupdatedAt: '2025-09-09T10:30:00Z'\n---",
+        "parsed": {
+          "title": "인디해커들은 어떻게 살고 있나",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "how-indie-hackers-live",
+          "category": "TECH",
+          "keywords": [
+            "인디해커",
+            "창업",
+            "파트너",
+            "독립개발자",
+            "스타트업",
+            "개인사업",
+            "창업파트너",
+            "헤어짐",
+            "독립",
+            "개발자",
+            "기술창업",
+            "솔로창업",
+            "인디게임",
+            "개인프로젝트",
+            "창업동기",
+            "창업고민"
+          ],
+          "tags": null,
+          "createdAt": "2025-09-09T09:00:00Z",
+          "updatedAt": "2025-09-09T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/41/post.md",
+        "bytes": 7170,
+        "sha256": "a2f11bcf2f6fd5c03c0048e1453974bdfa45c615f85cbb398788168a138d310e",
+        "bodySha256": "d06a5f6c3684ae9304b039b0c3c08361ce99e206d606814ebd2de6caaac868fb"
+      },
+      "routes": {
+        "canonicalPath": "/posts/41-%EC%9D%B8%EB%94%94%ED%95%B4%EC%BB%A4%EB%93%A4%EC%9D%80%20%EC%96%B4%EB%96%BB%EA%B2%8C%20%EC%82%B4%EA%B3%A0%20%EC%9E%88%EB%82%98",
+        "doubleEncodedPath": "/posts/41-%25EC%259D%25B8%25EB%2594%2594%25ED%2595%25B4%25EC%25BB%25A4%25EB%2593%25A4%25EC%259D%2580%2520%25EC%2596%25B4%25EB%2596%25BB%25EA%25B2%258C%2520%25EC%2582%25B4%25EA%25B3%25A0%2520%25EC%259E%2588%25EB%2582%2598",
+        "bareIdPath": "/posts/41",
+        "shortPath": "/s/how-indie-hackers-live",
+        "rssGuid": "41"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://tally.so/r/waW2vv",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "42",
+      "title": "내가 생각하는 채용",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 생각하는 채용'\nauthor: 'w0nder'\nshortUrl: 'my-thoughts-on-hiring'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '채용',\n    '인사',\n    '면접',\n    '이력서',\n    '인재상',\n    '채용철학',\n    '협업',\n    '소통',\n    '기술역량',\n    '문제해결',\n    '팀워크',\n    '매니저',\n    '리더십',\n    '조직문화',\n    '인재채용',\n    '채용프로세스',\n  ]\ncreatedAt: '2025-09-18T09:00:00Z'\nupdatedAt: '2025-09-18T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 생각하는 채용",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "my-thoughts-on-hiring",
+          "category": "TECH",
+          "keywords": [
+            "채용",
+            "인사",
+            "면접",
+            "이력서",
+            "인재상",
+            "채용철학",
+            "협업",
+            "소통",
+            "기술역량",
+            "문제해결",
+            "팀워크",
+            "매니저",
+            "리더십",
+            "조직문화",
+            "인재채용",
+            "채용프로세스"
+          ],
+          "tags": null,
+          "createdAt": "2025-09-18T09:00:00Z",
+          "updatedAt": "2025-09-18T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/42/post.md",
+        "bytes": 8661,
+        "sha256": "3dbcf307208834b4b3fa8f5f015a51ee29c85f05ab48c83019678723081b677a",
+        "bodySha256": "7086c4a48ba7d7d2fdbf1c322bd50c7edd13e46e218f30f6af435015ac9b4579"
+      },
+      "routes": {
+        "canonicalPath": "/posts/42-%EB%82%B4%EA%B0%80%20%EC%83%9D%EA%B0%81%ED%95%98%EB%8A%94%20%EC%B1%84%EC%9A%A9",
+        "doubleEncodedPath": "/posts/42-%25EB%2582%25B4%25EA%25B0%2580%2520%25EC%2583%259D%25EA%25B0%2581%25ED%2595%2598%25EB%258A%2594%2520%25EC%25B1%2584%25EC%259A%25A9",
+        "bareIdPath": "/posts/42",
+        "shortPath": "/s/my-thoughts-on-hiring",
+        "rssGuid": "42"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "43",
+      "title": "내가 보고 싶었던 이력서",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 보고 싶었던 이력서'\nauthor: 'w0nder'\nshortUrl: 'resume-i-wanted-to-see'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '이력서',\n    '채용',\n    '면접',\n    '개발자',\n    '포트폴리오',\n    'GitHub',\n    '프로젝트',\n    '기여도',\n    '경험',\n    '문제해결',\n    '기술스택',\n    '커밋',\n    '블로그',\n    '개발경험',\n    '채용담당자',\n    '지원자',\n  ]\ncreatedAt: '2025-09-25T09:00:00Z'\nupdatedAt: '2025-09-25T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 보고 싶었던 이력서",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "resume-i-wanted-to-see",
+          "category": "TECH",
+          "keywords": [
+            "이력서",
+            "채용",
+            "면접",
+            "개발자",
+            "포트폴리오",
+            "GitHub",
+            "프로젝트",
+            "기여도",
+            "경험",
+            "문제해결",
+            "기술스택",
+            "커밋",
+            "블로그",
+            "개발경험",
+            "채용담당자",
+            "지원자"
+          ],
+          "tags": null,
+          "createdAt": "2025-09-25T09:00:00Z",
+          "updatedAt": "2025-09-25T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/43/post.md",
+        "bytes": 15424,
+        "sha256": "d16f12c904d6d6c8b034377910c97281e037c0667918a5edec39ba1135e8ec6b",
+        "bodySha256": "d14f7cf14e34e3e11e9f4f738485eaa8724361237b3d21bd550d8f1158e7f5f7"
+      },
+      "routes": {
+        "canonicalPath": "/posts/43-%EB%82%B4%EA%B0%80%20%EB%B3%B4%EA%B3%A0%20%EC%8B%B6%EC%97%88%EB%8D%98%20%EC%9D%B4%EB%A0%A5%EC%84%9C",
+        "doubleEncodedPath": "/posts/43-%25EB%2582%25B4%25EA%25B0%2580%2520%25EB%25B3%25B4%25EA%25B3%25A0%2520%25EC%258B%25B6%25EC%2597%2588%25EB%258D%2598%2520%25EC%259D%25B4%25EB%25A0%25A5%25EC%2584%259C",
+        "bareIdPath": "/posts/43",
+        "shortPath": "/s/resume-i-wanted-to-see",
+        "rssGuid": "43"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "44",
+      "title": "나는 관대하다",
+      "frontmatter": {
+        "raw": "---\ntitle: '나는 관대하다'\nauthor: 'w0nder'\nshortUrl: 'be-generous-to-others'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '관대함',\n    '이중잣대',\n    '심리학',\n    '기본귀인오류',\n    '자기편향',\n    '공감',\n    '관용',\n    '인간관계',\n    '사회심리학',\n    '편향',\n    '신뢰',\n    '연대',\n    '이해',\n    '성찰',\n    '자기성찰',\n  ]\ncreatedAt: '2025-10-02T09:00:00Z'\nupdatedAt: '2025-10-02T10:30:00Z'\n---",
+        "parsed": {
+          "title": "나는 관대하다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "be-generous-to-others",
+          "category": "LIFE",
+          "keywords": [
+            "관대함",
+            "이중잣대",
+            "심리학",
+            "기본귀인오류",
+            "자기편향",
+            "공감",
+            "관용",
+            "인간관계",
+            "사회심리학",
+            "편향",
+            "신뢰",
+            "연대",
+            "이해",
+            "성찰",
+            "자기성찰"
+          ],
+          "tags": null,
+          "createdAt": "2025-10-02T09:00:00Z",
+          "updatedAt": "2025-10-02T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/44/post.md",
+        "bytes": 5721,
+        "sha256": "74992d2d2282c619e97454f265655741d80f4c0e93ea5b0050900c56b819b20d",
+        "bodySha256": "98e70c68938bebf4f9631dfd9934c011a293f0a4ad974fa94f770eba203d080e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/44-%EB%82%98%EB%8A%94%20%EA%B4%80%EB%8C%80%ED%95%98%EB%8B%A4",
+        "doubleEncodedPath": "/posts/44-%25EB%2582%2598%25EB%258A%2594%2520%25EA%25B4%2580%25EB%258C%2580%25ED%2595%2598%25EB%258B%25A4",
+        "bareIdPath": "/posts/44",
+        "shortPath": "/s/be-generous-to-others",
+        "rssGuid": "44"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "45",
+      "title": "내 회사 이름의 의미",
+      "frontmatter": {
+        "raw": "---\ntitle: '내 회사 이름의 의미'\nauthor: 'w0nder'\nshortUrl: 'fi-workers-meaning'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    'fi-workers',\n    '경제적자유',\n    '경제적독립',\n    'FIRE',\n    'financial independence',\n    '일하는방식',\n    '의미있는일',\n    '삶의의미',\n    '회사이름',\n    '지속가능성',\n    '느린성장',\n    '자유로운삶',\n    '선택의자유',\n    '일과삶',\n    '스타트업',\n  ]\ncreatedAt: '2025-10-09T09:00:00Z'\nupdatedAt: '2025-10-09T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내 회사 이름의 의미",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "fi-workers-meaning",
+          "category": "LIFE",
+          "keywords": [
+            "fi-workers",
+            "경제적자유",
+            "경제적독립",
+            "FIRE",
+            "financial independence",
+            "일하는방식",
+            "의미있는일",
+            "삶의의미",
+            "회사이름",
+            "지속가능성",
+            "느린성장",
+            "자유로운삶",
+            "선택의자유",
+            "일과삶",
+            "스타트업"
+          ],
+          "tags": null,
+          "createdAt": "2025-10-09T09:00:00Z",
+          "updatedAt": "2025-10-09T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/45/post.md",
+        "bytes": 4575,
+        "sha256": "a222f6531b6825183ac1554ee46917a7265c5001198111a61bd327432d746fb9",
+        "bodySha256": "f83665ba26e1b7491877dcb965c01ef019243747ff8c406920f607363d5c8553"
+      },
+      "routes": {
+        "canonicalPath": "/posts/45-%EB%82%B4%20%ED%9A%8C%EC%82%AC%20%EC%9D%B4%EB%A6%84%EC%9D%98%20%EC%9D%98%EB%AF%B8",
+        "doubleEncodedPath": "/posts/45-%25EB%2582%25B4%2520%25ED%259A%258C%25EC%2582%25AC%2520%25EC%259D%25B4%25EB%25A6%2584%25EC%259D%2598%2520%25EC%259D%2598%25EB%25AF%25B8",
+        "bareIdPath": "/posts/45",
+        "shortPath": "/s/fi-workers-meaning",
+        "rssGuid": "45"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "46",
+      "title": "작게 그리고 불편하게 시작하기",
+      "frontmatter": {
+        "raw": "---\ntitle: '작게 그리고 불편하게 시작하기'\nauthor: 'w0nder'\nshortUrl: 'start-small-and-uncomfortable'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'MVP',\n    '최소기능제품',\n    '프로토타입',\n    '빠른검증',\n    '작게시작하기',\n    '제품개발',\n    '사용자피드백',\n    '린스타트업',\n    '반복개발',\n    '체커블',\n    '노마드워커스쿨',\n    '애자일',\n    '제품기획',\n    '점진적개발',\n    '의도적불편함',\n    '빠른실험',\n  ]\ncreatedAt: '2025-10-16T09:00:00Z'\nupdatedAt: '2025-10-16T10:30:00Z'\n---",
+        "parsed": {
+          "title": "작게 그리고 불편하게 시작하기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "start-small-and-uncomfortable",
+          "category": "TECH",
+          "keywords": [
+            "MVP",
+            "최소기능제품",
+            "프로토타입",
+            "빠른검증",
+            "작게시작하기",
+            "제품개발",
+            "사용자피드백",
+            "린스타트업",
+            "반복개발",
+            "체커블",
+            "노마드워커스쿨",
+            "애자일",
+            "제품기획",
+            "점진적개발",
+            "의도적불편함",
+            "빠른실험"
+          ],
+          "tags": null,
+          "createdAt": "2025-10-16T09:00:00Z",
+          "updatedAt": "2025-10-16T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/46/post.md",
+        "bytes": 7199,
+        "sha256": "8348c2b853b4e355b5c61e1bdd07eac66b5059457397c36089e5d9464f169e4b",
+        "bodySha256": "cafbc1689f2060d0d332d5cedf9fb6bbc6c00c2f3e6c65415bf7ea178730aef9"
+      },
+      "routes": {
+        "canonicalPath": "/posts/46-%EC%9E%91%EA%B2%8C%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%EB%B6%88%ED%8E%B8%ED%95%98%EA%B2%8C%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0",
+        "doubleEncodedPath": "/posts/46-%25EC%259E%2591%25EA%25B2%258C%2520%25EA%25B7%25B8%25EB%25A6%25AC%25EA%25B3%25A0%2520%25EB%25B6%2588%25ED%258E%25B8%25ED%2595%2598%25EA%25B2%258C%2520%25EC%258B%259C%25EC%259E%2591%25ED%2595%2598%25EA%25B8%25B0",
+        "bareIdPath": "/posts/46",
+        "shortPath": "/s/start-small-and-uncomfortable",
+        "rssGuid": "46"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "47",
+      "title": "안 해봤어요",
+      "frontmatter": {
+        "raw": "---\ntitle: '안 해봤어요'\nauthor: 'w0nder'\nshortUrl: 'never-done-it-before'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '면접',\n    '개발자',\n    '경험부족',\n    '학습능력',\n    '문제해결',\n    '협업',\n    '성장',\n    '메타스킬',\n    '트랜잭션',\n    '데이터베이스',\n    '스케일링',\n    '기술면접',\n    '개발문화',\n    '팀워크',\n    '성장마인드셋',\n  ]\ncreatedAt: '2025-10-23T09:00:00Z'\nupdatedAt: '2025-10-23T10:30:00Z'\n---",
+        "parsed": {
+          "title": "안 해봤어요",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "never-done-it-before",
+          "category": "TECH",
+          "keywords": [
+            "면접",
+            "개발자",
+            "경험부족",
+            "학습능력",
+            "문제해결",
+            "협업",
+            "성장",
+            "메타스킬",
+            "트랜잭션",
+            "데이터베이스",
+            "스케일링",
+            "기술면접",
+            "개발문화",
+            "팀워크",
+            "성장마인드셋"
+          ],
+          "tags": null,
+          "createdAt": "2025-10-23T09:00:00Z",
+          "updatedAt": "2025-10-23T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/47/post.md",
+        "bytes": 4016,
+        "sha256": "446c03bec54241b102c7d2b14eee1f554f980b1874f54f25d883dbb3470a818d",
+        "bodySha256": "7ff21ad3b7365cc0ead67e8dd1cccb26c2b757192c460ea6ced4a76704bd2c3e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/47-%EC%95%88%20%ED%95%B4%EB%B4%A4%EC%96%B4%EC%9A%94",
+        "doubleEncodedPath": "/posts/47-%25EC%2595%2588%2520%25ED%2595%25B4%25EB%25B4%25A4%25EC%2596%25B4%25EC%259A%2594",
+        "bareIdPath": "/posts/47",
+        "shortPath": "/s/never-done-it-before",
+        "rssGuid": "47"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "48",
+      "title": "내가 공부하는 방법 (1) 책 읽기",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 공부하는 방법 (1) 책 읽기'\nauthor: 'w0nder'\nshortUrl: 'how-i-study-1-reading'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '공부방법',\n    '독서',\n    '반복학습',\n    '학습법',\n    '비전공자',\n    '개발자성장',\n    '자기주도학습',\n    '예제코드',\n    '타이핑학습',\n    '에러해결',\n    'MSDN',\n    'MFC',\n    'C++',\n    'Java',\n    '리눅스포팅',\n    '개발서적',\n  ]\ncreatedAt: '2025-10-30T09:00:00Z'\nupdatedAt: '2025-10-30T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 공부하는 방법 (1) 책 읽기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "how-i-study-1-reading",
+          "category": "TECH",
+          "keywords": [
+            "공부방법",
+            "독서",
+            "반복학습",
+            "학습법",
+            "비전공자",
+            "개발자성장",
+            "자기주도학습",
+            "예제코드",
+            "타이핑학습",
+            "에러해결",
+            "MSDN",
+            "MFC",
+            "C++",
+            "Java",
+            "리눅스포팅",
+            "개발서적"
+          ],
+          "tags": null,
+          "createdAt": "2025-10-30T09:00:00Z",
+          "updatedAt": "2025-10-30T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/48/post.md",
+        "bytes": 5743,
+        "sha256": "66020df26ddda5bfdfe1319e860ce49e154481ecc3c09700545dc789f1c210ba",
+        "bodySha256": "983cd764044ba3b679d8e200774b3f7bd2f350240a18eea2dbdf4197388cac7d"
+      },
+      "routes": {
+        "canonicalPath": "/posts/48-%EB%82%B4%EA%B0%80%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%B0%A9%EB%B2%95%20(1)%20%EC%B1%85%20%EC%9D%BD%EA%B8%B0",
+        "doubleEncodedPath": "/posts/48-%25EB%2582%25B4%25EA%25B0%2580%2520%25EA%25B3%25B5%25EB%25B6%2580%25ED%2595%2598%25EB%258A%2594%2520%25EB%25B0%25A9%25EB%25B2%2595%2520(1)%2520%25EC%25B1%2585%2520%25EC%259D%25BD%25EA%25B8%25B0",
+        "bareIdPath": "/posts/48",
+        "shortPath": "/s/how-i-study-1-reading",
+        "rssGuid": "48"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "49",
+      "title": "내가 공부하는 방법 (2) RFC 문서",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 공부하는 방법 (2) RFC 문서'\nauthor: 'w0nder'\nshortUrl: 'how-i-study-2-rfc'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '공부방법',\n    'RFC',\n    'SPDY',\n    'HTTP2',\n    'OAuth2',\n    '프로토콜',\n    '표준문서',\n    '스펙구현',\n    '팀스터디',\n    '원천문서',\n    '네트워크프로토콜',\n    '기술표준',\n    '개발자성장',\n    '자기주도학습',\n    '기술번역',\n  ]\ncreatedAt: '2025-11-06T09:00:00Z'\nupdatedAt: '2025-11-06T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 공부하는 방법 (2) RFC 문서",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "how-i-study-2-rfc",
+          "category": "TECH",
+          "keywords": [
+            "공부방법",
+            "RFC",
+            "SPDY",
+            "HTTP2",
+            "OAuth2",
+            "프로토콜",
+            "표준문서",
+            "스펙구현",
+            "팀스터디",
+            "원천문서",
+            "네트워크프로토콜",
+            "기술표준",
+            "개발자성장",
+            "자기주도학습",
+            "기술번역"
+          ],
+          "tags": null,
+          "createdAt": "2025-11-06T09:00:00Z",
+          "updatedAt": "2025-11-06T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/49/post.md",
+        "bytes": 5405,
+        "sha256": "fceb93dd16b513609e4519c0642ff8a3b63bdf67db316e14115fe07a1563068b",
+        "bodySha256": "135f2b5dfc2b77f2515bcb8f6a89d7eeb574bd41e7ed2831418cf844288d3c3e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/49-%EB%82%B4%EA%B0%80%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%B0%A9%EB%B2%95%20(2)%20RFC%20%EB%AC%B8%EC%84%9C",
+        "doubleEncodedPath": "/posts/49-%25EB%2582%25B4%25EA%25B0%2580%2520%25EA%25B3%25B5%25EB%25B6%2580%25ED%2595%2598%25EB%258A%2594%2520%25EB%25B0%25A9%25EB%25B2%2595%2520(2)%2520RFC%2520%25EB%25AC%25B8%25EC%2584%259C",
+        "bareIdPath": "/posts/49",
+        "shortPath": "/s/how-i-study-2-rfc",
+        "rssGuid": "49"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "50",
+      "title": "내가 공부하는 방법 (3) 라이브러리 코드 보기",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 공부하는 방법 (3) 라이브러리 코드 보기'\nauthor: 'w0nder'\nshortUrl: 'how-i-study-3-library-code'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '공부방법',\n    '라이브러리코드',\n    '오픈소스',\n    '리눅스커널',\n    '코드분석',\n    '코드리뷰',\n    '디버깅',\n    '리액트',\n    'Reconciliation',\n    '코드베이스',\n    '소프트웨어공학',\n    '모듈화',\n    '추상화',\n    '개발자성장',\n    '자기주도학습',\n    '온보딩',\n  ]\ncreatedAt: '2025-11-13T09:00:00Z'\nupdatedAt: '2025-11-13T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 공부하는 방법 (3) 라이브러리 코드 보기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "how-i-study-3-library-code",
+          "category": "TECH",
+          "keywords": [
+            "공부방법",
+            "라이브러리코드",
+            "오픈소스",
+            "리눅스커널",
+            "코드분석",
+            "코드리뷰",
+            "디버깅",
+            "리액트",
+            "Reconciliation",
+            "코드베이스",
+            "소프트웨어공학",
+            "모듈화",
+            "추상화",
+            "개발자성장",
+            "자기주도학습",
+            "온보딩"
+          ],
+          "tags": null,
+          "createdAt": "2025-11-13T09:00:00Z",
+          "updatedAt": "2025-11-13T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/50/post.md",
+        "bytes": 5278,
+        "sha256": "bdbfaab02ebe270e9967baccfd6cbb4d6eda6e435b73dcf2ad844dd7c30ed1f5",
+        "bodySha256": "ea3d0cc36dec3558e8ac9771e33cbc5caa4daece27732d26626c3d8ba6011674"
+      },
+      "routes": {
+        "canonicalPath": "/posts/50-%EB%82%B4%EA%B0%80%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%B0%A9%EB%B2%95%20(3)%20%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%20%EC%BD%94%EB%93%9C%20%EB%B3%B4%EA%B8%B0",
+        "doubleEncodedPath": "/posts/50-%25EB%2582%25B4%25EA%25B0%2580%2520%25EA%25B3%25B5%25EB%25B6%2580%25ED%2595%2598%25EB%258A%2594%2520%25EB%25B0%25A9%25EB%25B2%2595%2520(3)%2520%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AC%2520%25EC%25BD%2594%25EB%2593%259C%2520%25EB%25B3%25B4%25EA%25B8%25B0",
+        "bareIdPath": "/posts/50",
+        "shortPath": "/s/how-i-study-3-library-code",
+        "rssGuid": "50"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "51",
+      "title": "두려움과 떨림",
+      "frontmatter": {
+        "raw": "---\ntitle: '두려움과 떨림'\nauthor: 'w0nder'\nshortUrl: 'fear-and-trembling'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '창업',\n    '스타트업',\n    '창업자',\n    '두려움',\n    '떨림',\n    '불안',\n    '고객',\n    '제품개발',\n    '사업',\n    '심리',\n    '책임감',\n    '고객이탈',\n    '성장',\n    '실패',\n    '도전',\n    '마인드셋',\n  ]\ncreatedAt: '2025-11-20T09:00:00Z'\nupdatedAt: '2025-11-20T10:30:00Z'\n---",
+        "parsed": {
+          "title": "두려움과 떨림",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "fear-and-trembling",
+          "category": "LIFE",
+          "keywords": [
+            "창업",
+            "스타트업",
+            "창업자",
+            "두려움",
+            "떨림",
+            "불안",
+            "고객",
+            "제품개발",
+            "사업",
+            "심리",
+            "책임감",
+            "고객이탈",
+            "성장",
+            "실패",
+            "도전",
+            "마인드셋"
+          ],
+          "tags": null,
+          "createdAt": "2025-11-20T09:00:00Z",
+          "updatedAt": "2025-11-20T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/51/post.md",
+        "bytes": 4360,
+        "sha256": "b6347b561e519d12ae78a7e948bf9682ac605823502ffc8470f063dc3737dc03",
+        "bodySha256": "09e28ab80a19d078ee2564fca177405c92f93c649a7872936a36b666af5ef691"
+      },
+      "routes": {
+        "canonicalPath": "/posts/51-%EB%91%90%EB%A0%A4%EC%9B%80%EA%B3%BC%20%EB%96%A8%EB%A6%BC",
+        "doubleEncodedPath": "/posts/51-%25EB%2591%2590%25EB%25A0%25A4%25EC%259B%2580%25EA%25B3%25BC%2520%25EB%2596%25A8%25EB%25A6%25BC",
+        "bareIdPath": "/posts/51",
+        "shortPath": "/s/fear-and-trembling",
+        "rssGuid": "51"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "52",
+      "title": "내가 팀원들과 일하는 방법",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 팀원들과 일하는 방법'\nauthor: 'w0nder'\nshortUrl: 'how-i-work-with-team'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '팀워크',\n    '리더십',\n    '회의',\n    '협업',\n    '질문',\n    '소통',\n    '팀원성장',\n    '판단력',\n    '집단지성',\n    '자립',\n    '의사결정',\n    '토론',\n    '코드리뷰',\n    '개발문화',\n    '성장',\n    '학습',\n  ]\ncreatedAt: '2025-11-27T09:00:00Z'\nupdatedAt: '2025-11-27T10:30:00Z'\n---",
+        "parsed": {
+          "title": "내가 팀원들과 일하는 방법",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "how-i-work-with-team",
+          "category": "TECH",
+          "keywords": [
+            "팀워크",
+            "리더십",
+            "회의",
+            "협업",
+            "질문",
+            "소통",
+            "팀원성장",
+            "판단력",
+            "집단지성",
+            "자립",
+            "의사결정",
+            "토론",
+            "코드리뷰",
+            "개발문화",
+            "성장",
+            "학습"
+          ],
+          "tags": null,
+          "createdAt": "2025-11-27T09:00:00Z",
+          "updatedAt": "2025-11-27T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/52/post.md",
+        "bytes": 7416,
+        "sha256": "1536f9e82ada7ac7118c212101a7a14548b864b8a1775ffc9b59280dee90bb0d",
+        "bodySha256": "fba8bd9ebb8d93c094f0cc9db25a782156cb1ba2ec3047b03667d8c91e1277de"
+      },
+      "routes": {
+        "canonicalPath": "/posts/52-%EB%82%B4%EA%B0%80%20%ED%8C%80%EC%9B%90%EB%93%A4%EA%B3%BC%20%EC%9D%BC%ED%95%98%EB%8A%94%20%EB%B0%A9%EB%B2%95",
+        "doubleEncodedPath": "/posts/52-%25EB%2582%25B4%25EA%25B0%2580%2520%25ED%258C%2580%25EC%259B%2590%25EB%2593%25A4%25EA%25B3%25BC%2520%25EC%259D%25BC%25ED%2595%2598%25EB%258A%2594%2520%25EB%25B0%25A9%25EB%25B2%2595",
+        "bareIdPath": "/posts/52",
+        "shortPath": "/s/how-i-work-with-team",
+        "rssGuid": "52"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "53",
+      "title": "실망과 함께 걷기",
+      "frontmatter": {
+        "raw": "---\ntitle: '실망과 함께 걷기'\nauthor: 'w0nder'\nshortUrl: 'walking-with-disappointment'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  ['실망', '제품개발', '성장', '지속', '개선', '도전', '실패', '회복력', '인내', '제품만들기', '개발자', '스타트업']\ncreatedAt: '2025-12-04T09:00:00Z'\nupdatedAt: '2025-12-04T10:30:00Z'\n---",
+        "parsed": {
+          "title": "실망과 함께 걷기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "walking-with-disappointment",
+          "category": "TECH",
+          "keywords": [
+            "실망",
+            "제품개발",
+            "성장",
+            "지속",
+            "개선",
+            "도전",
+            "실패",
+            "회복력",
+            "인내",
+            "제품만들기",
+            "개발자",
+            "스타트업"
+          ],
+          "tags": null,
+          "createdAt": "2025-12-04T09:00:00Z",
+          "updatedAt": "2025-12-04T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/53/post.md",
+        "bytes": 2705,
+        "sha256": "ed8a2a9679585487172bb87ffdc3222acb1a38a577f78304a2a9d9aff63e9650",
+        "bodySha256": "277583018e4618ce2ce9bce1c599ad0cc9ba19f0c9d1eaef01402ef5f0cda8dc"
+      },
+      "routes": {
+        "canonicalPath": "/posts/53-%EC%8B%A4%EB%A7%9D%EA%B3%BC%20%ED%95%A8%EA%BB%98%20%EA%B1%B7%EA%B8%B0",
+        "doubleEncodedPath": "/posts/53-%25EC%258B%25A4%25EB%25A7%259D%25EA%25B3%25BC%2520%25ED%2595%25A8%25EA%25BB%2598%2520%25EA%25B1%25B7%25EA%25B8%25B0",
+        "bareIdPath": "/posts/53",
+        "shortPath": "/s/walking-with-disappointment",
+        "rssGuid": "53"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "54",
+      "title": "첫 학기 강의를 마치며",
+      "frontmatter": {
+        "raw": "---\ntitle: '첫 학기 강의를 마치며'\nauthor: 'w0nder'\nshortUrl: 'first-semester-teaching'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['강의', '교육', '학습', '가르침', '지식', '성장', '책', '전문가', '이해', '정리', '겸임교수', '온라인강의']\ncreatedAt: '2025-12-11T09:00:00Z'\nupdatedAt: '2025-12-11T10:30:00Z'\n---",
+        "parsed": {
+          "title": "첫 학기 강의를 마치며",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "first-semester-teaching",
+          "category": "LIFE",
+          "keywords": [
+            "강의",
+            "교육",
+            "학습",
+            "가르침",
+            "지식",
+            "성장",
+            "책",
+            "전문가",
+            "이해",
+            "정리",
+            "겸임교수",
+            "온라인강의"
+          ],
+          "tags": null,
+          "createdAt": "2025-12-11T09:00:00Z",
+          "updatedAt": "2025-12-11T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/54/post.md",
+        "bytes": 3559,
+        "sha256": "cdbbff0da1e1943b3ab5440a93ba2ddef5caeb6efaf8827fd0d8bfb143fa0768",
+        "bodySha256": "575501f274f9f0b5da66761d74351bbc35bfec7a41857c5c1a05046899584af6"
+      },
+      "routes": {
+        "canonicalPath": "/posts/54-%EC%B2%AB%20%ED%95%99%EA%B8%B0%20%EA%B0%95%EC%9D%98%EB%A5%BC%20%EB%A7%88%EC%B9%98%EB%A9%B0",
+        "doubleEncodedPath": "/posts/54-%25EC%25B2%25AB%2520%25ED%2595%2599%25EA%25B8%25B0%2520%25EA%25B0%2595%25EC%259D%2598%25EB%25A5%25BC%2520%25EB%25A7%2588%25EC%25B9%2598%25EB%25A9%25B0",
+        "bareIdPath": "/posts/54",
+        "shortPath": "/s/first-semester-teaching",
+        "rssGuid": "54"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "55",
+      "title": "AI가 대신할 수 없는 것",
+      "frontmatter": {
+        "raw": "---\ntitle: 'AI가 대신할 수 없는 것'\nauthor: 'w0nder'\nshortUrl: 'ai-cannot-replace'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  ['AI', '기술사', '자격증', '책임', '전문가', '시험', '필력', '성장', '진로', '개발자', '책임의영역', '전문자격']\ncreatedAt: '2025-12-18T09:00:00Z'\nupdatedAt: '2025-12-18T10:30:00Z'\n---",
+        "parsed": {
+          "title": "AI가 대신할 수 없는 것",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "ai-cannot-replace",
+          "category": "LIFE",
+          "keywords": [
+            "AI",
+            "기술사",
+            "자격증",
+            "책임",
+            "전문가",
+            "시험",
+            "필력",
+            "성장",
+            "진로",
+            "개발자",
+            "책임의영역",
+            "전문자격"
+          ],
+          "tags": null,
+          "createdAt": "2025-12-18T09:00:00Z",
+          "updatedAt": "2025-12-18T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/55/post.md",
+        "bytes": 3091,
+        "sha256": "6575dbd9c9e0de53b740d19975ddabf13e8fa2248a3d8fceb9a88c49597adcf7",
+        "bodySha256": "295b6809b84f5dd1f63d0f1d3cb7958159b64e8241650662e89622950677bcf3"
+      },
+      "routes": {
+        "canonicalPath": "/posts/55-AI%EA%B0%80%20%EB%8C%80%EC%8B%A0%ED%95%A0%20%EC%88%98%20%EC%97%86%EB%8A%94%20%EA%B2%83",
+        "doubleEncodedPath": "/posts/55-AI%25EA%25B0%2580%2520%25EB%258C%2580%25EC%258B%25A0%25ED%2595%25A0%2520%25EC%2588%2598%2520%25EC%2597%2586%25EB%258A%2594%2520%25EA%25B2%2583",
+        "bareIdPath": "/posts/55",
+        "shortPath": "/s/ai-cannot-replace",
+        "rssGuid": "55"
+      },
+      "assets": [
+        {
+          "publicPath": "/posts/55/assets/responsibility.jpg",
+          "bytes": 69236,
+          "sha256": "8ded5c63ff29058a8c0514f4ffef1105034b997b74aa7cf931a8193049ff0637"
+        }
+      ],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "/posts/55/assets/responsibility.jpg",
+          "kind": "local",
+          "existsInPublic": true
+        }
+      ]
+    },
+    {
+      "legacyId": "56",
+      "title": "React Native CLI to EXPO",
+      "frontmatter": {
+        "raw": "---\ntitle: 'React Native CLI to EXPO'\nauthor: 'w0nder'\nshortUrl: 'react-native-cli-to-expo'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'React Native',\n    'Expo',\n    'RN CLI',\n    'prebuild',\n    '네이티브 코드',\n    '마이그레이션',\n    '자동화',\n    'Config Plugin',\n    'SDK',\n    '빌드',\n    '배포',\n    '유지보수',\n    '개발 전략',\n  ]\ncreatedAt: '2025-12-25T09:00:00Z'\nupdatedAt: '2025-12-25T10:30:00Z'\n---",
+        "parsed": {
+          "title": "React Native CLI to EXPO",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "react-native-cli-to-expo",
+          "category": "TECH",
+          "keywords": [
+            "React Native",
+            "Expo",
+            "RN CLI",
+            "prebuild",
+            "네이티브 코드",
+            "마이그레이션",
+            "자동화",
+            "Config Plugin",
+            "SDK",
+            "빌드",
+            "배포",
+            "유지보수",
+            "개발 전략"
+          ],
+          "tags": null,
+          "createdAt": "2025-12-25T09:00:00Z",
+          "updatedAt": "2025-12-25T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/56/post.md",
+        "bytes": 15136,
+        "sha256": "42229b2cc0fa559b5b8da7e7bf321a87c02c87deee22ba92d36c6ace68e9d154",
+        "bodySha256": "55597247eba10a80b4c63caaea34c8987797b7de96d6443678385f8f722e4371"
+      },
+      "routes": {
+        "canonicalPath": "/posts/56-React%20Native%20CLI%20to%20EXPO",
+        "doubleEncodedPath": "/posts/56-React%2520Native%2520CLI%2520to%2520EXPO",
+        "bareIdPath": "/posts/56",
+        "shortPath": "/s/react-native-cli-to-expo",
+        "rssGuid": "56"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "57",
+      "title": "iOS 사진 접근 권한(Limited) 이슈 회고",
+      "frontmatter": {
+        "raw": "---\ntitle: 'iOS 사진 접근 권한(Limited) 이슈 회고'\nauthor: 'w0nder'\nshortUrl: 'ios-photo-permission-limited-issue'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'iOS',\n    '사진 권한',\n    'Limited',\n    'Expo',\n    'expo-media-library',\n    'patch-package',\n    'PHPhotoLibraryPreventAutomaticLimitedAccessAlert',\n    '권한 테스트',\n    'React Native',\n    '네이티브 코드',\n    '마이그레이션',\n    '디버깅',\n    '문제 해결',\n  ]\ncreatedAt: '2026-01-02T09:00:00Z'\nupdatedAt: '2026-01-02T10:30:00Z'\n---",
+        "parsed": {
+          "title": "iOS 사진 접근 권한(Limited) 이슈 회고",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "ios-photo-permission-limited-issue",
+          "category": "TECH",
+          "keywords": [
+            "iOS",
+            "사진 권한",
+            "Limited",
+            "Expo",
+            "expo-media-library",
+            "patch-package",
+            "PHPhotoLibraryPreventAutomaticLimitedAccessAlert",
+            "권한 테스트",
+            "React Native",
+            "네이티브 코드",
+            "마이그레이션",
+            "디버깅",
+            "문제 해결"
+          ],
+          "tags": null,
+          "createdAt": "2026-01-02T09:00:00Z",
+          "updatedAt": "2026-01-02T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/57/post.md",
+        "bytes": 9317,
+        "sha256": "5536104eb359d5d50622cc67426cc0b7798dcf001aa09b45c270a9b7e2b7b61d",
+        "bodySha256": "78e3909f2e83daf499aa65c58b4427370543e230b5d38e109d98d31f8ea63e6b"
+      },
+      "routes": {
+        "canonicalPath": "/posts/57-iOS%20%EC%82%AC%EC%A7%84%20%EC%A0%91%EA%B7%BC%20%EA%B6%8C%ED%95%9C(Limited)%20%EC%9D%B4%EC%8A%88%20%ED%9A%8C%EA%B3%A0",
+        "doubleEncodedPath": "/posts/57-iOS%2520%25EC%2582%25AC%25EC%25A7%2584%2520%25EC%25A0%2591%25EA%25B7%25BC%2520%25EA%25B6%258C%25ED%2595%259C(Limited)%2520%25EC%259D%25B4%25EC%258A%2588%2520%25ED%259A%258C%25EA%25B3%25A0",
+        "bareIdPath": "/posts/57",
+        "shortPath": "/s/ios-photo-permission-limited-issue",
+        "rssGuid": "57"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "58",
+      "title": "떠먹여주지 않고 스스로 먹게",
+      "frontmatter": {
+        "raw": "---\ntitle: '떠먹여주지 않고 스스로 먹게'\nauthor: 'w0nder'\nshortUrl: 'coding-mentoring-education-reflection'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '코딩 과외',\n    '멘토링',\n    '교육',\n    '학습 방법론',\n    'OAuth 2.0',\n    '성장',\n    '개발자 교육',\n    '주니어 개발자',\n    '학습 스타일',\n    '교육 철학',\n    '기초 학습',\n    '자기주도 학습',\n  ]\ncreatedAt: '2026-01-09T09:00:00Z'\nupdatedAt: '2026-01-09T10:30:00Z'\n---",
+        "parsed": {
+          "title": "떠먹여주지 않고 스스로 먹게",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "coding-mentoring-education-reflection",
+          "category": "LIFE",
+          "keywords": [
+            "코딩 과외",
+            "멘토링",
+            "교육",
+            "학습 방법론",
+            "OAuth 2.0",
+            "성장",
+            "개발자 교육",
+            "주니어 개발자",
+            "학습 스타일",
+            "교육 철학",
+            "기초 학습",
+            "자기주도 학습"
+          ],
+          "tags": null,
+          "createdAt": "2026-01-09T09:00:00Z",
+          "updatedAt": "2026-01-09T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/58/post.md",
+        "bytes": 4827,
+        "sha256": "8467d6515ce1520619358d04bac33d64f9d2440c08557b85e9c63c9c5df1ee56",
+        "bodySha256": "7b74b759df0d29c6876e632cb8917945a6a24e148c96ce13cc27233e2fe1e26d"
+      },
+      "routes": {
+        "canonicalPath": "/posts/58-%EB%96%A0%EB%A8%B9%EC%97%AC%EC%A3%BC%EC%A7%80%20%EC%95%8A%EA%B3%A0%20%EC%8A%A4%EC%8A%A4%EB%A1%9C%20%EB%A8%B9%EA%B2%8C",
+        "doubleEncodedPath": "/posts/58-%25EB%2596%25A0%25EB%25A8%25B9%25EC%2597%25AC%25EC%25A3%25BC%25EC%25A7%2580%2520%25EC%2595%258A%25EA%25B3%25A0%2520%25EC%258A%25A4%25EC%258A%25A4%25EB%25A1%259C%2520%25EB%25A8%25B9%25EA%25B2%258C",
+        "bareIdPath": "/posts/58",
+        "shortPath": "/s/coding-mentoring-education-reflection",
+        "rssGuid": "58"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "59",
+      "title": "바이브 소송",
+      "frontmatter": {
+        "raw": "---\ntitle: '바이브 소송'\nauthor: 'w0nder'\nshortUrl: 'vibe-lawsuit-ai-era'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '바이브 소송',\n    'AI 소송',\n    '셀프 소송',\n    '법률 서비스',\n    '행정 디지털화',\n    '전자정부',\n    '법률 민주화',\n    '변호사 수임료',\n    '민원',\n    '행정 절차',\n    '법률 접근성',\n    'AI 시대',\n  ]\ncreatedAt: '2026-01-16T09:00:00Z'\nupdatedAt: '2026-01-16T10:30:00Z'\n---",
+        "parsed": {
+          "title": "바이브 소송",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "vibe-lawsuit-ai-era",
+          "category": "LIFE",
+          "keywords": [
+            "바이브 소송",
+            "AI 소송",
+            "셀프 소송",
+            "법률 서비스",
+            "행정 디지털화",
+            "전자정부",
+            "법률 민주화",
+            "변호사 수임료",
+            "민원",
+            "행정 절차",
+            "법률 접근성",
+            "AI 시대"
+          ],
+          "tags": null,
+          "createdAt": "2026-01-16T09:00:00Z",
+          "updatedAt": "2026-01-16T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/59/post.md",
+        "bytes": 7551,
+        "sha256": "6d0a08d1685ea8a697a1a3249ccb7d5f8c30732fb8a42986760aa9f13ce57366",
+        "bodySha256": "282ef811df90dd7f02faeb0ea2a581220a1a399bcd7b391a196abbc3e02c05a2"
+      },
+      "routes": {
+        "canonicalPath": "/posts/59-%EB%B0%94%EC%9D%B4%EB%B8%8C%20%EC%86%8C%EC%86%A1",
+        "doubleEncodedPath": "/posts/59-%25EB%25B0%2594%25EC%259D%25B4%25EB%25B8%258C%2520%25EC%2586%258C%25EC%2586%25A1",
+        "bareIdPath": "/posts/59",
+        "shortPath": "/s/vibe-lawsuit-ai-era",
+        "rssGuid": "59"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "60",
+      "title": "또다시 반복되는 기술 만능 프레임",
+      "frontmatter": {
+        "raw": "---\ntitle: '또다시 반복되는 기술 만능 프레임'\nauthor: 'w0nder'\nshortUrl: 'tech-omnipotence-cycle'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'AI 코딩',\n    '기술 만능주의',\n    'MSA',\n    '마이크로서비스 아키텍처',\n    '개발자 성장',\n    '기술 도구',\n    '사고 과정',\n    '기초 학습',\n    'AI 활용',\n    '기술 만능론',\n    '개발 역량',\n    '기술 솔루션주의',\n  ]\ncreatedAt: '2026-01-23T09:00:00Z'\nupdatedAt: '2026-01-23T10:30:00Z'\n---",
+        "parsed": {
+          "title": "또다시 반복되는 기술 만능 프레임",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "tech-omnipotence-cycle",
+          "category": "TECH",
+          "keywords": [
+            "AI 코딩",
+            "기술 만능주의",
+            "MSA",
+            "마이크로서비스 아키텍처",
+            "개발자 성장",
+            "기술 도구",
+            "사고 과정",
+            "기초 학습",
+            "AI 활용",
+            "기술 만능론",
+            "개발 역량",
+            "기술 솔루션주의"
+          ],
+          "tags": null,
+          "createdAt": "2026-01-23T09:00:00Z",
+          "updatedAt": "2026-01-23T10:30:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/60/post.md",
+        "bytes": 13880,
+        "sha256": "f6ce7a4d99f61ec3b825d0c5446d7ab0e5fbc467ec35e78cc83a704c14b643fd",
+        "bodySha256": "49855c870f843e95fa02fd0c411abef72f2d9c702b2c85a4956f756a11501127"
+      },
+      "routes": {
+        "canonicalPath": "/posts/60-%EB%98%90%EB%8B%A4%EC%8B%9C%20%EB%B0%98%EB%B3%B5%EB%90%98%EB%8A%94%20%EA%B8%B0%EC%88%A0%20%EB%A7%8C%EB%8A%A5%20%ED%94%84%EB%A0%88%EC%9E%84",
+        "doubleEncodedPath": "/posts/60-%25EB%2598%2590%25EB%258B%25A4%25EC%258B%259C%2520%25EB%25B0%2598%25EB%25B3%25B5%25EB%2590%2598%25EB%258A%2594%2520%25EA%25B8%25B0%25EC%2588%25A0%2520%25EB%25A7%258C%25EB%258A%25A5%2520%25ED%2594%2584%25EB%25A0%2588%25EC%259E%2584",
+        "bareIdPath": "/posts/60",
+        "shortPath": "/s/tech-omnipotence-cycle",
+        "rssGuid": "60"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "61",
+      "title": "버튼 하나 더 말고, 문제 하나 더 풀기",
+      "frontmatter": {
+        "raw": "---\ntitle: '버튼 하나 더 말고, 문제 하나 더 풀기'\nauthor: 'w0nder'\nshortUrl: 'agent-is-all-you-need'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['MCP', 'Model Context Protocol', '에이전트', 'Cursor', 'Claude', '제품 설계', '가치 중심', '프로토콜']\ncreatedAt: '2026-01-31T09:00:00Z'\nupdatedAt: '2026-01-31T09:00:00Z'\n---",
+        "parsed": {
+          "title": "버튼 하나 더 말고, 문제 하나 더 풀기",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "agent-is-all-you-need",
+          "category": "TECH",
+          "keywords": [
+            "MCP",
+            "Model Context Protocol",
+            "에이전트",
+            "Cursor",
+            "Claude",
+            "제품 설계",
+            "가치 중심",
+            "프로토콜"
+          ],
+          "tags": null,
+          "createdAt": "2026-01-31T09:00:00Z",
+          "updatedAt": "2026-01-31T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/61/post.md",
+        "bytes": 8462,
+        "sha256": "6dd5aa44ed281a38ded24fcab83b1f0103df7c574ce660c76861f8a7ea565664",
+        "bodySha256": "3c60f839b8d2637c8887e8a2408f9eeeb361a40fe29ce8af1df1c955588bab21"
+      },
+      "routes": {
+        "canonicalPath": "/posts/61-%EB%B2%84%ED%8A%BC%20%ED%95%98%EB%82%98%20%EB%8D%94%20%EB%A7%90%EA%B3%A0%2C%20%EB%AC%B8%EC%A0%9C%20%ED%95%98%EB%82%98%20%EB%8D%94%20%ED%92%80%EA%B8%B0",
+        "doubleEncodedPath": "/posts/61-%25EB%25B2%2584%25ED%258A%25BC%2520%25ED%2595%2598%25EB%2582%2598%2520%25EB%258D%2594%2520%25EB%25A7%2590%25EA%25B3%25A0%252C%2520%25EB%25AC%25B8%25EC%25A0%259C%2520%25ED%2595%2598%25EB%2582%2598%2520%25EB%258D%2594%2520%25ED%2592%2580%25EA%25B8%25B0",
+        "bareIdPath": "/posts/61",
+        "shortPath": "/s/agent-is-all-you-need",
+        "rssGuid": "61"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "62",
+      "title": "취뽀",
+      "frontmatter": {
+        "raw": "---\ntitle: '취뽀'\nauthor: 'w0nder'\nshortUrl: 'unexpected-job-offer'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  ['취뽀', '취업', '면접', '개발 리드', '창업', '대표', '직장 복귀', '커리어', '1년 공백', 'IT 트렌드', '스타트업']\ncreatedAt: '2026-02-06T09:00:00Z'\nupdatedAt: '2026-02-06T09:00:00Z'\n---",
+        "parsed": {
+          "title": "취뽀",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "unexpected-job-offer",
+          "category": "LIFE",
+          "keywords": [
+            "취뽀",
+            "취업",
+            "면접",
+            "개발 리드",
+            "창업",
+            "대표",
+            "직장 복귀",
+            "커리어",
+            "1년 공백",
+            "IT 트렌드",
+            "스타트업"
+          ],
+          "tags": null,
+          "createdAt": "2026-02-06T09:00:00Z",
+          "updatedAt": "2026-02-06T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/62/post.md",
+        "bytes": 3592,
+        "sha256": "20ebee1a4859a9ecf8338a922703b5639e1e4a6c5ab22f2f5aed8709e5e995db",
+        "bodySha256": "f95d4e5f3c83edeff33c054fb7c22a80581b1185b99042a7b3a5f9ae0f46d51e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/62-%EC%B7%A8%EB%BD%80",
+        "doubleEncodedPath": "/posts/62-%25EC%25B7%25A8%25EB%25BD%2580",
+        "bareIdPath": "/posts/62",
+        "shortPath": "/s/unexpected-job-offer",
+        "rssGuid": "62"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "63",
+      "title": "폭풍의 안과 밖",
+      "frontmatter": {
+        "raw": "---\ntitle: '폭풍의 안과 밖'\nauthor: 'w0nder'\nshortUrl: 'inside-and-outside-the-storm'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    'AI 코딩',\n    '개발자 성장',\n    '매니징',\n    '격변의 시대',\n    'AI 시대',\n    '주니어 개발자',\n    '판단력',\n    '기술 리더십',\n    '커리어',\n    'AGI',\n  ]\ncreatedAt: '2026-02-14T09:00:00Z'\nupdatedAt: '2026-02-14T09:00:00Z'\n---",
+        "parsed": {
+          "title": "폭풍의 안과 밖",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "inside-and-outside-the-storm",
+          "category": "LIFE",
+          "keywords": [
+            "AI 코딩",
+            "개발자 성장",
+            "매니징",
+            "격변의 시대",
+            "AI 시대",
+            "주니어 개발자",
+            "판단력",
+            "기술 리더십",
+            "커리어",
+            "AGI"
+          ],
+          "tags": null,
+          "createdAt": "2026-02-14T09:00:00Z",
+          "updatedAt": "2026-02-14T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/63/post.md",
+        "bytes": 4189,
+        "sha256": "df9714e03af5cac22ad366349bb34e4da5711e06d6b52cfc407a4308d8bedb98",
+        "bodySha256": "3fa40af37248d06abac98169bb5e012935ed6ada36a87c3c0d5b95236ae49795"
+      },
+      "routes": {
+        "canonicalPath": "/posts/63-%ED%8F%AD%ED%92%8D%EC%9D%98%20%EC%95%88%EA%B3%BC%20%EB%B0%96",
+        "doubleEncodedPath": "/posts/63-%25ED%258F%25AD%25ED%2592%258D%25EC%259D%2598%2520%25EC%2595%2588%25EA%25B3%25BC%2520%25EB%25B0%2596",
+        "bareIdPath": "/posts/63",
+        "shortPath": "/s/inside-and-outside-the-storm",
+        "rssGuid": "63"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "64",
+      "title": "코드는 싸지고, 책임은 비싸진다",
+      "frontmatter": {
+        "raw": "---\ntitle: '코드는 싸지고, 책임은 비싸진다'\nauthor: 'w0nder'\nshortUrl: 'code-gets-cheaper-responsibility-doesnt'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'AI 시대 개발자',\n    '개발자 역할 변화',\n    '가드레일',\n    '정책 관리',\n    'SRE',\n    'TDD',\n    'trunk-based',\n    'CI/CD',\n    '운영',\n    '코드 리뷰',\n  ]\ncreatedAt: '2026-02-22T09:00:00Z'\nupdatedAt: '2026-02-22T09:00:00Z'\n---",
+        "parsed": {
+          "title": "코드는 싸지고, 책임은 비싸진다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "code-gets-cheaper-responsibility-doesnt",
+          "category": "TECH",
+          "keywords": [
+            "AI 시대 개발자",
+            "개발자 역할 변화",
+            "가드레일",
+            "정책 관리",
+            "SRE",
+            "TDD",
+            "trunk-based",
+            "CI/CD",
+            "운영",
+            "코드 리뷰"
+          ],
+          "tags": null,
+          "createdAt": "2026-02-22T09:00:00Z",
+          "updatedAt": "2026-02-22T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/64/post.md",
+        "bytes": 4938,
+        "sha256": "62fcb93e40403d2270911bc73b21d0c5975c1399bb643fa19ba6d5c706753c5d",
+        "bodySha256": "4358294cb1e6c9de0510e0c0e2d15d8fa06235f29cda5572ef1123da8e8772e1"
+      },
+      "routes": {
+        "canonicalPath": "/posts/64-%EC%BD%94%EB%93%9C%EB%8A%94%20%EC%8B%B8%EC%A7%80%EA%B3%A0%2C%20%EC%B1%85%EC%9E%84%EC%9D%80%20%EB%B9%84%EC%8B%B8%EC%A7%84%EB%8B%A4",
+        "doubleEncodedPath": "/posts/64-%25EC%25BD%2594%25EB%2593%259C%25EB%258A%2594%2520%25EC%258B%25B8%25EC%25A7%2580%25EA%25B3%25A0%252C%2520%25EC%25B1%2585%25EC%259E%2584%25EC%259D%2580%2520%25EB%25B9%2584%25EC%258B%25B8%25EC%25A7%2584%25EB%258B%25A4",
+        "bareIdPath": "/posts/64",
+        "shortPath": "/s/code-gets-cheaper-responsibility-doesnt",
+        "rssGuid": "64"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "65",
+      "title": "지금에 마음을 두는 선택",
+      "frontmatter": {
+        "raw": "---\ntitle: '지금에 마음을 두는 선택'\nauthor: 'w0nder'\nshortUrl: 'choosing-to-stay-present'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['긍정', '태도', '마인드셋', '직장생활', '자기성장', '불안', '선택', '멘탈', '회고', '커리어']\ncreatedAt: '2026-03-01T09:00:00Z'\nupdatedAt: '2026-03-01T09:00:00Z'\n---",
+        "parsed": {
+          "title": "지금에 마음을 두는 선택",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "choosing-to-stay-present",
+          "category": "LIFE",
+          "keywords": [
+            "긍정",
+            "태도",
+            "마인드셋",
+            "직장생활",
+            "자기성장",
+            "불안",
+            "선택",
+            "멘탈",
+            "회고",
+            "커리어"
+          ],
+          "tags": null,
+          "createdAt": "2026-03-01T09:00:00Z",
+          "updatedAt": "2026-03-01T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/65/post.md",
+        "bytes": 3703,
+        "sha256": "1751a301349b87e41ce6415e6c3dfcaa9a69738305631c858ba72ee7797b3424",
+        "bodySha256": "bf853e185348c23d7a3f3e77ed2f4dcfadf32d1fa3fea30ae84b9ea0ca850e64"
+      },
+      "routes": {
+        "canonicalPath": "/posts/65-%EC%A7%80%EA%B8%88%EC%97%90%20%EB%A7%88%EC%9D%8C%EC%9D%84%20%EB%91%90%EB%8A%94%20%EC%84%A0%ED%83%9D",
+        "doubleEncodedPath": "/posts/65-%25EC%25A7%2580%25EA%25B8%2588%25EC%2597%2590%2520%25EB%25A7%2588%25EC%259D%258C%25EC%259D%2584%2520%25EB%2591%2590%25EB%258A%2594%2520%25EC%2584%25A0%25ED%2583%259D",
+        "bareIdPath": "/posts/65",
+        "shortPath": "/s/choosing-to-stay-present",
+        "rssGuid": "65"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "66",
+      "title": "검색하지 않았으면 좋겠다.",
+      "frontmatter": {
+        "raw": "---\ntitle: '검색하지 않았으면 좋겠다.'\nauthor: 'w0nder'\nshortUrl: 'llm-understanding-and-search'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['LLM', 'RAG', '검색', '이해', '컨텍스트 윈도우', '패턴 매칭', '리랭킹', 'AI', 'Lost in the Middle']\ncreatedAt: '2026-03-07T09:00:00Z'\nupdatedAt: '2026-03-07T09:00:00Z'\n---",
+        "parsed": {
+          "title": "검색하지 않았으면 좋겠다.",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "llm-understanding-and-search",
+          "category": "TECH",
+          "keywords": [
+            "LLM",
+            "RAG",
+            "검색",
+            "이해",
+            "컨텍스트 윈도우",
+            "패턴 매칭",
+            "리랭킹",
+            "AI",
+            "Lost in the Middle"
+          ],
+          "tags": null,
+          "createdAt": "2026-03-07T09:00:00Z",
+          "updatedAt": "2026-03-07T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/66/post.md",
+        "bytes": 5114,
+        "sha256": "fdecf4aa563ce8aa92b2d6251adac9fece4e5b488e1f3675ecfef47a0c6648a5",
+        "bodySha256": "d466feb6cce332b23981b9454277d0833055a8f3900343e2b75150813bf079c7"
+      },
+      "routes": {
+        "canonicalPath": "/posts/66-%EA%B2%80%EC%83%89%ED%95%98%EC%A7%80%20%EC%95%8A%EC%95%98%EC%9C%BC%EB%A9%B4%20%EC%A2%8B%EA%B2%A0%EB%8B%A4.",
+        "doubleEncodedPath": "/posts/66-%25EA%25B2%2580%25EC%2583%2589%25ED%2595%2598%25EC%25A7%2580%2520%25EC%2595%258A%25EC%2595%2598%25EC%259C%25BC%25EB%25A9%25B4%2520%25EC%25A2%258B%25EA%25B2%25A0%25EB%258B%25A4.",
+        "bareIdPath": "/posts/66",
+        "shortPath": "/s/llm-understanding-and-search",
+        "rssGuid": "66"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "67",
+      "title": "안 된다고 말하는 사람들",
+      "frontmatter": {
+        "raw": "---\ntitle: '안 된다고 말하는 사람들'\nauthor: 'w0nder'\nshortUrl: 'people-who-say-it-wont-work'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['1승', '영화', '관점', '조직', '문제해결', '개발자', '대안', '회고', '커리어']\ncreatedAt: '2026-03-15T09:00:00Z'\nupdatedAt: '2026-03-15T09:00:00Z'\n---",
+        "parsed": {
+          "title": "안 된다고 말하는 사람들",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "people-who-say-it-wont-work",
+          "category": "LIFE",
+          "keywords": [
+            "1승",
+            "영화",
+            "관점",
+            "조직",
+            "문제해결",
+            "개발자",
+            "대안",
+            "회고",
+            "커리어"
+          ],
+          "tags": null,
+          "createdAt": "2026-03-15T09:00:00Z",
+          "updatedAt": "2026-03-15T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/67/post.md",
+        "bytes": 4419,
+        "sha256": "3f1f0e6dd455872efddda378125c2a142bfa9b57a8273848bde7e37591e256eb",
+        "bodySha256": "efe2afca42675cfa1a716139ed84c27bb78ece4fba6bef22ab8670242c11283e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/67-%EC%95%88%20%EB%90%9C%EB%8B%A4%EA%B3%A0%20%EB%A7%90%ED%95%98%EB%8A%94%20%EC%82%AC%EB%9E%8C%EB%93%A4",
+        "doubleEncodedPath": "/posts/67-%25EC%2595%2588%2520%25EB%2590%259C%25EB%258B%25A4%25EA%25B3%25A0%2520%25EB%25A7%2590%25ED%2595%2598%25EB%258A%2594%2520%25EC%2582%25AC%25EB%259E%258C%25EB%2593%25A4",
+        "bareIdPath": "/posts/67",
+        "shortPath": "/s/people-who-say-it-wont-work",
+        "rssGuid": "67"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "68",
+      "title": "팀이 성공해야 개인이 성공한다",
+      "frontmatter": {
+        "raw": "---\ntitle: '팀이 성공해야 개인이 성공한다'\nauthor: 'w0nder'\nshortUrl: 'team-success-enables-individual-success'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['리더십', '팀', '동기부여', '조직설계', '자율', '성과', '협업', '회고', '커리어']\ncreatedAt: '2026-03-21T09:00:00Z'\nupdatedAt: '2026-03-21T09:00:00Z'\n---",
+        "parsed": {
+          "title": "팀이 성공해야 개인이 성공한다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "team-success-enables-individual-success",
+          "category": "LIFE",
+          "keywords": [
+            "리더십",
+            "팀",
+            "동기부여",
+            "조직설계",
+            "자율",
+            "성과",
+            "협업",
+            "회고",
+            "커리어"
+          ],
+          "tags": null,
+          "createdAt": "2026-03-21T09:00:00Z",
+          "updatedAt": "2026-03-21T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/68/post.md",
+        "bytes": 6863,
+        "sha256": "6bb03d2f4e54eafc9f6f4a1e5c6582ea7cd90e9112202c69b0fda3339a4d3bb9",
+        "bodySha256": "0e65525745ce8315ce7d357baeb70068879a5844b3c820aa21686ab3648c171a"
+      },
+      "routes": {
+        "canonicalPath": "/posts/68-%ED%8C%80%EC%9D%B4%20%EC%84%B1%EA%B3%B5%ED%95%B4%EC%95%BC%20%EA%B0%9C%EC%9D%B8%EC%9D%B4%20%EC%84%B1%EA%B3%B5%ED%95%9C%EB%8B%A4",
+        "doubleEncodedPath": "/posts/68-%25ED%258C%2580%25EC%259D%25B4%2520%25EC%2584%25B1%25EA%25B3%25B5%25ED%2595%25B4%25EC%2595%25BC%2520%25EA%25B0%259C%25EC%259D%25B8%25EC%259D%25B4%2520%25EC%2584%25B1%25EA%25B3%25B5%25ED%2595%259C%25EB%258B%25A4",
+        "bareIdPath": "/posts/68",
+        "shortPath": "/s/team-success-enables-individual-success",
+        "rssGuid": "68"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "69",
+      "title": "우리는 누구의 기준으로 보는가",
+      "frontmatter": {
+        "raw": "---\ntitle: '우리는 누구의 기준으로 보는가'\nauthor: 'w0nder'\nshortUrl: 'whose-standard-do-we-use'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['제품', 'UX', '사용자', '피드백', 'QA', '확증편향', '기준', '태도', '협업']\ncreatedAt: '2026-03-29T09:00:00Z'\nupdatedAt: '2026-03-29T09:00:00Z'\n---",
+        "parsed": {
+          "title": "우리는 누구의 기준으로 보는가",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "whose-standard-do-we-use",
+          "category": "TECH",
+          "keywords": [
+            "제품",
+            "UX",
+            "사용자",
+            "피드백",
+            "QA",
+            "확증편향",
+            "기준",
+            "태도",
+            "협업"
+          ],
+          "tags": null,
+          "createdAt": "2026-03-29T09:00:00Z",
+          "updatedAt": "2026-03-29T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/69/post.md",
+        "bytes": 6548,
+        "sha256": "db23bd72949de4d0d43c2ad1d12e86330948680c3977fc03d2ea43ea8b0110de",
+        "bodySha256": "e9e8272bce3b078ed400c38cac94ab2e39499c81d27c1737bf230e61db814c2e"
+      },
+      "routes": {
+        "canonicalPath": "/posts/69-%EC%9A%B0%EB%A6%AC%EB%8A%94%20%EB%88%84%EA%B5%AC%EC%9D%98%20%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C%20%EB%B3%B4%EB%8A%94%EA%B0%80",
+        "doubleEncodedPath": "/posts/69-%25EC%259A%25B0%25EB%25A6%25AC%25EB%258A%2594%2520%25EB%2588%2584%25EA%25B5%25AC%25EC%259D%2598%2520%25EA%25B8%25B0%25EC%25A4%2580%25EC%259C%25BC%25EB%25A1%259C%2520%25EB%25B3%25B4%25EB%258A%2594%25EA%25B0%2580",
+        "bareIdPath": "/posts/69",
+        "shortPath": "/s/whose-standard-do-we-use",
+        "rssGuid": "69"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "70",
+      "title": "오늘도 한 명 개발자로 만들었다",
+      "frontmatter": {
+        "raw": "---\ntitle: '오늘도 한 명 개발자로 만들었다'\nauthor: 'w0nder'\nshortUrl: 'made-one-more-developer-today'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords: ['Claude Code', 'PR', '비개발자', '개발자', 'AX', 'AI 에이전트', '코드리뷰', '역할', '협업', '조직']\ncreatedAt: '2026-04-05T09:00:00Z'\nupdatedAt: '2026-04-05T09:00:00Z'\n---",
+        "parsed": {
+          "title": "오늘도 한 명 개발자로 만들었다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "made-one-more-developer-today",
+          "category": "TECH",
+          "keywords": [
+            "Claude Code",
+            "PR",
+            "비개발자",
+            "개발자",
+            "AX",
+            "AI 에이전트",
+            "코드리뷰",
+            "역할",
+            "협업",
+            "조직"
+          ],
+          "tags": null,
+          "createdAt": "2026-04-05T09:00:00Z",
+          "updatedAt": "2026-04-05T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/70/post.md",
+        "bytes": 5440,
+        "sha256": "4ccee03c967f9152ec1e351c93e6a4a6125ebe41e42215385cae5c369eb0e184",
+        "bodySha256": "fbc49e1a20525702f5a5e95fa11849ac47dc1bd49251215aa23eb230ed00fdf2"
+      },
+      "routes": {
+        "canonicalPath": "/posts/70-%EC%98%A4%EB%8A%98%EB%8F%84%20%ED%95%9C%20%EB%AA%85%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A1%9C%20%EB%A7%8C%EB%93%A4%EC%97%88%EB%8B%A4",
+        "doubleEncodedPath": "/posts/70-%25EC%2598%25A4%25EB%258A%2598%25EB%258F%2584%2520%25ED%2595%259C%2520%25EB%25AA%2585%2520%25EA%25B0%259C%25EB%25B0%259C%25EC%259E%2590%25EB%25A1%259C%2520%25EB%25A7%258C%25EB%2593%25A4%25EC%2597%2588%25EB%258B%25A4",
+        "bareIdPath": "/posts/70",
+        "shortPath": "/s/made-one-more-developer-today",
+        "rssGuid": "70"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "71",
+      "title": "매끄러운 협업은 키치에 가깝다",
+      "frontmatter": {
+        "raw": "---\ntitle: '매끄러운 협업은 키치에 가깝다'\nauthor: 'w0nder'\nshortUrl: 'smooth-collaboration-kitsch'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['밀란 쿤데라', '참을 수 없는 존재의 가벼움', '키치', '경영서', '협업', '리더십', '조직', '심리적 안전감', '갈등', '매끄러운 서사']\ncreatedAt: '2026-04-12T09:00:00Z'\nupdatedAt: '2026-04-12T09:00:00Z'\n---",
+        "parsed": {
+          "title": "매끄러운 협업은 키치에 가깝다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "smooth-collaboration-kitsch",
+          "category": "LIFE",
+          "keywords": [
+            "밀란 쿤데라",
+            "참을 수 없는 존재의 가벼움",
+            "키치",
+            "경영서",
+            "협업",
+            "리더십",
+            "조직",
+            "심리적 안전감",
+            "갈등",
+            "매끄러운 서사"
+          ],
+          "tags": null,
+          "createdAt": "2026-04-12T09:00:00Z",
+          "updatedAt": "2026-04-12T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/71/post.md",
+        "bytes": 3549,
+        "sha256": "7c534427483e12f45eae18a90ac398372b63fbcb2a6b93c9837c74866a2688cc",
+        "bodySha256": "f1e4e005311a5ba78e9d873ea09149890f8e70d08275cbe8dfe0159e89c924fe"
+      },
+      "routes": {
+        "canonicalPath": "/posts/71-%EB%A7%A4%EB%81%84%EB%9F%AC%EC%9A%B4%20%ED%98%91%EC%97%85%EC%9D%80%20%ED%82%A4%EC%B9%98%EC%97%90%20%EA%B0%80%EA%B9%9D%EB%8B%A4",
+        "doubleEncodedPath": "/posts/71-%25EB%25A7%25A4%25EB%2581%2584%25EB%259F%25AC%25EC%259A%25B4%2520%25ED%2598%2591%25EC%2597%2585%25EC%259D%2580%2520%25ED%2582%25A4%25EC%25B9%2598%25EC%2597%2590%2520%25EA%25B0%2580%25EA%25B9%259D%25EB%258B%25A4",
+        "bareIdPath": "/posts/71",
+        "shortPath": "/s/smooth-collaboration-kitsch",
+        "rssGuid": "71"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "72",
+      "title": "AI 시대, 우리는 그 여유를 어디에 쓰고 있는가",
+      "frontmatter": {
+        "raw": "---\ntitle: 'AI 시대, 우리는 그 여유를 어디에 쓰고 있는가'\nauthor: 'w0nder'\nshortUrl: 'ai-era-where-we-spend-slack'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['AI 개발', '짝코딩', 'TDD', '코드 품질', '기술 부채', '리팩터링', '개발 문화', '개발 생산성', 'AI 코딩 도구', '파킨슨 법칙']\ncreatedAt: '2026-04-19T09:00:00Z'\nupdatedAt: '2026-04-19T09:00:00Z'\n---",
+        "parsed": {
+          "title": "AI 시대, 우리는 그 여유를 어디에 쓰고 있는가",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "ai-era-where-we-spend-slack",
+          "category": "LIFE",
+          "keywords": [
+            "AI 개발",
+            "짝코딩",
+            "TDD",
+            "코드 품질",
+            "기술 부채",
+            "리팩터링",
+            "개발 문화",
+            "개발 생산성",
+            "AI 코딩 도구",
+            "파킨슨 법칙"
+          ],
+          "tags": null,
+          "createdAt": "2026-04-19T09:00:00Z",
+          "updatedAt": "2026-04-19T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/72/post.md",
+        "bytes": 12490,
+        "sha256": "f0b0a151dc1adcaf1bd8b510cf8a9f6fcebfe7500844667d7ed8cc0797a45312",
+        "bodySha256": "5b8f1114a88ded06a1bd90f507c381248aeb37d93704cfd7ba57999e6d77c5c8"
+      },
+      "routes": {
+        "canonicalPath": "/posts/72-AI%20%EC%8B%9C%EB%8C%80%2C%20%EC%9A%B0%EB%A6%AC%EB%8A%94%20%EA%B7%B8%20%EC%97%AC%EC%9C%A0%EB%A5%BC%20%EC%96%B4%EB%94%94%EC%97%90%20%EC%93%B0%EA%B3%A0%20%EC%9E%88%EB%8A%94%EA%B0%80",
+        "doubleEncodedPath": "/posts/72-AI%2520%25EC%258B%259C%25EB%258C%2580%252C%2520%25EC%259A%25B0%25EB%25A6%25AC%25EB%258A%2594%2520%25EA%25B7%25B8%2520%25EC%2597%25AC%25EC%259C%25A0%25EB%25A5%25BC%2520%25EC%2596%25B4%25EB%2594%2594%25EC%2597%2590%2520%25EC%2593%25B0%25EA%25B3%25A0%2520%25EC%259E%2588%25EB%258A%2594%25EA%25B0%2580",
+        "bareIdPath": "/posts/72",
+        "shortPath": "/s/ai-era-where-we-spend-slack",
+        "rssGuid": "72"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "73",
+      "title": "모두를 위한 제품이 아니라, 우리를 위한 제품",
+      "frontmatter": {
+        "raw": "---\ntitle: '모두를 위한 제품이 아니라, 우리를 위한 제품'\nauthor: 'w0nder'\nshortUrl: 'product-for-our-community'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords: ['미니멀리스트 창업가', '커뮤니티', '제품 개발', 'AI 시대', '차별화', '인디 창업', '1인 창업', '사람 중심', '신뢰', '관계 자본']\ncreatedAt: '2026-04-26T09:00:00Z'\nupdatedAt: '2026-04-26T09:00:00Z'\n---",
+        "parsed": {
+          "title": "모두를 위한 제품이 아니라, 우리를 위한 제품",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "product-for-our-community",
+          "category": "LIFE",
+          "keywords": [
+            "미니멀리스트 창업가",
+            "커뮤니티",
+            "제품 개발",
+            "AI 시대",
+            "차별화",
+            "인디 창업",
+            "1인 창업",
+            "사람 중심",
+            "신뢰",
+            "관계 자본"
+          ],
+          "tags": null,
+          "createdAt": "2026-04-26T09:00:00Z",
+          "updatedAt": "2026-04-26T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/73/post.md",
+        "bytes": 4526,
+        "sha256": "ec41e7a3342d12ca75b36c451b11d7aea9ed4dcf79707e90df1d61cbab9b7900",
+        "bodySha256": "4e254b1f62661ee2d5d3de361d9bc857f901589078732540b6666617afcd2cee"
+      },
+      "routes": {
+        "canonicalPath": "/posts/73-%EB%AA%A8%EB%91%90%EB%A5%BC%20%EC%9C%84%ED%95%9C%20%EC%A0%9C%ED%92%88%EC%9D%B4%20%EC%95%84%EB%8B%88%EB%9D%BC%2C%20%EC%9A%B0%EB%A6%AC%EB%A5%BC%20%EC%9C%84%ED%95%9C%20%EC%A0%9C%ED%92%88",
+        "doubleEncodedPath": "/posts/73-%25EB%25AA%25A8%25EB%2591%2590%25EB%25A5%25BC%2520%25EC%259C%2584%25ED%2595%259C%2520%25EC%25A0%259C%25ED%2592%2588%25EC%259D%25B4%2520%25EC%2595%2584%25EB%258B%2588%25EB%259D%25BC%252C%2520%25EC%259A%25B0%25EB%25A6%25AC%25EB%25A5%25BC%2520%25EC%259C%2584%25ED%2595%259C%2520%25EC%25A0%259C%25ED%2592%2588",
+        "bareIdPath": "/posts/73",
+        "shortPath": "/s/product-for-our-community",
+        "rssGuid": "73"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "74",
+      "title": "시니어 개발자는 무엇인가",
+      "frontmatter": {
+        "raw": "---\ntitle: '시니어 개발자는 무엇인가'\nauthor: 'w0nder'\nshortUrl: 'what-is-senior-developer'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    '시니어 개발자',\n    '프론트엔드',\n    '개발자 성장',\n    'AI 시대',\n    '사용자 경험',\n    '코드 리뷰',\n    '접근성',\n    '시스템 설계',\n    '기술 리더십',\n  ]\ncreatedAt: '2026-05-02T09:00:00Z'\nupdatedAt: '2026-05-02T09:00:00Z'\n---",
+        "parsed": {
+          "title": "시니어 개발자는 무엇인가",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "what-is-senior-developer",
+          "category": "TECH",
+          "keywords": [
+            "시니어 개발자",
+            "프론트엔드",
+            "개발자 성장",
+            "AI 시대",
+            "사용자 경험",
+            "코드 리뷰",
+            "접근성",
+            "시스템 설계",
+            "기술 리더십"
+          ],
+          "tags": null,
+          "createdAt": "2026-05-02T09:00:00Z",
+          "updatedAt": "2026-05-02T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/74/post.md",
+        "bytes": 11201,
+        "sha256": "06e986d3560ac0466de0e8a606a79b0e09e8b7f843b57f60254cff14bcc954a0",
+        "bodySha256": "32d8d192f095779b2b2230a6bb7c2e36316c34079b2cc10afec01adf38e32f18"
+      },
+      "routes": {
+        "canonicalPath": "/posts/74-%EC%8B%9C%EB%8B%88%EC%96%B4%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80",
+        "doubleEncodedPath": "/posts/74-%25EC%258B%259C%25EB%258B%2588%25EC%2596%25B4%2520%25EA%25B0%259C%25EB%25B0%259C%25EC%259E%2590%25EB%258A%2594%2520%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580",
+        "bareIdPath": "/posts/74",
+        "shortPath": "/s/what-is-senior-developer",
+        "rssGuid": "74"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "75",
+      "title": "TLS Fingerprinting과 봇 탐지",
+      "frontmatter": {
+        "raw": "---\ntitle: 'TLS Fingerprinting과 봇 탐지'\nauthor: 'w0nder'\nshortUrl: 'tls-fingerprinting-modern-bot-detection'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'Cloudflare',\n    '봇 탐지',\n    'TLS',\n    'ClientHello',\n    'JA3',\n    'JA4',\n    'GREASE',\n    'ALPN',\n    'TLS fingerprint',\n    'HTTP/2',\n    'HTTP/2 fingerprint',\n    'Passive Fingerprinting',\n    'User-Agent',\n    'WAF',\n    'Bot Management',\n    'curl-impersonate',\n    'curl_cffi',\n    'BoringSSL',\n    'OpenSSL',\n  ]\ncreatedAt: '2026-05-10T09:00:00Z'\nupdatedAt: '2026-05-10T18:00:00Z'\n---",
+        "parsed": {
+          "title": "TLS Fingerprinting과 봇 탐지",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "tls-fingerprinting-modern-bot-detection",
+          "category": "TECH",
+          "keywords": [
+            "Cloudflare",
+            "봇 탐지",
+            "TLS",
+            "ClientHello",
+            "JA3",
+            "JA4",
+            "GREASE",
+            "ALPN",
+            "TLS fingerprint",
+            "HTTP/2",
+            "HTTP/2 fingerprint",
+            "Passive Fingerprinting",
+            "User-Agent",
+            "WAF",
+            "Bot Management",
+            "curl-impersonate",
+            "curl_cffi",
+            "BoringSSL",
+            "OpenSSL"
+          ],
+          "tags": null,
+          "createdAt": "2026-05-10T09:00:00Z",
+          "updatedAt": "2026-05-10T18:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/75/post.md",
+        "bytes": 9666,
+        "sha256": "06b611ba963338f81af784ba39ece281b8d069d9096405ab7155f131602d47ff",
+        "bodySha256": "47e1f45a524f21c28fb392f60067ba7994f4bffe5223cdfdf9238e2c763987c0"
+      },
+      "routes": {
+        "canonicalPath": "/posts/75-TLS%20Fingerprinting%EA%B3%BC%20%EB%B4%87%20%ED%83%90%EC%A7%80",
+        "doubleEncodedPath": "/posts/75-TLS%2520Fingerprinting%25EA%25B3%25BC%2520%25EB%25B4%2587%2520%25ED%2583%2590%25EC%25A7%2580",
+        "bareIdPath": "/posts/75",
+        "shortPath": "/s/tls-fingerprinting-modern-bot-detection",
+        "rssGuid": "75"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "76",
+      "title": "팔로워십이 더 중요해졌다.",
+      "frontmatter": {
+        "raw": "---\ntitle: '팔로워십이 더 중요해졌다.'\nauthor: 'w0nder'\nshortUrl: 'followership-matters-more-now'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '팔로워십',\n    'followership',\n    'AI 시대',\n    '스타트업',\n    '조직',\n    '리더십',\n    'alignment',\n    '실행',\n    '프로토타입',\n    '시행착오',\n    '방향성',\n    '창업',\n    '협업',\n    '판단력',\n    '조직문화',\n  ]\ncreatedAt: '2026-05-17T09:00:00Z'\nupdatedAt: '2026-05-17T18:00:00Z'\n---",
+        "parsed": {
+          "title": "팔로워십이 더 중요해졌다.",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "followership-matters-more-now",
+          "category": "LIFE",
+          "keywords": [
+            "팔로워십",
+            "followership",
+            "AI 시대",
+            "스타트업",
+            "조직",
+            "리더십",
+            "alignment",
+            "실행",
+            "프로토타입",
+            "시행착오",
+            "방향성",
+            "창업",
+            "협업",
+            "판단력",
+            "조직문화"
+          ],
+          "tags": null,
+          "createdAt": "2026-05-17T09:00:00Z",
+          "updatedAt": "2026-05-17T18:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/76/post.md",
+        "bytes": 7938,
+        "sha256": "a102be9c3aa2901088d2b1bdc8c9a48021dcb4d8a7db3ab7ede17e029dadb0ce",
+        "bodySha256": "767c461a3c2c470eaa8732f9c23dc946b3695dfc682e1f9b7577c5c4d3c419c8"
+      },
+      "routes": {
+        "canonicalPath": "/posts/76-%ED%8C%94%EB%A1%9C%EC%9B%8C%EC%8B%AD%EC%9D%B4%20%EB%8D%94%20%EC%A4%91%EC%9A%94%ED%95%B4%EC%A1%8C%EB%8B%A4.",
+        "doubleEncodedPath": "/posts/76-%25ED%258C%2594%25EB%25A1%259C%25EC%259B%258C%25EC%258B%25AD%25EC%259D%25B4%2520%25EB%258D%2594%2520%25EC%25A4%2591%25EC%259A%2594%25ED%2595%25B4%25EC%25A1%258C%25EB%258B%25A4.",
+        "bareIdPath": "/posts/76",
+        "shortPath": "/s/followership-matters-more-now",
+        "rssGuid": "76"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "77",
+      "title": "나답게 살고 싶다",
+      "frontmatter": {
+        "raw": "---\ntitle: '나답게 살고 싶다'\nauthor: 'w0nder'\nshortUrl: 'living-as-myself'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '나답게',\n    '제품 만들기',\n    '비즈니스',\n    '창업',\n    '회사 생활',\n    '커리어',\n    '개발자',\n    '조직',\n    '성장',\n    '시장',\n    '사용성',\n    '취향',\n    '자기성찰',\n  ]\ncreatedAt: '2026-05-24T09:00:00Z'\nupdatedAt: '2026-05-24T18:00:00Z'\n---",
+        "parsed": {
+          "title": "나답게 살고 싶다",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "living-as-myself",
+          "category": "LIFE",
+          "keywords": [
+            "나답게",
+            "제품 만들기",
+            "비즈니스",
+            "창업",
+            "회사 생활",
+            "커리어",
+            "개발자",
+            "조직",
+            "성장",
+            "시장",
+            "사용성",
+            "취향",
+            "자기성찰"
+          ],
+          "tags": null,
+          "createdAt": "2026-05-24T09:00:00Z",
+          "updatedAt": "2026-05-24T18:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/77/post.md",
+        "bytes": 4666,
+        "sha256": "a0258e3c3333c7bc6960ba128c1ca763b5eb8e0d3310b2dba01afcf0138c8159",
+        "bodySha256": "c9beedfa67387daeaa4eb96005fe9497ce5b983c25a5a283723956689591bd47"
+      },
+      "routes": {
+        "canonicalPath": "/posts/77-%EB%82%98%EB%8B%B5%EA%B2%8C%20%EC%82%B4%EA%B3%A0%20%EC%8B%B6%EB%8B%A4",
+        "doubleEncodedPath": "/posts/77-%25EB%2582%2598%25EB%258B%25B5%25EA%25B2%258C%2520%25EC%2582%25B4%25EA%25B3%25A0%2520%25EC%258B%25B6%25EB%258B%25A4",
+        "bareIdPath": "/posts/77",
+        "shortPath": "/s/living-as-myself",
+        "rssGuid": "77"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "78",
+      "title": "사람을 좋아하지 않아도",
+      "frontmatter": {
+        "raw": "---\ntitle: '사람을 좋아하지 않아도'\nauthor: 'w0nder'\nshortUrl: 'even-without-liking-people'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '책방',\n    '서점',\n    '창업',\n    '커뮤니티',\n    '로컬',\n    '공동체',\n    '독립서점',\n    '개발자',\n    '자기성찰',\n  ]\ncreatedAt: '2026-05-31T09:00:00Z'\nupdatedAt: '2026-05-31T09:00:00Z'\n---",
+        "parsed": {
+          "title": "사람을 좋아하지 않아도",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "even-without-liking-people",
+          "category": "LIFE",
+          "keywords": [
+            "책방",
+            "서점",
+            "창업",
+            "커뮤니티",
+            "로컬",
+            "공동체",
+            "독립서점",
+            "개발자",
+            "자기성찰"
+          ],
+          "tags": null,
+          "createdAt": "2026-05-31T09:00:00Z",
+          "updatedAt": "2026-05-31T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/78/post.md",
+        "bytes": 8482,
+        "sha256": "e4ff32b611ad09e36b196924cd686022ae4e05e8c00d366a09df9c0a26cdc2f7",
+        "bodySha256": "766e717b254be11a42798d7494a7a84f4f7d766a80a2ecd38fe9fabe3f19d9e0"
+      },
+      "routes": {
+        "canonicalPath": "/posts/78-%EC%82%AC%EB%9E%8C%EC%9D%84%20%EC%A2%8B%EC%95%84%ED%95%98%EC%A7%80%20%EC%95%8A%EC%95%84%EB%8F%84",
+        "doubleEncodedPath": "/posts/78-%25EC%2582%25AC%25EB%259E%258C%25EC%259D%2584%2520%25EC%25A2%258B%25EC%2595%2584%25ED%2595%2598%25EC%25A7%2580%2520%25EC%2595%258A%25EC%2595%2584%25EB%258F%2584",
+        "bareIdPath": "/posts/78",
+        "shortPath": "/s/even-without-liking-people",
+        "rssGuid": "78"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": [
+        {
+          "url": "https://w0nder.land/s/bookstore-2",
+          "kind": "external"
+        }
+      ]
+    },
+    {
+      "legacyId": "79",
+      "title": "내가 생각하는 좋은 회의",
+      "frontmatter": {
+        "raw": "---\ntitle: '내가 생각하는 좋은 회의'\nauthor: 'w0nder'\nshortUrl: 'what-i-think-is-a-good-meeting'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '함께 일하기',\n    '협업',\n    '토의',\n    '회의',\n    '조직',\n    '팀',\n    '조직문화',\n    '결정',\n    '실행',\n    '개발자',\n    '자기성찰',\n    '커리어',\n  ]\ncreatedAt: '2026-06-14T09:00:00Z'\nupdatedAt: '2026-06-14T09:00:00Z'\n---",
+        "parsed": {
+          "title": "내가 생각하는 좋은 회의",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "what-i-think-is-a-good-meeting",
+          "category": "LIFE",
+          "keywords": [
+            "함께 일하기",
+            "협업",
+            "토의",
+            "회의",
+            "조직",
+            "팀",
+            "조직문화",
+            "결정",
+            "실행",
+            "개발자",
+            "자기성찰",
+            "커리어"
+          ],
+          "tags": null,
+          "createdAt": "2026-06-14T09:00:00Z",
+          "updatedAt": "2026-06-14T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/79/post.md",
+        "bytes": 5636,
+        "sha256": "eb716aaaf5ffaa66ceac30d2d4bceb66235fc2c59f95bc1e74abbd0f0a3f0d84",
+        "bodySha256": "4aba53b701c23176a71eb659c5d02bc8e8c6282001b256643630fb528cbfe6b2"
+      },
+      "routes": {
+        "canonicalPath": "/posts/79-%EB%82%B4%EA%B0%80%20%EC%83%9D%EA%B0%81%ED%95%98%EB%8A%94%20%EC%A2%8B%EC%9D%80%20%ED%9A%8C%EC%9D%98",
+        "doubleEncodedPath": "/posts/79-%25EB%2582%25B4%25EA%25B0%2580%2520%25EC%2583%259D%25EA%25B0%2581%25ED%2595%2598%25EB%258A%2594%2520%25EC%25A2%258B%25EC%259D%2580%2520%25ED%259A%258C%25EC%259D%2598",
+        "bareIdPath": "/posts/79",
+        "shortPath": "/s/what-i-think-is-a-good-meeting",
+        "rssGuid": "79"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "80",
+      "title": "나는 남 부끄럽지 않게 일하고 있을까",
+      "frontmatter": {
+        "raw": "---\ntitle: '나는 남 부끄럽지 않게 일하고 있을까'\nauthor: 'w0nder'\nshortUrl: 'am-i-working-without-shame'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '일하는 태도',\n    '결과물',\n    '장인정신',\n    '월급',\n    '회사 생활',\n    '프로페셔널',\n    '기준',\n    '자기성찰',\n    '커리어',\n    '개발자',\n    '조직',\n    '성장',\n  ]\ncreatedAt: '2026-08-09T09:00:00Z'\nupdatedAt: '2026-08-09T09:00:00Z'\n---",
+        "parsed": {
+          "title": "나는 남 부끄럽지 않게 일하고 있을까",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "am-i-working-without-shame",
+          "category": "LIFE",
+          "keywords": [
+            "일하는 태도",
+            "결과물",
+            "장인정신",
+            "월급",
+            "회사 생활",
+            "프로페셔널",
+            "기준",
+            "자기성찰",
+            "커리어",
+            "개발자",
+            "조직",
+            "성장"
+          ],
+          "tags": null,
+          "createdAt": "2026-08-09T09:00:00Z",
+          "updatedAt": "2026-08-09T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/80/post.md",
+        "bytes": 12874,
+        "sha256": "f4721ac1e432fd4169836c53f5707492ca162af0765d9cfd061d42b4c6b74a0c",
+        "bodySha256": "08a5464cd2c091d8d8ed864b448987a237c841d6f124f27b03c4774cb31411d2"
+      },
+      "routes": {
+        "canonicalPath": "/posts/80-%EB%82%98%EB%8A%94%20%EB%82%A8%20%EB%B6%80%EB%81%84%EB%9F%BD%EC%A7%80%20%EC%95%8A%EA%B2%8C%20%EC%9D%BC%ED%95%98%EA%B3%A0%20%EC%9E%88%EC%9D%84%EA%B9%8C",
+        "doubleEncodedPath": "/posts/80-%25EB%2582%2598%25EB%258A%2594%2520%25EB%2582%25A8%2520%25EB%25B6%2580%25EB%2581%2584%25EB%259F%25BD%25EC%25A7%2580%2520%25EC%2595%258A%25EA%25B2%258C%2520%25EC%259D%25BC%25ED%2595%2598%25EA%25B3%25A0%2520%25EC%259E%2588%25EC%259D%2584%25EA%25B9%258C",
+        "bareIdPath": "/posts/80",
+        "shortPath": "/s/am-i-working-without-shame",
+        "rssGuid": "80"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "81",
+      "title": "싱글코어가 필요한 시대",
+      "frontmatter": {
+        "raw": "---\ntitle: '싱글코어가 필요한 시대'\nauthor: 'w0nder'\nshortUrl: 'the-age-of-single-core'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'TECH'\nkeywords:\n  [\n    'AI',\n    '개발 생산성',\n    '싱글코어',\n    '멀티코어',\n    '토큰',\n    'agent',\n    'harness',\n    '판단력',\n    '설계',\n    '검증',\n    '숙련',\n    '개발자',\n    '커리어',\n    '자기성찰',\n  ]\ncreatedAt: '2026-08-16T09:00:00Z'\nupdatedAt: '2026-08-16T09:00:00Z'\n---",
+        "parsed": {
+          "title": "싱글코어가 필요한 시대",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "the-age-of-single-core",
+          "category": "TECH",
+          "keywords": [
+            "AI",
+            "개발 생산성",
+            "싱글코어",
+            "멀티코어",
+            "토큰",
+            "agent",
+            "harness",
+            "판단력",
+            "설계",
+            "검증",
+            "숙련",
+            "개발자",
+            "커리어",
+            "자기성찰"
+          ],
+          "tags": null,
+          "createdAt": "2026-08-16T09:00:00Z",
+          "updatedAt": "2026-08-16T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/81/post.md",
+        "bytes": 15463,
+        "sha256": "425b87ca08fe1ef50f34fab9fb4495918f9b636044a493a034e403a85bc264bc",
+        "bodySha256": "2ecce4050889fd5879690b31862b8672fc1f8e180e5e8c80faeda5c9bb8dcd34"
+      },
+      "routes": {
+        "canonicalPath": "/posts/81-%EC%8B%B1%EA%B8%80%EC%BD%94%EC%96%B4%EA%B0%80%20%ED%95%84%EC%9A%94%ED%95%9C%20%EC%8B%9C%EB%8C%80",
+        "doubleEncodedPath": "/posts/81-%25EC%258B%25B1%25EA%25B8%2580%25EC%25BD%2594%25EC%2596%25B4%25EA%25B0%2580%2520%25ED%2595%2584%25EC%259A%2594%25ED%2595%259C%2520%25EC%258B%259C%25EB%258C%2580",
+        "bareIdPath": "/posts/81",
+        "shortPath": "/s/the-age-of-single-core",
+        "rssGuid": "81"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    },
+    {
+      "legacyId": "82",
+      "title": "아이와(AIWA)는 기억나는데",
+      "frontmatter": {
+        "raw": "---\ntitle: '아이와(AIWA)는 기억나는데'\nauthor: 'w0nder'\nshortUrl: 'i-remember-aiwa'\nauthorProfile: '/images/profile_image.jpg'\ncategory: 'LIFE'\nkeywords:\n  [\n    '히로시마',\n    '여행',\n    '파나소닉',\n    '껌전지',\n    '아이와',\n    '카세트 플레이어',\n    '이어폰',\n    '머라이어 캐리',\n    '서태지',\n    '음악',\n    '중학생',\n    '친구',\n    '기억',\n    '이름',\n    '추억',\n  ]\ncreatedAt: '2026-08-23T09:00:00Z'\nupdatedAt: '2026-08-23T09:00:00Z'\n---",
+        "parsed": {
+          "title": "아이와(AIWA)는 기억나는데",
+          "author": "w0nder",
+          "authorProfile": "/images/profile_image.jpg",
+          "shortUrl": "i-remember-aiwa",
+          "category": "LIFE",
+          "keywords": [
+            "히로시마",
+            "여행",
+            "파나소닉",
+            "껌전지",
+            "아이와",
+            "카세트 플레이어",
+            "이어폰",
+            "머라이어 캐리",
+            "서태지",
+            "음악",
+            "중학생",
+            "친구",
+            "기억",
+            "이름",
+            "추억"
+          ],
+          "tags": null,
+          "createdAt": "2026-08-23T09:00:00Z",
+          "updatedAt": "2026-08-23T09:00:00Z"
+        },
+        "extraKeys": []
+      },
+      "source": {
+        "path": "src/w0nder-land/public/posts/82/post.md",
+        "bytes": 4461,
+        "sha256": "92bf9f82af7880be8689b3997b4c2850425d69b9cd18d24d53132cb422e3ea8c",
+        "bodySha256": "eb938254fc724e079245e04a4d64a40b2c37d7e5a26b918c2ff6c6f9593cc2da"
+      },
+      "routes": {
+        "canonicalPath": "/posts/82-%EC%95%84%EC%9D%B4%EC%99%80(AIWA)%EB%8A%94%20%EA%B8%B0%EC%96%B5%EB%82%98%EB%8A%94%EB%8D%B0",
+        "doubleEncodedPath": "/posts/82-%25EC%2595%2584%25EC%259D%25B4%25EC%2599%2580(AIWA)%25EB%258A%2594%2520%25EA%25B8%25B0%25EC%2596%25B5%25EB%2582%2598%25EB%258A%2594%25EB%258D%25B0",
+        "bareIdPath": "/posts/82",
+        "shortPath": "/s/i-remember-aiwa",
+        "rssGuid": "82"
+      },
+      "assets": [],
+      "otherFiles": [],
+      "references": []
+    }
+  ],
+  "staticFiles": [
+    {
+      "publicPath": "/ads.txt",
+      "bytes": 59,
+      "sha256": "1c5da8218f9636610548b42c71d40d024990a6b46e5e4ecd2474a7753b9f5eda"
+    },
+    {
+      "publicPath": "/assets/fonts/pretendard/pretendard-bold.subset.woff",
+      "bytes": 349904,
+      "sha256": "23015e2331a6002a4511f196266e946f3be9490ff1fbe3ae22e10108bd0d7918"
+    },
+    {
+      "publicPath": "/assets/fonts/pretendard/pretendard-regular.subset.woff",
+      "bytes": 347852,
+      "sha256": "1b6eb6ba65cd097cb64800eba4099e8ececaac2c01d12ae7c1316e54d409a707"
+    },
+    {
+      "publicPath": "/favicon.ico",
+      "bytes": 15406,
+      "sha256": "b4ef64cf0171647e01c8bcf445b93888863baecb91bb465e58a490d9135f91fd"
+    },
+    {
+      "publicPath": "/favicon/android-chrome-192x192.png",
+      "bytes": 39512,
+      "sha256": "5ebda1168b506e32c023e12324a03351c9d6856575561bcdd6763e20fc1795ee"
+    },
+    {
+      "publicPath": "/favicon/android-chrome-512x512.png",
+      "bytes": 186538,
+      "sha256": "79be59e19908cdfccbd6b985f5becdb8d65f2b7f4b33bfa4185d7283e2744c7b"
+    },
+    {
+      "publicPath": "/favicon/apple-touch-icon.png",
+      "bytes": 35107,
+      "sha256": "163b2a0985683eb9beb1102c0914c81ef9a1411c8a320a245f587ef684235d28"
+    },
+    {
+      "publicPath": "/favicon/favicon-16x16.png",
+      "bytes": 665,
+      "sha256": "df99f9ecdfd60aadc1da01659cc9a2c479a01f6f1eb8c30aebf44b2e6fcf77a5"
+    },
+    {
+      "publicPath": "/favicon/favicon-32x32.png",
+      "bytes": 1901,
+      "sha256": "7cbeaa17f616cc45186b1d6178b0f7ed0d95bde259aeffc0c851824f887e1408"
+    },
+    {
+      "publicPath": "/images/binary-book-club/book-cover-01.webp",
+      "bytes": 28142,
+      "sha256": "907553b98fa0c88f438cded278a5196087a2439cfc0cc4aebc698e065b5d7b8a"
+    },
+    {
+      "publicPath": "/images/binary-book-club/book-cover-02.webp",
+      "bytes": 25266,
+      "sha256": "0aac09cc029d72c70fd7e924521b4507dd77eb4d96588c45b47542e1057e4f34"
+    },
+    {
+      "publicPath": "/images/binary-book-club/book-cover-03.webp",
+      "bytes": 10098,
+      "sha256": "28cc607cab6038cb2bacc360106be08d4d2c26f71412a9459ca644d927021a18"
+    },
+    {
+      "publicPath": "/images/og.png",
+      "bytes": 1174084,
+      "sha256": "19c411a98a34e3cbaa529b20741990c156dd535d1e3fc07c2ca6082abde3e268"
+    },
+    {
+      "publicPath": "/images/profile_image.png",
+      "bytes": 1001209,
+      "sha256": "f7ecd8ccd8ab3d6e0996de16a5ce78affcfa9a1f41f3aafccb678c192a752288"
+    },
+    {
+      "publicPath": "/next.svg",
+      "bytes": 1375,
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc"
+    },
+    {
+      "publicPath": "/robots.txt",
+      "bytes": 64,
+      "sha256": "cef19a7f73a6cf1ffc8045dceec3e30576223f829f9fe5fa3d8a0c3e19ab38c9"
+    },
+    {
+      "publicPath": "/site.webmanifest",
+      "bytes": 280,
+      "sha256": "08d4cacccc74eeb5e19b6145bad7225e68b28c8ab4c6f23d87e47b8cc43a34a2"
+    },
+    {
+      "publicPath": "/vercel.svg",
+      "bytes": 629,
+      "sha256": "3fa5cd757b418e18afc68ddebad55f443206e410327921ddb2bf1be731658880"
+    }
+  ]
+}
