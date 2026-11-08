@@ -5,7 +5,7 @@
   "source": {
     "repo": "w0nder-official/w0nder.land",
     "git": {
-      "sha": "3039b94245c69876206075225c8d54d9435e0ed5",
+      "sha": "ee7c13723426945835feb658ed38513ffc064647",
       "publicDirDirty": false
     }
   },
@@ -329,7 +329,8 @@
         {
           "publicPath": "/posts/1/assets/fe9af87f16c040ada0139646b8e73644.webp",
           "bytes": 1467442,
-          "sha256": "a740b843728462c6a3aecb96f70c284f9ee93ce19d250ab5a6ded4523319110c"
+          "sha256": "a740b843728462c6a3aecb96f70c284f9ee93ce19d250ab5a6ded4523319110c",
+          "animated": true
         }
       ],
       "otherFiles": [],

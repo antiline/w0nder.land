@@ -53,12 +53,17 @@ export function buildCases(manifest) {
   return cases;
 }
 
+const LOOPBACK = new Set(['localhost', '127.0.0.1', '[::1]']);
+/** 로컬 서버는 Location 을 localhost 로 만들 수 있다. 루프백 주소끼리는 같은 origin 으로 본다. */
+const sameOrigin = (a, b) =>
+  a.origin === b.origin || (LOOPBACK.has(a.hostname) && LOOPBACK.has(b.hostname) && a.port === b.port && a.protocol === b.protocol);
+
 /** 같은 origin 의 Location 은 path+query 로 줄여 비교한다. */
 export function normalizeLocation(location, base) {
   if (!location) return location;
   try {
     const u = new URL(location, base);
-    return u.origin === new URL(base).origin ? `${u.pathname}${u.search}` : location;
+    return sameOrigin(u, new URL(base)) ? `${u.pathname}${u.search}` : location;
   } catch {
     return location;
   }

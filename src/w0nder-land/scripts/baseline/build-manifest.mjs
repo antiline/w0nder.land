@@ -36,12 +36,27 @@ function walk(dir) {
     .sort();
 }
 
+/** 애니메이션 이미지(animated webp·gif·apng). 시각 비교에서 프레임이 매번 달라 mask 대상이 된다. */
+function isAnimatedImage(buf) {
+  if (buf.subarray(0, 4).toString('latin1') === 'RIFF' && buf.subarray(8, 12).toString('latin1') === 'WEBP') {
+    return buf.includes('ANIM') || buf.includes('ANMF');
+  }
+  if (buf.subarray(0, 3).toString('latin1') === 'GIF') {
+    let frames = 0;
+    for (let i = buf.indexOf(Buffer.from([0x21, 0xf9, 0x04])); i !== -1; i = buf.indexOf(Buffer.from([0x21, 0xf9, 0x04]), i + 1)) frames += 1;
+    return frames > 1;
+  }
+  if (buf.subarray(1, 4).toString('latin1') === 'PNG') return buf.includes('acTL');
+  return false;
+}
+
 function fileRecord(full) {
   const buf = readFileSync(full);
   return {
     publicPath: `/${toPosix(relative(publicDir, full))}`,
     bytes: statSync(full).size,
     sha256: sha256(buf),
+    ...(isAnimatedImage(buf) ? { animated: true } : {}),
   };
 }
 

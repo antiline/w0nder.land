@@ -24,8 +24,7 @@ test('글 2: 본문이 참조하는 로컬 이미지가 모두 로드된다', as
   }
 });
 
-test('글 1: alt 가 빈 이미지 3장도 렌더된다 (알려진 결함 #20)', async ({ page }) => {
-  test.fail(true, '#20: ImageNode 가 alt 없는 이미지를 그리지 않는다. 고친 뒤 이 줄을 지운다.');
+test('글 1: alt 가 빈 이미지 3장도 렌더된다 (#20)', async ({ page }) => {
   await page.goto(article('1').routes.canonicalPath);
   const refs = localImageRefs('1');
   expect(refs.length).toBe(3);
