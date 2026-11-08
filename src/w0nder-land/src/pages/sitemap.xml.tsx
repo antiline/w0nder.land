@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
 import { postReader } from '@/server/post-reader';
-import { getPostUrl } from '@/libs/utils/urls';
 import { Configure } from '@/constants/configure';
 
 const SitemapXmlPage = () => null;
@@ -14,7 +13,7 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
       .map(
         post => `
       <url>
-        <loc>${Configure.ServiceUrl}${getPostUrl(post.uuid, post.title)}</loc>
+        <loc>${Configure.ServiceUrl}${post.url}</loc>
         <lastmod>${post.createdAt}</lastmod>
         <changefreq>always</changefreq>
         <priority>1.0</priority>

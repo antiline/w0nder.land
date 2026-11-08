@@ -5,7 +5,7 @@ import { BrutalButton } from '@/components/ui/BrutalButton';
 import { getTexts } from '@/components/editor/utils';
 import { Configure } from '@/constants/configure';
 import { ellipsis } from '@/libs/utils/string';
-import { getPostRouteParam, getPostUrl, isPostSlugOf } from '@/libs/utils/urls';
+import { resolvePostSlug, routeParamOf } from '@/libs/routing/post-routes';
 import type { Post } from '@/repository/post-types';
 import { postReader } from '@/server/post-reader';
 import { DateTime } from 'luxon';
@@ -37,9 +37,9 @@ const PostPage = ({ post }: PostProps) => {
       return;
     }
     const slug = typeof router.query.slug === 'string' ? router.query.slug : '';
-    const canonicalPath = getPostUrl(post.uuid, post.title);
+    // bare ID(/posts/{id}) 로 들어오면 permalink 로 바꾼다(현행 동작). 이중 인코딩 주소는 그대로 둔다.
     if (slug === post.uuid) {
-      router.replace(canonicalPath);
+      router.replace(post.url);
     }
   }, [router, router.isReady, router.query.slug, post]);
 
@@ -177,32 +177,24 @@ const PostPage = ({ post }: PostProps) => {
 export default PostPage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // slug 는 Next 가 한 번 디코딩한 값이다(#15). 해석 규칙은 libs/routing/post-routes 한 곳에 있다.
   const slug = (params?.slug as string) ?? '';
-  const posts = await postReader().listPublished();
+  const resolved = resolvePostSlug(slug, await postReader().listPublished());
 
-  // 폴더 id(uuid)는 하이픈을 포함하지 않는다. 첫 번째 세그먼트가 글 id.
-  const uuid = slug.includes('-') ? slug.split('-')[0]! : slug;
-  const post = posts.find(it => it.uuid === uuid);
-
-  if (!post) {
-    return { notFound: true };
-  }
-
-  // slug 는 Next 가 한 번 디코딩한 값이다. 인코딩된 문자열과만 비교하면 정식 주소가 404 가 된다(#15).
-  if (!isPostSlugOf(slug, post.uuid, post.title)) {
+  if (!resolved) {
     return { notFound: true };
   }
 
   return {
-    props: { post },
+    props: { post: resolved.post },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await postReader().listPublished();
   const paths = posts.map(post => ({
-    // 디코딩된 형태를 넘겨야 getPostUrl 주소(한 번 인코딩)로 prerender 된다.
-    params: { slug: getPostRouteParam(post.uuid, post.title) },
+    // 디코딩된 형태를 넘겨야 permalink 주소(한 번 인코딩)로 prerender 된다.
+    params: { slug: routeParamOf(post) },
   }));
 
   return {
