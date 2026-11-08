@@ -3,29 +3,35 @@ import { Share } from '@/components/common/Share';
 import { AdSense } from '@/components/common/AdSense';
 import { BrutalButton } from '@/components/ui/BrutalButton';
 import { AD_SLOTS, AdFormat, AdSlotType } from '@/constants/ads';
-import { LINKS, PROFILE, SOCIALS } from '@/constants/common';
 import { Configure } from '@/constants/configure';
+import { linkStyleOf, socialStyleOf } from '@/libs/site/link-style';
+import { isExternalHref } from '@/libs/site/safe-href';
+import type { SiteProfile } from '@/repository/site-profile-types';
+import { readSiteProfile, siteProfileSourceFromEnv } from '@/server/site-profile-reader';
 import { ExternalLink } from 'lucide-react';
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import { ProfilePage, WithContext } from 'schema-dts';
 
-const structuredData: WithContext<ProfilePage> = {
+type AboutPageProps = { profile: SiteProfile };
+
+const structuredDataOf = (profile: SiteProfile): WithContext<ProfilePage> => ({
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   dateCreated: '2023-11-28T00:00:00+09:00',
   dateModified: '2023-11-28T00:00:00+09:00',
   mainEntity: {
     '@type': 'Person',
-    name: PROFILE.name,
-    description: PROFILE.bio,
-    image: PROFILE.profileImageUrl,
-    email: PROFILE.email,
+    name: profile.name,
+    description: profile.bio,
+    image: profile.image,
+    ...(profile.email ? { email: profile.email } : {}),
   },
-};
+});
 
-const AboutPage = () => {
+const AboutPage = ({ profile }: AboutPageProps) => {
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const handleShareOpen = useCallback(() => {
@@ -35,35 +41,41 @@ const AboutPage = () => {
   // sample의 LinkTreeHome과 동일한 구조의 데이터 객체
   const linkTreeData = {
     profile: {
-      name: PROFILE.name,
-      bio: PROFILE.bio,
-      description: PROFILE.description,
-      image: PROFILE.profileImageUrl,
+      name: profile.name,
+      bio: profile.bio,
+      description: profile.description,
+      image: profile.image,
     },
-    socialLinks: SOCIALS.map(social => ({
-      name: social.type.toUpperCase(),
-      icon: social.icon,
-      url: social.url,
-      color: social.bg,
-      textColor: social.bg.includes('text-white') ? 'text-white' : 'text-black',
-    })),
-    linkButtons: LINKS.map(link => ({
-      title: link.title,
-      description: link.description || '',
-      icon: link.icon,
-      url: link.url,
-      color: link.bg,
-      isExternal: link.url.startsWith('http') || link.url.startsWith('mailto:'),
-    })),
+    socialLinks: profile.socials.map(social => {
+      const style = socialStyleOf(social.key);
+      return {
+        name: (social.key ?? social.label).toUpperCase(),
+        icon: style.icon,
+        url: social.url,
+        color: style.bg,
+        textColor: style.bg.includes('text-white') ? 'text-white' : 'text-black',
+      };
+    }),
+    linkButtons: profile.links.map(link => {
+      const style = linkStyleOf(link.key);
+      return {
+        title: link.label,
+        description: link.description,
+        icon: style.icon,
+        url: link.url,
+        color: style.bg,
+        isExternal: isExternalHref(link.url),
+      };
+    }),
   };
 
   return (
     <>
       <HeadContentMeta
         title="소개"
-        description={PROFILE.bio}
+        description={profile.bio}
         ogUrl={`${Configure.ServiceUrl}/images/og.png`}
-        structuredData={structuredData}
+        structuredData={structuredDataOf(profile)}
       />
 
       <div className="min-h-screen bg-gray-100 py-12">
@@ -167,7 +179,7 @@ const AboutPage = () => {
 
           <Share
             title="w0nder"
-            text={PROFILE.bio}
+            text={profile.bio}
             url={`${Configure.ServiceUrl}/about`}
             isOpen={isShareOpen}
             onClose={() => setIsShareOpen(false)}
@@ -183,6 +195,12 @@ const AboutPage = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
+  const profile = await readSiteProfile();
+  // 모코 원천이면 1분마다 다시 만든다. 실패하면 Next 가 이전 페이지를 유지한다.
+  return { props: { profile }, revalidate: siteProfileSourceFromEnv() === 'mocco' ? 60 : false };
 };
 
 export default AboutPage;

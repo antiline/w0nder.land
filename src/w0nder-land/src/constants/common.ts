@@ -47,6 +47,7 @@ export const SOCIALS = [
 export const LINKS = [
   {
     id: 5,
+    key: 'blog',
     title: 'Blog',
     icon: 'ri-book-open-line',
     url: '/posts',
@@ -54,6 +55,7 @@ export const LINKS = [
   },
   {
     id: 1,
+    key: 'show-your-time',
     title: 'Show Your Time',
     icon: 'ri-camera-fill',
     url: 'https://showyourti.me/qr',
@@ -63,6 +65,7 @@ export const LINKS = [
   },
   {
     id: 2,
+    key: 'checkable',
     title: 'Checkable',
     icon: 'ri-check-fill',
     url: 'https://checkable.app',
@@ -72,6 +75,7 @@ export const LINKS = [
   },
   {
     id: 3,
+    key: 'fi-workers',
     title: 'fi-workers',
     icon: 'ri-building-line',
     url: 'https://fi-workers.com/about',
@@ -80,6 +84,7 @@ export const LINKS = [
   },
   {
     id: 4,
+    key: 'coffee-chat',
     title: 'Coffee Chat',
     icon: 'ri-cup-fill',
     url: 'https://www.latpeed.com/products/rSNlW',
