@@ -10,7 +10,11 @@
     "dev": "env-cmd -f env/.env.local next dev --port 3000",
     "build": "yarn load-env next build",
     "start": "yarn load-env next start",
-    "load-env": "env-cmd -f env/.env.$ENVIRONMENT"
+    "load-env": "env-cmd -f env/.env.$ENVIRONMENT",
+    "baseline:check": "node scripts/baseline/build-manifest.mjs --check",
+    "test:legacy": "playwright test --project=legacy",
+    "test:visual": "playwright test --project=visual-pc --project=visual-mobile",
+    "test": "yarn baseline:check && playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "5.1.1",
@@ -38,6 +42,7 @@
     "@radix-ui/react-tooltip": "1.2.7",
     "@slack/web-api": "7.9.2",
     "@tailwindcss/postcss": "4.1.10",
+    "@tiptap/core": "2.14.0",
     "@tiptap/extension-bubble-menu": "2.14.0",
     "@tiptap/extension-code": "2.14.0",
     "@tiptap/extension-code-block": "2.14.0",
@@ -84,11 +89,11 @@
     "tiptap-markdown": "0.8.10",
     "tw-animate-css": "1.3.4",
     "vaul": "1.1.2",
-    "zod": "3.25.64",
-    "@tiptap/core": "2.14.0"
+    "zod": "3.25.64"
   },
   "devDependencies": {
     "@fw/eslint-config": "https://github.com/fi-workers/eslint-config#commit=4c90c1df09de7801a20c9c54a984d738108c7c7e",
+    "@playwright/test": "1.64.1",
     "@types/luxon": "3.6.2",
     "@types/node": "22.15.31",
     "@types/react": "18.3.23",

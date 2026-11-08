@@ -9,5 +9,16 @@
   "rules": {
     // 한 컴포넌트내부의 스타일 로직이 있는 경우, 스타일 코드가 컴포넌트 밑에 정의되는것이 낫기 때문에 이룰 제거
     "@typescript-eslint/no-use-before-define": "off"
-  }
+  },
+  "overrides": [
+    {
+      // Playwright 테스트는 서버 부하와 실패 위치를 분명히 하려고 순차 검사(for..of + await)를 쓴다.
+      "files": ["tests/**/*.ts", "playwright.config.ts"],
+      "rules": {
+        "no-await-in-loop": "off",
+        "no-restricted-syntax": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+      }
+    }
+  ]
 }
