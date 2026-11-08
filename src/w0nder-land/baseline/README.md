@@ -88,3 +88,17 @@ yarn test                  # baseline:check + 전체
 - 클라이언트 이동은 표본(목록 클릭, bare, short, latest)만 브라우저로 확인했다. 82개 전체를 확인하지는 않았다.
 - 시각 비교 자동화(픽셀 diff)와 테스트 러너 도입은 W2 범위다.
 - 관측 시점 운영 응답에는 Vercel 헤더가 없다. PR #4(2026-11-05)의 셀프호스팅 배포로 서빙되는 것으로 보인다. 그 이전 Vercel 시기의 동작은 이 기준선과 비교할 수 없다.
+
+## 글 데이터 원천 (W3, #8)
+
+페이지는 `src/server/post-reader.ts`의 `postReader()`로만 글을 읽는다. 원천은 환경변수로 고른다.
+
+| 변수 | 값 | 동작 |
+|---|---|---|
+| `POSTS_SOURCE` | `file`(기본) | `public/posts`를 읽는다. 지금 운영과 같다. |
+| | `mocco` | 모코 `/v1/blog` 읽기 API. 실패하면 오류를 낸다. 파일로 몰래 대체하지 않는다. |
+| `POSTS_SHADOW` | `mocco` | 응답은 파일에서 만들고 모코 결과를 나란히 읽어 차이만 `[posts-shadow]` 로그로 남긴다. |
+| `MOCCO_API_URL`, `MOCCO_BLOG_READ_KEY` | | 모코 원천·shadow에 필요하다. 서버 모듈(`src/server/`)에서만 읽는다. |
+| `MOCCO_TIMEOUT_MS`, `MOCCO_CACHE_MS` | 10000, 60000 | 요청 타임아웃, 성공한 목록의 프로세스 내 캐시. 실패·빈 응답은 캐시하지 않는다. |
+
+모코 원천은 이관된 글의 원문 frontmatter + 본문을 파일 원천과 같은 함수(`postFromMarkdown`)로 읽는다. `yarn test:unit`이 82개 글을 가짜 `/v1` 응답으로 만들어 두 원천의 결과가 완전히 같은지 검사한다. 공개가 아닌 글, `legacyId` 없는 새 글(주소 규칙은 W4 #9), permalink 불일치, 타임아웃, 페이지 중간 실패는 모두 전체 실패다.

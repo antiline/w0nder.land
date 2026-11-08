@@ -14,7 +14,8 @@
     "baseline:check": "node scripts/baseline/build-manifest.mjs --check",
     "test:legacy": "playwright test --project=legacy",
     "test:visual": "playwright test --project=visual-pc --project=visual-mobile",
-    "test": "yarn baseline:check && playwright test"
+    "test": "yarn baseline:check && yarn test:unit && playwright test",
+    "test:unit": "playwright test -c playwright.unit.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "5.1.1",

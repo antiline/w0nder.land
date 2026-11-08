@@ -59,6 +59,8 @@ test('글 1: link-preview 가 제목·URL 과 함께 렌더된다', async ({ pag
 test('공유 모달이 열리고 단축 주소를 보여준다', async ({ page }) => {
   const a = article('1');
   await page.goto(a.routes.canonicalPath);
+  // 본문(Tiptap)은 클라이언트에서만 그려진다. 그려졌으면 hydration 이 끝나 SHARE 버튼이 반응한다.
+  await expect(page.locator('article .ProseMirror')).toBeVisible();
   await page.getByRole('button', { name: /SHARE/ }).click();
   await expect(page.getByText(a.routes.shortPath!, { exact: false }).first()).toBeVisible();
 });

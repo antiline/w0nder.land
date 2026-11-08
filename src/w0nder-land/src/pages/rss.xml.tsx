@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import Rss from 'rss';
 import { getTexts } from '@/components/editor/utils';
-import { getAllPosts } from '@/repository/posts';
+import { postReader } from '@/server/post-reader';
 import { Configure } from '@/constants/configure';
 
 const RssXmlPage = () => null;
@@ -19,7 +19,7 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
     ttl: 60, // 1 hour
   });
 
-  getAllPosts().map(post =>
+  (await postReader().listPublished()).forEach(post =>
     rss.item({
       title: post.title,
       description: getTexts(post.article),

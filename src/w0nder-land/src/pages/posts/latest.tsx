@@ -1,10 +1,10 @@
-import { getAllPosts } from '@/repository/posts';
+import { postReader } from '@/server/post-reader';
 import { getPostUrl } from '@/libs/utils/urls';
 
 const LatestPage = () => <div />;
 
 export const getServerSideProps = async () => {
-  const posts = getAllPosts();
+  const posts = await postReader().listPublished();
   const post = posts[0];
 
   if (!post) {

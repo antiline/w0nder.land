@@ -19,7 +19,7 @@ function walk(dir: string): string[] {
  * NEXT_PUBLIC_ 이 아니므로 값은 인라인되지 않는다. 그래서 값으로 검사한다.
  * 검사하려면 빌드할 때 이 변수들에 실제 값이나 sentinel 을 넣는다. 새 서버 비밀(예: 모코 read key)은 여기에 추가한다.
  */
-const SERVER_ONLY_ENV = ['SLACK_ACCESS_TOKEN', 'SLACK_CHANNEL_ID_BINARY_BOOK_CLUB', 'MOCCO_PUBLISHING_READ_KEY'];
+const SERVER_ONLY_ENV = ['SLACK_ACCESS_TOKEN', 'SLACK_CHANNEL_ID_BINARY_BOOK_CLUB', 'MOCCO_BLOG_READ_KEY'];
 const SECRET_SHAPES = [/xox[abp]-[0-9A-Za-z-]{10,}/];
 
 test('클라이언트 번들에 서버 전용 비밀 값이 없다', () => {
