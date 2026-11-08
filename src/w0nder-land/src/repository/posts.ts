@@ -1,33 +1,13 @@
-import matter from 'gray-matter';
 import { join } from 'path';
 import * as fs from 'fs';
-import { getPostUrl } from '@/libs/utils/urls';
+import { Post } from '@/repository/post-types';
+import { postFromMarkdown, sortPostsForList } from '@/repository/post-markdown';
 
-export enum PostType {
-  Markdown = 'Markdown',
-}
+// 타입은 post-types 에 있다. 기존 import 경로를 깨지 않도록 다시 내보낸다.
+export { PostType } from '@/repository/post-types';
+export type { Post } from '@/repository/post-types';
 
-interface BasePost {
-  uuid: string;
-  shortUrl: string;
-  title: string;
-  tags: string[];
-  category?: string;
-  author: string;
-  authorProfile: string;
-  keywords: string[];
-  createdAt: string;
-  updatedAt: string;
-  url: string;
-}
-
-interface MarkdownPost extends BasePost {
-  type: PostType.Markdown;
-  article: string;
-}
-
-export type Post = MarkdownPost;
-
+/** 파일 원천: public/posts/{id}/post.md. 페이지는 이 모듈 대신 src/server/post-reader 를 쓴다. */
 const postsDirectory = join(process.cwd(), 'public', 'posts');
 
 export function getPostUuids() {
@@ -39,28 +19,9 @@ export function getPostUuids() {
 
 export function getPostByUuid(uuid: string) {
   const fullPath = join(postsDirectory, uuid, 'post.md');
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
-
-  return {
-    type: PostType.Markdown,
-    uuid,
-    author: data.author || '',
-    authorProfile: data.authorProfile || '',
-    title: data.title || '',
-    keywords: data.keywords || [],
-    category: data.category || '',
-    article: content,
-    createdAt: data.createdAt || '',
-    updatedAt: data.updatedAt || '',
-    url: getPostUrl(uuid, data.title || ''),
-    shortUrl: `/s/${data.shortUrl || ''}`,
-    tags: data.tags || [],
-  } satisfies Post;
+  return postFromMarkdown(uuid, fs.readFileSync(fullPath, 'utf8'));
 }
 
 export function getAllPosts(): Post[] {
-  const uuids = getPostUuids();
-
-  return uuids.map(uuid => getPostByUuid(uuid)).sort((post1, post2) => (post1.createdAt > post2.createdAt ? -1 : 1));
+  return sortPostsForList(getPostUuids().map(uuid => getPostByUuid(uuid)));
 }

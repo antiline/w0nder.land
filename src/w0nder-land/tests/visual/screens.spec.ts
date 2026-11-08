@@ -10,6 +10,8 @@ import { animatedImagePaths, article } from '../support/baseline';
  * - 콘텐츠가 실제로 있는지는 legacy/content.spec.ts 가 마스크 없이 따로 검사한다.
  */
 test.skip(!!process.env.BASE_URL, '시각 비교는 로컬 빌드에서만 한다');
+// full-page 캡처는 이미지 로드를 기다리므로 병렬 실행 부하에서 30초를 넘길 수 있다.
+test.describe.configure({ timeout: 60_000 });
 
 test.beforeEach(async ({ page, baseURL }) => {
   const { origin } = new URL(baseURL!);
@@ -67,6 +69,7 @@ test('글 상세 (이미지·link-preview 포함, 글 1)', async ({ page }) => {
 test('글 상세 공유 모달', async ({ page }) => {
   await page.goto(article('1').routes.canonicalPath);
   await settle(page);
+  await expect(page.locator('article .ProseMirror')).toBeVisible();
   await page.getByRole('button', { name: /SHARE/ }).click();
   await expect(page).toHaveScreenshot('post-1-share.png', { mask: masks(page) });
 });

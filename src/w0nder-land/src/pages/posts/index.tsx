@@ -6,7 +6,8 @@ import { AdSense } from '@/components/common/AdSense';
 import { AD_SLOTS, AdFormat, AdSlotType } from '@/constants/ads';
 import { Configure } from '@/constants/configure';
 import { generateCategories, getCategoryColor, getCategoryName } from '@/libs/utils/category';
-import { getAllPosts, Post } from '@/repository/posts';
+import type { Post } from '@/repository/post-types';
+import { postReader } from '@/server/post-reader';
 import { DateTime } from 'luxon';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -166,7 +167,7 @@ const PostsPage = ({ posts }: PostsProps) => {
 export default PostsPage;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts();
+  const posts = await postReader().listPublished();
 
   return {
     props: { posts },

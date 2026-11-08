@@ -6,7 +6,8 @@ import { getTexts } from '@/components/editor/utils';
 import { Configure } from '@/constants/configure';
 import { ellipsis } from '@/libs/utils/string';
 import { getPostRouteParam, getPostUrl, isPostSlugOf } from '@/libs/utils/urls';
-import { getAllPosts, Post } from '@/repository/posts';
+import type { Post } from '@/repository/post-types';
+import { postReader } from '@/server/post-reader';
 import { DateTime } from 'luxon';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -177,7 +178,7 @@ export default PostPage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = (params?.slug as string) ?? '';
-  const posts = getAllPosts();
+  const posts = await postReader().listPublished();
 
   // 폴더 id(uuid)는 하이픈을 포함하지 않는다. 첫 번째 세그먼트가 글 id.
   const uuid = slug.includes('-') ? slug.split('-')[0]! : slug;
@@ -198,7 +199,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllPosts();
+  const posts = await postReader().listPublished();
   const paths = posts.map(post => ({
     // 디코딩된 형태를 넘겨야 getPostUrl 주소(한 번 인코딩)로 prerender 된다.
     params: { slug: getPostRouteParam(post.uuid, post.title) },
