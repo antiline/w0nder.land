@@ -1,5 +1,5 @@
 import { expect, Page, test } from '@playwright/test';
-import { article } from '../support/baseline';
+import { animatedImagePaths, article } from '../support/baseline';
 
 /**
  * 대표 화면의 시각 기준선(PC 1440×900, 모바일 390×844). 픽셀 비교는 로컬 빌드에서만 돌린다.
@@ -21,6 +21,8 @@ const masks = (page: Page) => [
   page.locator('article .react-component'),
   page.locator('article img[src^="http"]'),
   page.locator('video'),
+  // 애니메이션 이미지는 프레임이 매번 달라 mask 한다. 로드 여부는 legacy/content.spec.ts 가 따로 본다.
+  ...animatedImagePaths().map(src => page.locator(`img[src*="url=${encodeURIComponent(src)}&"]`)),
   page.getByText(/©\s*\d{4}/),
 ];
 

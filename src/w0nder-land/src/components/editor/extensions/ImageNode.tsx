@@ -32,7 +32,8 @@ export const CustomImageView = (props: NodeViewProps) => {
   const { node } = props;
   const attrs = node.attrs as ImageNodeAttrs;
 
-  if (!attrs.src || !attrs.alt) {
+  // alt 가 비어도 원문이 가리키는 이미지는 그린다(#20). 빈 alt 는 장식 이미지로 둔다.
+  if (!attrs.src) {
     return null;
   }
 
@@ -41,7 +42,7 @@ export const CustomImageView = (props: NodeViewProps) => {
       <NextImage
         className="rounded max-w-full h-auto my-0 mx-auto mt-8 border"
         src={attrs.src}
-        alt={attrs.alt}
+        alt={attrs.alt ?? ''}
         width={attrs.width ?? 600}
         height={attrs.height ?? 600}
       />

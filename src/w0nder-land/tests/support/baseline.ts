@@ -16,7 +16,7 @@ export type ManifestArticle = {
   legacyId: string;
   title: string;
   routes: { canonicalPath: string; doubleEncodedPath: string; bareIdPath: string; shortPath: string | null };
-  assets: { publicPath: string }[];
+  assets: { publicPath: string; animated?: boolean }[];
   references: { url: string; kind: string }[];
 };
 
@@ -34,6 +34,10 @@ export const isExpected = matchesExpected as (
   base: string,
 ) => boolean;
 export const toPath = normalizeLocation as (location: string | undefined, base: string) => string | undefined;
+
+/** 프레임이 매번 달라지는 애니메이션 이미지의 원본 경로 */
+export const animatedImagePaths = (): string[] =>
+  manifest.articles.flatMap(a => a.assets.filter(f => f.animated).map(f => f.publicPath));
 
 export const article = (id: string) => {
   const found = manifest.articles.find(a => a.legacyId === id);

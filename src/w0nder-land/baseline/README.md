@@ -61,7 +61,7 @@ node scripts/baseline/probe-urls.mjs http://localhost:3000 --expect
 
 ```sh
 yarn build                 # 또는 npx next build
-yarn test:legacy           # HTTP·이동·콘텐츠·보안 경계 (next start -p 3100 을 자동으로 띄운다)
+yarn test:legacy           # HTTP·이동·콘텐츠·보안 경계 (운영과 같은 standalone 서버를 3100 포트에 자동으로 띄운다)
 yarn test:visual           # PC·모바일 화면 비교
 BASE_URL=https://w0nder.land yarn test:legacy   # 운영 읽기 전용 확인 (시각·번들 검사는 건너뜀)
 yarn test                  # baseline:check + 전체
@@ -78,7 +78,8 @@ yarn test                  # baseline:check + 전체
 - 82개 글 전부 `authorProfile: /images/profile_image.jpg`인데 `public`에는 `.png`만 있다. 현재 UI 코드는 이 필드를 화면에 쓰지 않는다. DTO 필드라서 값은 그대로 보존한다.
 - `rel="canonical"` 태그는 어느 페이지에도 없다. 이 작업에서 새로 추가하지 않는다(SEO 개선은 별도 이슈).
 - 본문 이미지는 `next/image`를 거쳐 `/_next/image?url=<원본 경로>`로 렌더된다. 원본 경로도 200으로 응답한다.
-- alt가 빈 마크다운 이미지는 렌더되지 않는다. 글 1의 3장이 해당한다(#20).
+- alt가 빈 마크다운 이미지는 렌더되지 않았다. 글 1의 3장이 해당했고 #20에서 고쳤다.
+- 글 1의 `…44.webp`는 애니메이션 이미지다(manifest `animated: true`). 시각 비교에서 mask한다.
 - 서버 HTML의 본문은 `.sr-only` 안의 원문 마크다운이고, 보이는 본문은 클라이언트(Tiptap)가 그린다. 크롤러는 원문을 보고, 보조기술은 원문과 렌더 결과를 둘 다 읽을 수 있다.
 - `src/constants/configure.ts`가 클라이언트와 공유되는 클래스라 서버 전용 환경변수 **이름**이 번들에 들어간다. 값은 인라인되지 않는다(NEXT_PUBLIC_ 아님). 모코 key 같은 새 비밀은 서버 전용 모듈에 둔다.
 
