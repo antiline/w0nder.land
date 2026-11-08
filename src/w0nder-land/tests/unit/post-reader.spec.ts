@@ -3,7 +3,13 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getAllPosts, getPostUuids } from '@/repository/posts';
 import { comparePostLists } from '@/server/post-compare';
-import { MoccoConfig, MoccoPostDetail, MoccoPostReader, MoccoReadError } from '@/server/mocco-post-reader';
+import {
+  hrefOfPermalink,
+  MoccoConfig,
+  MoccoPostDetail,
+  MoccoPostReader,
+  MoccoReadError,
+} from '@/server/mocco-post-reader';
 import { FilePostReader, postReaderFromEnv, ShadowPostReader } from '@/server/post-reader';
 import { getPostUrl } from '@/libs/utils/urls';
 
@@ -27,7 +33,8 @@ function fakeMocco(overrides: { details?: (d: MoccoPostDetail) => MoccoPostDetai
       id: `p_${i}`,
       legacyId: id,
       status: 'public',
-      permalink: getPostUrl(id, title),
+      // 모코는 permalink 를 디코딩된 경로로 준다(모코 계약 spec "Consumer adapter").
+      permalink: `/posts/${id}-${title}`,
       frontmatter,
       bodyMd,
     };
@@ -182,4 +189,11 @@ test('제목이 바뀌어도 url 은 모코의 고정 permalink 다', async () =
   const changed = posts.find(p => p.uuid === '3')!;
   expect(changed.title).toBe('새 제목');
   expect(changed.url).toBe(original.url);
+});
+
+test('모코의 디코딩된 permalink 를 기존과 같은 인코딩 주소로 만든다', () => {
+  getAllPosts().forEach(p => {
+    expect(hrefOfPermalink(decodeURIComponent(p.url))).toBe(p.url);
+  });
+  expect(hrefOfPermalink('/posts/1-100% 확률/반반')).toBe(getPostUrl('1', '100% 확률/반반'));
 });
