@@ -8,7 +8,8 @@
 | 파일 | 내용 | 만드는 방법 |
 |---|---|---|
 | `legacy-content-manifest.json` | 글 82개의 frontmatter 원문·파싱값, `post.md` 바이트 sha256, 본문 sha256, 글별 자산과 기타 정적 파일 18개의 sha256, 소스 규칙에서 파생한 주소(정식·이중 인코딩·bare ID·단축·RSS guid), 목록 정렬 순서, 사이트 라우트, 무결성 점검 결과 | `node scripts/baseline/build-manifest.mjs` |
-| `url-observations.production.json` | 위 주소 전부와 무효 입력에 대한 운영 서버의 GET·HEAD 상태, Location, Content-Type, Cache-Control, canonical 태그 유무 | `node scripts/baseline/probe-urls.mjs https://w0nder.land baseline/url-observations.production.json` |
+| `url-observations.production.json` | 위 주소 전부와 무효 입력에 대한 운영 서버의 GET·HEAD 상태, Location, Content-Type, Cache-Control, canonical 태그 유무. #18 배포 후(2026-11-08) 관측 | `node scripts/baseline/probe-urls.mjs https://w0nder.land baseline/url-observations.production.json` |
+| `url-observations.production-before-fix-20261107.json` | 같은 검사의 #18 배포 전 관측. 정식 주소 404 증거로 남긴다 | (고정 기록) |
 
 원본(`public/**`)이 기준선과 같은지 확인하려면 다음을 실행한다. 다르면 exit 1로 끝난다. 의도한 변경이었다면 manifest를 다시 생성하고 diff를 리뷰한다.
 
@@ -26,7 +27,7 @@ node scripts/baseline/probe-urls.mjs http://localhost:3000 --expect
 
 `url-observations.*.json`의 `observed`에는 관측 당시 실제로 받은 응답이 들어 있다. `expected`에는 보존하거나 복구해야 할 정상 동작이 들어 있다. 기존의 결함을 "보존할 동작"으로 고정하지 않기 위해 둘을 분리했다.
 
-| 주소 종류 | 기대 | 2026-11-07 운영 관측 |
+| 주소 종류 | 기대 | 2026-11-07 운영 관측 (수정 전) |
 |---|---|---|
 | 정식 주소 `/posts/{id}-{encodeURIComponent(title)}` (사이트맵·RSS·목록 링크·`/s/*`·`/posts/latest`가 가리키는 주소) | 200 | **82개 모두 404 (GET·HEAD)** → W10 |
 | 같은 주소에 쿼리 추가 | 200 | 82개 모두 404 |
@@ -42,6 +43,8 @@ node scripts/baseline/probe-urls.mjs http://localhost:3000 --expect
 | 정적 파일 18개, 글 자산 32개 | 200 | 모두 200 |
 
 브라우저 관측(agent-browser, 운영, 2026-11-07): `/posts` 목록에서 글을 클릭하면 정식 주소로 이동하고 404 화면이 뜬다. `/posts/1`, `/s/epilogue`, `/posts/latest`도 최종적으로 404 화면이다. 즉 관측 시점에 **브라우저로는 어떤 글도 읽을 수 없었다.** 정식 주소 404는 기존에 있던 오류이며 보존할 동작이 아니다.
+
+**수정 후(#18 배포, 2026-11-08):** `probe-urls.mjs --expect`가 전 케이스 통과했다. 정식 주소와 쿼리 포함 주소가 82개씩 200이고, 나머지 항목은 위 표의 관측과 같다. 브라우저에서도 목록 클릭, `/posts/1`, `/s/epilogue`, `/posts/latest`가 글을 정상으로 연다. 배포 직후 첫 20초에는 컨테이너 교체로 타임아웃이 몇 건 있었고 재실행에서는 없었다.
 
 ## 화면 기준선
 
