@@ -92,11 +92,11 @@ test('페이지 중간 실패·상세 실패는 전체 실패다(부분 결과 �
   }
 });
 
-test('공개가 아닌 글, legacyId 없는 글, permalink 불일치는 거부한다', async () => {
+test('공개가 아닌 글, legacyId 없는 글, 형식이 틀린 permalink 는 거부한다', async () => {
   const cases: ((d: MoccoPostDetail) => MoccoPostDetail)[] = [
     d => (d.legacyId === '3' ? { ...d, status: 'draft' as 'public' } : d),
     d => (d.legacyId === '3' ? { ...d, legacyId: null } : d),
-    d => (d.legacyId === '3' ? { ...d, permalink: '/posts/3-other' } : d),
+    d => (d.legacyId === '3' ? { ...d, permalink: 'https://elsewhere/3' } : d),
   ];
   for (const details of cases) {
     const { fetchFn } = fakeMocco({ details });
@@ -170,4 +170,16 @@ test('원천 선택: 기본은 파일, 잘못된 값과 키 없는 모코 원천
       MOCCO_BLOG_READ_KEY: 'k',
     } as unknown as NodeJS.ProcessEnv),
   ).toBeInstanceOf(ShadowPostReader);
+});
+
+test('제목이 바뀌어도 url 은 모코의 고정 permalink 다', async () => {
+  const { fetchFn } = fakeMocco({
+    details: d =>
+      d.legacyId === '3' ? { ...d, frontmatter: d.frontmatter!.replace(/^title: '.*'$/m, "title: '새 제목'") } : d,
+  });
+  const posts = await new MoccoPostReader(config(fetchFn)).listPublished();
+  const original = getAllPosts().find(p => p.uuid === '3')!;
+  const changed = posts.find(p => p.uuid === '3')!;
+  expect(changed.title).toBe('새 제목');
+  expect(changed.url).toBe(original.url);
 });

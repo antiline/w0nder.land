@@ -8,7 +8,8 @@
  * 규칙
  * - 공개본만 받는다. 응답에 공개가 아닌 글이 섞여 있으면 거부한다(fail closed).
  * - 이관된 글은 원문 frontmatter + 본문을 파일 원천과 같은 함수(postFromMarkdown)로 읽어 DTO 를 같게 만든다.
- * - legacyId 가 없는 새 글은 아직 주소 규칙이 정해지지 않았다(W4 #9). 조용히 빼지 않고 오류로 알린다.
+ * - 주소(url)는 모코의 고정 permalink 를 쓴다. 제목에서 다시 만들지 않는다(W4 #9).
+ * - legacyId 가 없는 새 글은 단축 주소·bare ID 규칙이 아직 없다. 조용히 빼지 않고 오류로 알린다.
  * - 타임아웃·HTTP 오류·페이지 중간 실패는 전체 실패다. 부분 결과를 돌려주지 않는다.
  * - 성공한 목록만 짧게 캐시한다. 실패나 빈 응답을 "글이 삭제됨"으로 캐시하지 않는다.
  */
@@ -138,11 +139,11 @@ export class MoccoPostReader {
       if (d.frontmatter == null) {
         throw new MoccoReadError(`frontmatter 없는 글은 아직 지원하지 않는다: ${d.id}`);
       }
-      const post = postFromMarkdown(d.legacyId!, `${d.frontmatter}${d.bodyMd}`);
-      if (post.url !== d.permalink) {
-        throw new MoccoReadError(`permalink 불일치 ${d.id}: 모코 ${d.permalink} / 원문 규칙 ${post.url}`);
+      if (!d.permalink.startsWith('/posts/')) {
+        throw new MoccoReadError(`글 permalink 형식이 아니다 ${d.id}: ${d.permalink}`);
       }
-      return post;
+      // 주소는 모코가 고정한 permalink 다(W4 #9). 제목이 바뀌어도 처음 공개된 주소를 유지한다.
+      return { ...postFromMarkdown(d.legacyId!, `${d.frontmatter}${d.bodyMd}`), url: d.permalink };
     });
 
     const sorted = sortPostsForList(posts);

@@ -1,11 +1,11 @@
 import { postReader } from '@/server/post-reader';
-import { getPostUrl } from '@/libs/utils/urls';
+import { latestPost } from '@/libs/routing/post-routes';
 
 const LatestPage = () => <div />;
 
 export const getServerSideProps = async () => {
   const posts = await postReader().listPublished();
-  const post = posts[0];
+  const post = latestPost(posts);
 
   if (!post) {
     return {
@@ -19,7 +19,7 @@ export const getServerSideProps = async () => {
 
   return {
     redirect: {
-      destination: getPostUrl(post.uuid, post.title),
+      destination: post.url,
       permanent: false,
     },
     props: {},

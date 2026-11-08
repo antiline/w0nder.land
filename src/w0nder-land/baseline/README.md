@@ -102,3 +102,19 @@ yarn test                  # baseline:check + 전체
 | `MOCCO_TIMEOUT_MS`, `MOCCO_CACHE_MS` | 10000, 60000 | 요청 타임아웃, 성공한 목록의 프로세스 내 캐시. 실패·빈 응답은 캐시하지 않는다. |
 
 모코 원천은 이관된 글의 원문 frontmatter + 본문을 파일 원천과 같은 함수(`postFromMarkdown`)로 읽는다. `yarn test:unit`이 82개 글을 가짜 `/v1` 응답으로 만들어 두 원천의 결과가 완전히 같은지 검사한다. 공개가 아닌 글, `legacyId` 없는 새 글(주소 규칙은 W4 #9), permalink 불일치, 타임아웃, 페이지 중간 실패는 모두 전체 실패다.
+
+## 글 주소 해석 (W4, #9)
+
+모든 글 주소 판정은 `src/libs/routing/post-routes.ts` 한 곳에 있다. 주소는 글의 permalink(`post.url`)에서 나오고, 현재 제목에서 다시 만들지 않는다.
+
+| 요청 | 판정 | HTTP·이동 |
+|---|---|---|
+| `/posts/{permalink}` | `permalink` | 200 |
+| permalink 를 한 번 더 인코딩한 주소 | `encodedAlias` | 200, 주소 유지 |
+| `/posts/{id}` | `bareId` | 200, hydration 뒤 `router.replace(permalink)` |
+| `/s/{code}` | `resolveShortCode` | 307 → permalink, 없으면 307 → `/posts` |
+| `/posts/latest` | `latestPost` | 307 → 최신 글 permalink |
+| `/posts/28626b62…`(+`-…`) | `isLegacyHardcodedSlug` (middleware) | 307 → `/posts/1` |
+| 그 밖 | `null` | 404 (깨진 인코딩은 Next 가 400) |
+
+파일 원천에서는 permalink 가 `/posts/{id}-{encodeURIComponent(title)}`라 이전 규칙과 판정이 같다(`yarn test:unit`이 manifest 의 모든 주소로 확인). 모코 원천에서는 처음 공개될 때 고정된 permalink 를 쓰므로 제목을 바꿔도 주소가 남는다.
