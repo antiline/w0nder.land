@@ -118,3 +118,13 @@ yarn test                  # baseline:check + 전체
 | 그 밖 | `null` | 404 (깨진 인코딩은 Next 가 400) |
 
 파일 원천에서는 permalink 가 `/posts/{id}-{encodeURIComponent(title)}`라 이전 규칙과 판정이 같다(`yarn test:unit`이 manifest 의 모든 주소로 확인). 모코 원천에서는 처음 공개될 때 고정된 permalink 를 쓰므로 제목을 바꿔도 주소가 남는다.
+
+## 홈 프로필 원천 (W5, #10)
+
+홈(소개)의 이름·소개·소셜·링크는 `SiteProfile` 하나로 들어온다(`src/server/site-profile-reader.ts`).
+
+- `SITE_PROFILE_SOURCE=file`(기본): `src/constants/common.ts` 상수. 지금 화면과 같다.
+- `SITE_PROFILE_SOURCE=mocco`: 모코 `/v1/blog/site`. 사이트 이름 → 이름, 사이트 description → 긴 소개, 첫 작가의 bio → 한 줄 소개, avatar → 프로필 이미지, `kind=social` 링크 → 아이콘 줄, 나머지 → 버튼. 순서는 배열 순서. 1분마다 ISR.
+- 모양(아이콘·색)은 원더랜드가 링크 `key` 로 정한다(`src/libs/site/link-style.ts`). 모르는 key 는 기본 모양.
+- 주소는 https·http·mailto·사이트 안 경로(`/…`, `//` 제외)만 통과한다(`safeHref`). 허용하지 않는 주소, 작가 없음, 이미지 없음이 하나라도 있으면 응답 전체를 거부한다. ISR 은 이전 페이지를 유지한다.
+- 기존 동작 기록: 공유 버튼 주소는 `/about` 이고 운영에서 `/` 로 307 한다. 이번 작업에서 바꾸지 않았다.
