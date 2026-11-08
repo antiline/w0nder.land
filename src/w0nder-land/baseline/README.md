@@ -50,17 +50,37 @@ node scripts/baseline/probe-urls.mjs http://localhost:3000 --expect
 
 - 대상: 홈 `/`, 목록 `/posts`, 상세 1개(정식 주소가 404라서 이중 인코딩 주소로 캡처)
 - 크기: PC 1440×900, 모바일 390×844, full-page 스크린샷
-- 캡처 바이너리는 저장소에 커밋하지 않는다. 비교가 필요할 때 아래 조건으로 다시 캡처하고 환경, SHA, 시각을 함께 남긴다.
+- 자동 비교는 `yarn test:visual`(Playwright, `tests/visual/`)이 한다. 기준 이미지는 `tests/__screenshots__/`에 플랫폼 접미사(`-darwin`)와 함께 커밋한다. 폰트 렌더가 OS마다 달라 다른 OS에서는 기준 이미지를 따로 만들어야 한다.
+- 시각 비교 중에는 같은 origin이 아닌 요청을 모두 막는다.
 - 비교할 때 제외하는 변동 요소:
   - AdSense 슬롯(`AdSenseAd`): 홈의 흰 박스 2개, 목록과 상세의 광고 영역. 크기와 위치만 비교하고 내용은 비교하지 않는다.
   - 외부 임베드: 글 5의 트위터 임베드, `<link-preview>`의 외부 이미지
   - 푸터의 연도(`© {현재 연도}`), RSS `pubDate`(요청 시각)
+
+## 테스트 (W2, #7)
+
+```sh
+yarn build                 # 또는 npx next build
+yarn test:legacy           # HTTP·이동·콘텐츠·보안 경계 (next start -p 3100 을 자동으로 띄운다)
+yarn test:visual           # PC·모바일 화면 비교
+BASE_URL=https://w0nder.land yarn test:legacy   # 운영 읽기 전용 확인 (시각·번들 검사는 건너뜀)
+yarn test                  # baseline:check + 전체
+```
+
+- URL 케이스는 `scripts/baseline/cases.mjs` 한 곳에서 정의하고 probe 스크립트와 테스트가 같이 쓴다. `kind: contract`는 보존·복구할 동작, `characterization`은 현재 동작의 기록이다.
+- 서버 리다이렉트(307)와 hydration 뒤 `router.replace`는 `tests/legacy/navigation.spec.ts`에서 따로 검사한다.
+- 알려진 결함은 `test.fail`로 표시하고 이슈를 단다(#20). 고치면 표시를 지운다.
+- 모코 연결 뒤 채울 보안 fixture(XSS·초안 노출·미리보기 캐시)는 `tests/legacy/security.spec.ts`에 `test.fixme`로 경계만 잡아 두었다.
 
 ## 무결성 점검에서 나온 사실
 
 - 글 82개, 폴더 ID에 하이픈 없음, 정식 주소·단축 주소 중복 없음, 본문의 로컬 파일 참조와 내부 링크 중 깨진 것 없음
 - 82개 글 전부 `authorProfile: /images/profile_image.jpg`인데 `public`에는 `.png`만 있다. 현재 UI 코드는 이 필드를 화면에 쓰지 않는다. DTO 필드라서 값은 그대로 보존한다.
 - `rel="canonical"` 태그는 어느 페이지에도 없다. 이 작업에서 새로 추가하지 않는다(SEO 개선은 별도 이슈).
+- 본문 이미지는 `next/image`를 거쳐 `/_next/image?url=<원본 경로>`로 렌더된다. 원본 경로도 200으로 응답한다.
+- alt가 빈 마크다운 이미지는 렌더되지 않는다. 글 1의 3장이 해당한다(#20).
+- 서버 HTML의 본문은 `.sr-only` 안의 원문 마크다운이고, 보이는 본문은 클라이언트(Tiptap)가 그린다. 크롤러는 원문을 보고, 보조기술은 원문과 렌더 결과를 둘 다 읽을 수 있다.
+- `src/constants/configure.ts`가 클라이언트와 공유되는 클래스라 서버 전용 환경변수 **이름**이 번들에 들어간다. 값은 인라인되지 않는다(NEXT_PUBLIC_ 아님). 모코 key 같은 새 비밀은 서버 전용 모듈에 둔다.
 
 ## 한계
 

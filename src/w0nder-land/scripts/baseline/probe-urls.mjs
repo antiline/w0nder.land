@@ -9,12 +9,13 @@
  * observed 는 그때의 사실이고 expected 는 "보존해야 할 정상 동작"이다. 둘을 섞지 않는다.
  * canonicalPath 의 expected 200 은 W10 복구 목표다(운영 관측은 404 였다).
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildCases, loadManifest, matchesExpected } from './cases.mjs';
 
 const appRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const manifest = JSON.parse(readFileSync(join(appRoot, 'baseline', 'legacy-content-manifest.json'), 'utf8'));
+const manifest = loadManifest(appRoot);
 
 const [base, ...rest] = process.argv.slice(2);
 if (!base) {
@@ -25,38 +26,7 @@ const expectMode = rest.includes('--expect');
 const outFile = rest.find(a => !a.startsWith('--'));
 const concurrency = Number((rest.find(a => a.startsWith('--concurrency=')) || '--concurrency=6').split('=')[1]);
 
-/** @type {{path:string, group:string, legacyId?:string, expected:{status:number, location?:string}}[]} */
-const cases = [];
-for (const a of manifest.articles) {
-  const r = a.routes;
-  const id = a.legacyId;
-  cases.push({ group: 'canonical', legacyId: id, path: r.canonicalPath, expected: { status: 200 } });
-  cases.push({ group: 'doubleEncodedAlias', legacyId: id, path: r.doubleEncodedPath, expected: { status: 200 } });
-  cases.push({ group: 'bareId', legacyId: id, path: r.bareIdPath, expected: { status: 200 } });
-  if (r.shortPath) cases.push({ group: 'short', legacyId: id, path: r.shortPath, expected: { status: 307, location: r.canonicalPath } });
-  // 쿼리 문자열은 글 판별에 영향을 주지 않아야 한다
-  cases.push({ group: 'canonicalWithQuery', legacyId: id, path: `${r.canonicalPath}?utm_source=baseline`, expected: { status: 200 } });
-}
-for (const s of manifest.siteRoutes) {
-  const expected = s.kind === 'redirect' ? { status: 307, location: s.expectedTarget } : { status: s.expectedStatus ?? 200 };
-  cases.push({ group: `site:${s.kind}`, path: s.path, expected });
-}
-// 임의 제목·없는 글·인코딩 오류는 유효한 글로 바뀌면 안 된다
-const first = manifest.articles[0];
-const invalid = [
-  `/posts/${first.legacyId}-__baseline_wrong_title__`,
-  `/posts/${first.legacyId}-${encodeURIComponent('잘못된 제목')}`,
-  '/posts/999999',
-  '/posts/999999-anything',
-  `/posts/${first.legacyId}-%E0%A4%A`, // 깨진 퍼센트 인코딩
-  `/posts/${first.legacyId}-..%2F..%2Fetc%2Fpasswd`,
-  `/posts/${encodeURIComponent(encodeURIComponent(first.routes.canonicalPath.slice(7)))}`, // 삼중 인코딩
-];
-// 400(디코딩 거부)도 안전한 거부로 본다
-for (const path of invalid) cases.push({ group: 'invalid', path, expected: { status: [404, 400] } });
-for (const f of manifest.staticFiles) cases.push({ group: 'static', path: encodeURI(f.publicPath), expected: { status: 200 } });
-for (const a of manifest.articles)
-  for (const f of a.assets) cases.push({ group: 'articleAsset', legacyId: a.legacyId, path: encodeURI(f.publicPath), expected: { status: 200 } });
+const cases = buildCases(manifest);
 
 async function request(method, path) {
   const started = Date.now();
@@ -89,16 +59,6 @@ async function request(method, path) {
   }
 }
 
-const normalizeLocation = loc => {
-  if (!loc) return loc;
-  try {
-    const u = new URL(loc, base);
-    return u.origin === new URL(base).origin ? `${u.pathname}${u.search}` : loc;
-  } catch {
-    return loc;
-  }
-};
-
 const results = new Array(cases.length);
 let cursor = 0;
 await Promise.all(
@@ -107,8 +67,7 @@ await Promise.all(
       const i = cursor++;
       const c = cases[i];
       const [get, head] = await Promise.all([request('GET', c.path), request('HEAD', c.path)]);
-      const pass = r =>
-        [c.expected.status].flat().includes(r.status) && (c.expected.location === undefined || normalizeLocation(r.location) === c.expected.location);
+      const pass = r => matchesExpected(c, r.status, r.location, base);
       results[i] = { ...c, observed: { get, head }, matchesExpected: { get: pass(get), head: pass(head) } };
     }
   }),
@@ -131,7 +90,7 @@ const report = {
   manifestGit: manifest.source.git,
   method: 'fetch GET+HEAD, redirect:manual. 브라우저 클라이언트 이동(router.replace)은 포함하지 않는다.',
   summary,
-  failures: failures.map(f => ({ group: f.group, path: f.path, expected: f.expected, get: f.observed.get.status, head: f.observed.head.status, location: f.observed.get.location })),
+  failures: failures.map(f => ({ group: f.group, kind: f.kind, path: f.path, expected: f.expected, get: f.observed.get.status, head: f.observed.head.status, location: f.observed.get.location })),
   results,
 };
 
