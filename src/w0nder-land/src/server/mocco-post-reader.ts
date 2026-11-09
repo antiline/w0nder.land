@@ -12,29 +12,26 @@
  *   모코는 permalink 를 디코딩된 경로로 준다. `/posts/` 뒤를 encodeURIComponent 로 인코딩해 href 를 만든다.
  *   기존 주소는 `/posts/{id}-{encodeURIComponent(제목)}` 이었으므로 같은 문자열이 나온다.
  * - legacyId 가 없는 새 글은 단축 주소·bare ID 규칙이 아직 없다. 조용히 빼지 않고 오류로 알린다.
- * - 타임아웃·HTTP 오류·페이지 중간 실패는 전체 실패다. 부분 결과를 돌려주지 않는다.
+ * - 타임아웃·HTTP 오류·페이지 중간 실패·형식이 틀린 응답(mocco-wire)은 전체 실패다. 부분 결과를 돌려주지 않는다.
+ * - 목록과 상세가 서로 맞지 않거나(id·legacyId), 같은 legacyId 가 두 번 나오면 거부한다.
+ * - 동시에 들어온 요청은 진행 중인 읽기 하나를 같이 기다린다(캐시가 비었을 때 모코에 같은 요청이 몰리지 않게).
  * - 성공한 목록만 짧게 캐시한다. 실패나 빈 응답을 "글이 삭제됨"으로 캐시하지 않는다.
  */
+import type { z } from 'zod';
 import type { Post } from '@/repository/post-types';
 import { postFromMarkdown, sortPostsForList } from '@/repository/post-markdown';
 import { MoccoReadError } from '@/server/mocco-read-error';
+import {
+  type MoccoPostDetail,
+  type MoccoPostSummary,
+  moccoPostDetailSchema,
+  moccoPostListSchema,
+  parseWire,
+} from '@/server/mocco-wire';
 
 export { MoccoReadError } from '@/server/mocco-read-error';
 
-export type MoccoPostSummary = {
-  id: string;
-  legacyId: string | null;
-  status: 'public';
-};
-
-export type MoccoPostDetail = MoccoPostSummary & {
-  /** 디코딩된 경로(예: `/posts/12-한글 제목`). 모코는 경로를 디코딩된 채로 저장·반환한다. */
-  permalink: string;
-  /** 이관된 글의 원문 frontmatter(구분선 포함). 원문 그대로다. */
-  frontmatter: string | null;
-  /** 본문 마크다운. frontmatter + bodyMd 가 원래 파일과 바이트 단위로 같다. */
-  bodyMd: string;
-};
+export type { MoccoPostDetail, MoccoPostSummary } from '@/server/mocco-wire';
 
 const POSTS_PREFIX = '/posts/';
 
@@ -73,13 +70,15 @@ export function moccoConfigFromEnv(env: NodeJS.ProcessEnv): MoccoConfig {
 export class MoccoPostReader {
   private cache?: { at: number; posts: Post[] };
 
+  private inflight?: Promise<Post[]>;
+
   constructor(private readonly config: MoccoConfig) {}
 
   private now() {
     return this.config.now?.() ?? Date.now();
   }
 
-  private async get<T>(path: string): Promise<T> {
+  private async get<T>(path: string, schema: z.ZodType<T>): Promise<T> {
     const doFetch = this.config.fetch ?? fetch;
     let res: Response;
     try {
@@ -93,7 +92,13 @@ export class MoccoPostReader {
     if (!res.ok) {
       throw new MoccoReadError(`${path} → HTTP ${res.status}`);
     }
-    return (await res.json()) as T;
+    let body: unknown;
+    try {
+      body = await res.json();
+    } catch {
+      throw new MoccoReadError(`${path} 응답이 JSON 이 아니다`);
+    }
+    return parseWire(schema, body, path);
   }
 
   private async listSummaries(): Promise<MoccoPostSummary[]> {
@@ -102,7 +107,7 @@ export class MoccoPostReader {
     do {
       const query: string = `?limit=${this.config.pageSize}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
       // eslint-disable-next-line no-await-in-loop -- 커서는 앞 페이지 응답에서만 나온다
-      const page: { items: MoccoPostSummary[]; nextCursor: string | null } = await this.get(`/v1/blog/posts${query}`);
+      const page = await this.get(`/v1/blog/posts${query}`, moccoPostListSchema);
       items.push(...page.items);
       cursor = page.nextCursor;
     } while (cursor);
@@ -117,7 +122,11 @@ export class MoccoPostReader {
         const i = next;
         next += 1;
         // eslint-disable-next-line no-await-in-loop -- 동시 요청 수를 config.concurrency 로 묶는다
-        out[i] = await this.get<MoccoPostDetail>(`/v1/blog/posts/${encodeURIComponent(ids[i]!)}`);
+        const detail = await this.get(`/v1/blog/posts/${encodeURIComponent(ids[i]!)}`, moccoPostDetailSchema);
+        if (detail.id !== ids[i]) {
+          throw new MoccoReadError(`상세 응답의 id 가 요청과 다르다: ${ids[i]} → ${detail.id}`);
+        }
+        out[i] = detail;
       }
     };
     await Promise.all(Array.from({ length: Math.min(this.config.concurrency, ids.length) }, worker));
@@ -128,7 +137,13 @@ export class MoccoPostReader {
     if (this.cache && this.now() - this.cache.at < this.config.cacheMs) {
       return this.cache.posts;
     }
+    this.inflight ??= this.read().finally(() => {
+      this.inflight = undefined;
+    });
+    return this.inflight;
+  }
 
+  private async read(): Promise<Post[]> {
     const summaries = await this.listSummaries();
     const notPublic = summaries.filter(s => s.status !== 'public');
     if (notPublic.length) {
@@ -141,8 +156,17 @@ export class MoccoPostReader {
       );
     }
 
+    const legacyIds = summaries.map(s => s.legacyId!);
+    const duplicated = legacyIds.filter((id, i) => legacyIds.indexOf(id) !== i);
+    if (duplicated.length) {
+      throw new MoccoReadError(`같은 legacyId 가 여러 글에 있다: ${Array.from(new Set(duplicated)).join(',')}`);
+    }
+
     const details = await this.details(summaries.map(s => s.id));
-    const posts = details.map(d => {
+    const posts = details.map((d, i) => {
+      if (d.legacyId !== summaries[i]!.legacyId) {
+        throw new MoccoReadError(`목록과 상세의 legacyId 가 다르다: ${d.id}`);
+      }
       if (d.status !== 'public') {
         throw new MoccoReadError(`공개가 아닌 글: ${d.id}`);
       }

@@ -77,5 +77,10 @@ test('모코가 실패하면 오류를 던지고 상수로 대체하지 않는�
     return Response.json(sameAsConstants);
   }) as unknown as typeof fetch;
   expect(await readMoccoSiteProfile({ ...config, fetch: ok })).toEqual(fileSiteProfile());
+  // 형식이 틀린 응답(이름이 숫자, JSON 아님)도 오류다.
+  const malformed = (async () => Response.json({ ...sameAsConstants, name: 1 })) as unknown as typeof fetch;
+  await expect(readMoccoSiteProfile({ ...config, fetch: malformed })).rejects.toThrow(/형식이 틀렸다 — name/);
+  const notJson = (async () => new Response('<html>')) as unknown as typeof fetch;
+  await expect(readMoccoSiteProfile({ ...config, fetch: notJson })).rejects.toThrow(MoccoReadError);
   expect(() => siteProfileSourceFromEnv({ SITE_PROFILE_SOURCE: 'x' } as unknown as NodeJS.ProcessEnv)).toThrow();
 });
