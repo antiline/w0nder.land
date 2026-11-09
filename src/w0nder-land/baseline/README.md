@@ -124,7 +124,39 @@ yarn test                  # baseline:check + 전체
 홈(소개)의 이름·소개·소셜·링크는 `SiteProfile` 하나로 들어온다(`src/server/site-profile-reader.ts`).
 
 - `SITE_PROFILE_SOURCE=file`(기본): `src/constants/common.ts` 상수. 지금 화면과 같다.
-- `SITE_PROFILE_SOURCE=mocco`: 모코 `/v1/blog/site`. 사이트 이름 → 이름, 사이트 description → 긴 소개, 첫 작가의 bio → 한 줄 소개, avatar → 프로필 이미지, `kind=social` 링크 → 아이콘 줄, 나머지 → 버튼. 순서는 배열 순서. 1분마다 ISR.
+- `SITE_PROFILE_SOURCE=mocco`: 모코 `/v1/blog/site`. 사이트 이름 → 이름, 사이트 description → 긴 소개, 첫 작가의 bio → 한 줄 소개, avatar → 프로필 이미지, `kind=social` 링크 → 아이콘 줄, 나머지 → 버튼. 순서는 배열 순서. 원천과 무관하게 1분마다 ISR(아래 "원천 전환과 롤백").
 - 모양(아이콘·색)은 원더랜드가 링크 `key` 로 정한다(`src/libs/site/link-style.ts`). 모르는 key 는 기본 모양.
 - 주소는 https·http·mailto·사이트 안 경로(`/…`, `//` 제외)만 통과한다(`safeHref`). 허용하지 않는 주소, 작가 없음, 이미지 없음이 하나라도 있으면 응답 전체를 거부한다. ISR 은 이전 페이지를 유지한다.
 - 기존 동작 기록: 공유 버튼 주소는 `/about` 이고 운영에서 `/` 로 307 한다. 이번 작업에서 바꾸지 않았다.
+
+## 원천 전환과 롤백 (W9, #14)
+
+### 재생성과 실패 시 동작
+
+이미지 빌드에는 런타임 env 가 없어 `getStaticProps` 는 빌드 때 늘 파일 원천으로 돈다. 그래서 홈·목록·상세는 원천과 무관하게 60초마다 재생성한다(`src/server/revalidate.ts`). 없는 글 주소(404)도 같은 주기로 다시 확인한다.
+
+| 모코 상태 | 홈·목록·상세(ISR) | rss·sitemap·latest·`/s/*` | 빌드에 없던 글 주소 |
+|---|---|---|---|
+| 정상 | 한 주기(+모코 캐시 1분) 안에 반영 | 반영 | 200 |
+| 500·타임아웃·형식이 틀린 응답 | 마지막 정상 페이지 유지 | 500 | 500(404 를 캐시하지 않음) |
+| 글이 목록에서 빠짐 | 404·sitemap 제외. 돌아오면 다음 주기에 200 | 반영 | — |
+
+형식 검사는 `src/server/mocco-wire.ts`. 같은 시점에 들어온 읽기는 하나로 묶는다.
+
+### 롤백: 모코 → 파일 되돌려 쓰기
+
+정본이 모코로 바뀐 뒤 `POSTS_SOURCE=file` 로 돌아가기만 하면, 그 사이 모코에서 생긴 수정·새 글이 화면에서 사라진다. 이것은 복구가 아니다. 먼저 모코 내용을 파일로 옮긴다.
+
+```sh
+# 대조(읽기 전용). 차이가 있으면 exit 1
+MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs
+# 바뀐 글·새 글을 public/posts 에 쓴다(지우지는 않는다) → 커밋 → 대조가 exit 0 인지 확인
+MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs --write
+```
+
+- `post.md` = 모코 `frontmatter + bodyMd`. sha256 으로 대조한다.
+- 모코에 없는 파일 글(`notInMocco`)은 지우지 않고 보고만 한다. 비공개 전환인지 사고인지 사람이 판단한다.
+- `legacyId` 없는 새 글, 로컬에 없거나 해시가 다른 자산은 되돌릴 수 없어 exit 1 이다. `/v1` 은 자산 바이트를 주지 않는다.
+- 2026-11-09 운영 모코 대조: 글 82 같음, 자산 32 같음, 차이 0.
+
+순서: ① 대조·`--write`·커밋·배포 ② 대조 exit 0 확인 ③ `POSTS_SOURCE` 를 지운다(기본 file) ④ legacy 스위트·URL 관측으로 확인.
