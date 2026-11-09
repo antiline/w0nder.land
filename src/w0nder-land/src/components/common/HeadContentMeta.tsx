@@ -1,4 +1,5 @@
 import { Configure } from '@/constants/configure';
+import { jsonForScript } from '@/libs/site/json-for-script';
 import { beUnique } from '@/libs/utils/array';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -38,7 +39,7 @@ export const HeadContentMeta = ({
     const keywords = ['developer', 'programming', 'w0nder', 'w0nder.land'];
 
     return {
-      __html: JSON.stringify([
+      __html: jsonForScript([
         structuredData
           ? {
               ...structuredData,
