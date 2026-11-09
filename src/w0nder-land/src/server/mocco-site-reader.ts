@@ -7,28 +7,16 @@
  * 대응: 사이트 이름 → name, 사이트 description → 긴 소개, 첫 작가의 bio → 한 줄 소개, 첫 작가의 avatar → 프로필 이미지.
  * 사이트 links 중 kind=social 은 아이콘 줄, 나머지는 버튼 목록. 순서는 배열 순서다.
  *
- * 규칙: 공개 필드만 쓴다. 작가가 없거나, 이미지가 없거나, 허용하지 않는 주소(`safeHref`)가 하나라도 있으면
+ * 규칙: 공개 필드만 쓴다. 형식이 틀린 응답은 거부한다(mocco-wire). 작가가 없거나, 이미지가 없거나, 허용하지 않는 주소(`safeHref`)가 하나라도 있으면
  * 전체를 거부한다(fail closed). 일부만 조용히 빼서 화면을 바꾸지 않는다. ISR 은 실패하면 이전 페이지를 유지한다.
  */
 import { safeHref } from '@/libs/site/safe-href';
 import type { ProfileLink, SiteProfile } from '@/repository/site-profile-types';
 import type { MoccoConfig } from '@/server/mocco-post-reader';
 import { MoccoReadError } from '@/server/mocco-read-error';
+import { type MoccoLink, type MoccoSite, moccoSiteSchema, parseWire } from '@/server/mocco-wire';
 
-export type MoccoLink = {
-  label: string;
-  url: string;
-  key?: string | null;
-  kind?: 'social' | 'link';
-  description?: string | null;
-};
-
-export type MoccoSite = {
-  name: string;
-  description: string;
-  links: MoccoLink[];
-  authors: { displayName: string; bio: string; avatar: string | null; links: MoccoLink[] }[];
-};
+export type { MoccoLink, MoccoSite } from '@/server/mocco-wire';
 
 function profileLinkOf(link: MoccoLink): ProfileLink {
   const url = safeHref(link.url);
@@ -75,5 +63,11 @@ export async function readMoccoSiteProfile(config: MoccoConfig): Promise<SitePro
   if (!res.ok) {
     throw new MoccoReadError(`/v1/blog/site → HTTP ${res.status}`);
   }
-  return siteProfileOf((await res.json()) as MoccoSite);
+  let body: unknown;
+  try {
+    body = await res.json();
+  } catch {
+    throw new MoccoReadError('/v1/blog/site 응답이 JSON 이 아니다');
+  }
+  return siteProfileOf(parseWire(moccoSiteSchema, body, '/v1/blog/site'));
 }

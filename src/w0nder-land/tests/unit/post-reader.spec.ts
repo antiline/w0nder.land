@@ -111,6 +111,78 @@ test('공개가 아닌 글, legacyId 없는 글, 형식이 틀린 permalink 는 
   }
 });
 
+test('형식이 틀린 응답은 전체 실패다: 본문이 문자열이 아님, 필드 없음, 커서 타입, JSON 아님', async () => {
+  const detailCases: ((d: MoccoPostDetail) => MoccoPostDetail)[] = [
+    d => (d.legacyId === '80' ? ({ ...d, bodyMd: 123 } as unknown as MoccoPostDetail) : d),
+    d => (d.legacyId === '80' ? ({ ...d, permalink: undefined } as unknown as MoccoPostDetail) : d),
+  ];
+  for (const details of detailCases) {
+    const { fetchFn } = fakeMocco({ details });
+    await expect(new MoccoPostReader(config(fetchFn)).listPublished()).rejects.toThrow(/형식이 틀렸다/);
+  }
+  const badCursor = (async () => Response.json({ items: [], nextCursor: 3 })) as unknown as typeof fetch;
+  await expect(new MoccoPostReader(config(badCursor)).listPublished()).rejects.toThrow(/nextCursor/);
+  const notJson = (async () => new Response('<html>')) as unknown as typeof fetch;
+  await expect(new MoccoPostReader(config(notJson)).listPublished()).rejects.toThrow(/JSON 이 아니다/);
+});
+
+test('목록과 상세가 맞지 않거나 legacyId 가 겹치면 거부한다', async () => {
+  // 상세 응답만 바꾼다(목록은 그대로).
+  const detailOnly = (change: (d: MoccoPostDetail) => MoccoPostDetail) => {
+    const { fetchFn } = fakeMocco();
+    return (async (url: string, init: RequestInit) => {
+      const res = await fetchFn(url, init);
+      if (!/\/v1\/blog\/posts\/[^/?]+$/.test(new URL(url).pathname)) {
+        return res;
+      }
+      const d = (await res.json()) as MoccoPostDetail;
+      return Response.json(d.legacyId === '3' ? change(d) : d);
+    }) as unknown as typeof fetch;
+  };
+  for (const change of [
+    (d: MoccoPostDetail) => ({ ...d, id: 'other' }),
+    (d: MoccoPostDetail) => ({ ...d, legacyId: '4' }),
+  ]) {
+    await expect(new MoccoPostReader(config(detailOnly(change))).listPublished()).rejects.toBeInstanceOf(
+      MoccoReadError,
+    );
+  }
+  const twice = (async (url: string) =>
+    url.includes('/v1/blog/posts?')
+      ? Response.json({
+          items: [
+            { id: 'a', legacyId: '1', status: 'public' },
+            { id: 'b', legacyId: '1', status: 'public' },
+          ],
+          nextCursor: null,
+        })
+      : new Response('unexpected', { status: 500 })) as unknown as typeof fetch;
+  await expect(new MoccoPostReader(config(twice)).listPublished()).rejects.toThrow(/같은 legacyId/);
+});
+
+test('동시에 들어온 요청은 진행 중인 읽기 하나를 같이 기다린다', async () => {
+  const one = fakeMocco();
+  await new MoccoPostReader(config(one.fetchFn)).listPublished();
+  const callsForOneRead = one.calls.length;
+
+  const many = fakeMocco();
+  const reader = new MoccoPostReader(config(many.fetchFn));
+  const results = await Promise.all([reader.listPublished(), reader.listPublished(), reader.listPublished()]);
+  expect(many.calls.length).toBe(callsForOneRead);
+  expect(results[1]).toBe(results[0]);
+
+  // 실패한 읽기는 다음 요청이 다시 시도한다.
+  const bad = fakeMocco({ failPath: /limit=/ });
+  const failing = new MoccoPostReader(config(bad.fetchFn));
+  await Promise.all([
+    expect(failing.listPublished()).rejects.toBeInstanceOf(MoccoReadError),
+    expect(failing.listPublished()).rejects.toBeInstanceOf(MoccoReadError),
+  ]);
+  expect(bad.calls.length).toBe(1);
+  await expect(failing.listPublished()).rejects.toBeInstanceOf(MoccoReadError);
+  expect(bad.calls.length).toBe(2);
+});
+
 test('타임아웃은 오류다', async () => {
   const hang = (async (_url: string, init: RequestInit) =>
     new Promise((_, reject) => {
