@@ -7,7 +7,8 @@ import { Configure } from '@/constants/configure';
 import { linkStyleOf, socialStyleOf } from '@/libs/site/link-style';
 import { isExternalHref } from '@/libs/site/safe-href';
 import type { SiteProfile } from '@/repository/site-profile-types';
-import { readSiteProfile, siteProfileSourceFromEnv } from '@/server/site-profile-reader';
+import { readSiteProfile } from '@/server/site-profile-reader';
+import { CONTENT_REVALIDATE_SECONDS } from '@/server/revalidate';
 import { ExternalLink } from 'lucide-react';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
@@ -199,8 +200,8 @@ const AboutPage = ({ profile }: AboutPageProps) => {
 
 export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
   const profile = await readSiteProfile();
-  // 모코 원천이면 1분마다 다시 만든다. 실패하면 Next 가 이전 페이지를 유지한다.
-  return { props: { profile }, revalidate: siteProfileSourceFromEnv() === 'mocco' ? 60 : false };
+  // 원천과 무관하게 주기적으로 다시 만든다(이유는 server/revalidate). 실패하면 Next 가 이전 페이지를 유지한다.
+  return { props: { profile }, revalidate: CONTENT_REVALIDATE_SECONDS };
 };
 
 export default AboutPage;

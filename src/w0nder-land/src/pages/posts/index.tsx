@@ -8,6 +8,7 @@ import { Configure } from '@/constants/configure';
 import { generateCategories, getCategoryColor, getCategoryName } from '@/libs/utils/category';
 import type { Post } from '@/repository/post-types';
 import { postReader } from '@/server/post-reader';
+import { CONTENT_REVALIDATE_SECONDS } from '@/server/revalidate';
 import { DateTime } from 'luxon';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -171,5 +172,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { posts },
+    revalidate: CONTENT_REVALIDATE_SECONDS,
   };
 };
