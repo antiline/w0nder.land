@@ -8,6 +8,7 @@ import { ellipsis } from '@/libs/utils/string';
 import { resolvePostSlug, routeParamOf } from '@/libs/routing/post-routes';
 import type { Post } from '@/repository/post-types';
 import { postReader } from '@/server/post-reader';
+import { CONTENT_REVALIDATE_SECONDS } from '@/server/revalidate';
 import { DateTime } from 'luxon';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -181,12 +182,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = (params?.slug as string) ?? '';
   const resolved = resolvePostSlug(slug, await postReader().listPublished());
 
+  // 없는 주소도 주기적으로 다시 확인한다. 나중에 공개된 글이 404 로 굳지 않게 한다.
   if (!resolved) {
-    return { notFound: true };
+    return { notFound: true, revalidate: CONTENT_REVALIDATE_SECONDS };
   }
 
   return {
     props: { post: resolved.post },
+    revalidate: CONTENT_REVALIDATE_SECONDS,
   };
 };
 
