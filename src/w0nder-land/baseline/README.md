@@ -101,7 +101,7 @@ yarn test                  # baseline:check + 전체
 | `MOCCO_API_URL`, `MOCCO_BLOG_READ_KEY` | | 모코 원천·shadow에 필요하다. 서버 모듈(`src/server/`)에서만 읽는다. |
 | `MOCCO_TIMEOUT_MS`, `MOCCO_CACHE_MS` | 10000, 60000 | 요청 타임아웃, 성공한 목록의 프로세스 내 캐시. 실패·빈 응답은 캐시하지 않는다. |
 
-모코 원천은 이관된 글의 원문 frontmatter + 본문을 파일 원천과 같은 함수(`postFromMarkdown`)로 읽는다. `yarn test:unit`이 82개 글을 가짜 `/v1` 응답으로 만들어 두 원천의 결과가 완전히 같은지 검사한다. 공개가 아닌 글, `legacyId` 없는 새 글(주소 규칙은 W4 #9), permalink 불일치, 타임아웃, 페이지 중간 실패는 모두 전체 실패다.
+모코 원천은 이관된 글의 원문 frontmatter + 본문을 파일 원천과 같은 함수(`postFromMarkdown`)로 읽는다. `yarn test:unit`이 82개 글을 가짜 `/v1` 응답으로 만들어 두 원천의 결과가 완전히 같은지 검사한다. 신규 글은 공개 API의 제목·날짜·작가와 고정 permalink로 읽는다. 공개가 아닌 글, 공개 메타데이터 누락, permalink 불일치, 반복 커서, 타임아웃, 페이지 중간 실패는 모두 전체 실패다.
 
 ## 글 주소 해석 (W4, #9)
 
@@ -156,7 +156,16 @@ MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs --write
 
 - `post.md` = 모코 `frontmatter + bodyMd`. sha256 으로 대조한다.
 - 모코에 없는 파일 글(`notInMocco`)은 지우지 않고 보고만 한다. 비공개 전환인지 사고인지 사람이 판단한다.
-- `legacyId` 없는 새 글, 로컬에 없거나 해시가 다른 자산은 되돌릴 수 없어 exit 1 이다. `/v1` 은 자산 바이트를 주지 않는다.
+- 신규 글은 UUID 폴더에 명시적인 고정 주소(`moccoPermalink`)와 공개 메타데이터를 저장한다. 제목이 바뀌어도 원래 주소를 유지한다. 이관된 글은 기존 바이트를 그대로 쓴다.
+- 로컬에 없거나 해시가 다른 자산은 되돌릴 수 없어 exit 1 이다. `/v1` 은 자산 바이트를 주지 않는다. 모든 글·자산 검사 후에만 파일을 쓰므로 중간 실패 시 일부 글만 덮어쓰지 않는다.
 - 2026-11-09 운영 모코 대조: 글 82 같음, 자산 32 같음, 차이 0.
 
 순서: ① 대조·`--write`·커밋·배포 ② 대조 exit 0 확인 ③ `POSTS_SOURCE` 를 지운다(기본 file) ④ legacy 스위트·URL 관측으로 확인.
+
+## 선택적 허브 화면
+
+기본값에서는 새 경로가404이며 기존 홈·목록·본문에 링크를 추가하지 않는다. 런타임에서 `HUB_ENABLED=true`이면 `/hub`의 제목·본문·태그 검색을 켠다. 검색어와 카테고리는 URL에 남는다. `HUB_SERIES_ENABLED=true`와 `POSTS_SOURCE=mocco`를 함께 쓰면 새 공개 연재 API로 목차를 읽는다. 연재의 글은 기존 고정 주소로 연결하며 초안·비공개 글은 받지 않는다. 컬렉션은 현재 M1공개 계약에 없으므로 별도 모델을 만들지 않았다.
+
+`NEWSLETTER_ENABLED=true`, `MOCCO_API_URL`, `MOCCO_NEWSLETTER_KEY`를 설정하면 `/subscribe`를 켠다. 키는 같은 발행물의 `newsletter:subscribe`범위인 `mk_pub_…`만 사용하고 프로젝트의 허용 웹 origin을 설정한다. 서버 read key는 브라우저로 보내지 않는다. 확인·해지는 Mocco M6의 서명 링크가 담당하며 GET은 확인만 한다. 실메일·운영 노출은 별도 출시 결정으로 남긴다.
+
+검증: `yarn test:hub`는 합성 API만 사용해 데스크톱·모바일의 게이트, 검색, 구독 오류·중복 제출, JS없는 폼의 이메일 URL유출 방지, 연재·신규 글의 고정 주소를 검사한다. 다른 글 원천을 쓰는 서버는 ISR캐시를 별도 복사해 서로 섞이지 않게 한다. 기존 회귀 검사는 오래된 서버를 자동 재사용하지 않는다.3100이 사용 중이면 `PLAYWRIGHT_PORT=3170 yarn test:legacy`처럼 별도 포트를 쓴다. 운영 읽기 검사는 기존 `BASE_URL`방식을 유지한다.

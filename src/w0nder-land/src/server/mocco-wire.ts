@@ -26,6 +26,28 @@ export const moccoPostDetailSchema = moccoPostSummarySchema.extend({
   /** 원문 frontmatter(구분선 포함) 또는 null. */
   frontmatter: z.string().nullable(),
   bodyMd: z.string(),
+  title: z.string().optional(),
+  category: z.string().nullable().optional(),
+  tags: z.array(z.string()).optional(),
+  createdAtText: z.string().nullable().optional(),
+  updatedAtText: z.string().nullable().optional(),
+  firstMadePublicAt: z.string().datetime().optional(),
+  author: z.object({ displayName: z.string(), avatar: z.string().nullable() }).nullable().optional(),
+  aliases: z.array(z.object({ path: z.string(), kind: z.string() })).optional(),
+});
+
+/** 이관 파일이 없는 신규 글에는 /v1 공개 메타데이터가 반드시 있어야 한다. */
+export const moccoNativePostSchema = moccoPostDetailSchema.extend({
+  id: z.string().uuid(),
+  legacyId: z.null(),
+  title: z.string().min(1),
+  category: z.string().nullable(),
+  tags: z.array(z.string()),
+  createdAtText: z.string().nullable(),
+  updatedAtText: z.string().nullable(),
+  firstMadePublicAt: z.string().datetime(),
+  author: z.object({ displayName: z.string(), avatar: z.string().nullable() }).nullable(),
+  aliases: z.array(z.object({ path: z.string(), kind: z.string() })),
 });
 
 export const moccoLinkSchema = z.object({
