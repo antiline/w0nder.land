@@ -154,9 +154,9 @@ MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs
 MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs --write
 ```
 
-- `post.md` = 모코 `frontmatter + bodyMd`. sha256 으로 대조한다.
+- 이관된 글의 `post.md`는 모코 `frontmatter + bodyMd` 원문이며, sha256으로 대조한다.
 - 모코에 없는 파일 글(`notInMocco`)은 지우지 않고 보고만 한다. 비공개 전환인지 사고인지 사람이 판단한다.
-- 신규 글은 UUID 폴더에 명시적인 고정 주소(`moccoPermalink`)와 공개 메타데이터를 저장한다. 제목이 바뀌어도 원래 주소를 유지한다. 이관된 글은 기존 바이트를 그대로 쓴다.
+- 신규 글은 UUID 폴더에 고정 주소(`moccoPermalink`)와 공개 메타데이터를 새 frontmatter로 작성하고 `bodyMd`를 그대로 보존한다. 제목이 바뀌어도 원래 주소를 유지한다. 이관된 글은 기존 바이트를 그대로 쓴다.
 - 로컬에 없거나 해시가 다른 자산은 되돌릴 수 없어 exit 1 이다. `/v1` 은 자산 바이트를 주지 않는다. 모든 글·자산 검사 후에만 파일을 쓰므로 중간 실패 시 일부 글만 덮어쓰지 않는다.
 - 2026-11-09 운영 모코 대조: 글 82 같음, 자산 32 같음, 차이 0.
 
