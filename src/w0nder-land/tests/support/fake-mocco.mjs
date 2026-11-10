@@ -18,7 +18,15 @@ const post = {
   author: { displayName: '테스트 작성자', avatar: '/images/profile_image.png' },
   aliases: [],
 };
-const series = { id, title: '테스트 연재', slug: 'synthetic-series', status: 'ongoing', postCount: 1 };
+const nextPost = {
+  ...post,
+  id: 'df5b7a98-6de0-452b-b4bc-d14a5fb3d744',
+  title: '두 번째 새 글',
+  permalink: '/posts/두 번째 고정 주소',
+  firstMadePublicAt: '2026-11-10T01:00:00.000Z',
+};
+const posts = [post, nextPost];
+const series = { id, title: '테스트 연재', slug: 'synthetic-series', status: 'ongoing', postCount: 2 };
 const server = createServer((request, response) => {
   response.setHeader('content-type', 'application/json');
   if (request.url === '/ready') {
@@ -31,13 +39,18 @@ const server = createServer((request, response) => {
   }
   const path = new URL(request.url, 'http://localhost').pathname;
   if (path === '/v1/blog/posts') {
-    response.end(JSON.stringify({ items: [{ id, legacyId: null, status: 'public' }], nextCursor: null }));
-  } else if (path === `/v1/blog/posts/${id}`) {
-    response.end(JSON.stringify(post));
+    response.end(
+      JSON.stringify({
+        items: posts.map(value => ({ id: value.id, legacyId: null, status: 'public' })),
+        nextCursor: null,
+      }),
+    );
+  } else if (posts.some(value => path === `/v1/blog/posts/${value.id}`)) {
+    response.end(JSON.stringify(posts.find(value => path === `/v1/blog/posts/${value.id}`)));
   } else if (path === '/v1/blog/series') {
     response.end(JSON.stringify({ items: [series], nextCursor: null }));
   } else if (path === `/v1/blog/series/${id}`) {
-    response.end(JSON.stringify({ ...series, posts: [post] }));
+    response.end(JSON.stringify({ ...series, posts }));
   } else {
     response.writeHead(404).end('{}');
   }

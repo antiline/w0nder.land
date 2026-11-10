@@ -53,11 +53,9 @@ const PostPage = ({ post }: PostProps) => {
   }, [post?.article]);
 
   const shareUrl = useMemo(() => {
-    if (post?.shortUrl) {
-      return `${Configure.ServiceUrl}${post.shortUrl}`;
-    }
-    return typeof window !== 'undefined' ? window.location.href : '';
-  }, [post?.shortUrl]);
+    const path = post?.shortUrl || post?.url;
+    return path ? `${Configure.ServiceUrl}${path}` : '';
+  }, [post?.shortUrl, post?.url]);
 
   const structuredData: WithContext<BlogPosting> | undefined = useMemo(
     () =>
