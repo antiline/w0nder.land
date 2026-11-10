@@ -164,8 +164,8 @@ MOCCO_API_URL=… MOCCO_BLOG_READ_KEY=… node scripts/mocco-export.mjs --write
 
 ## 선택적 허브 화면
 
-기본값에서는 새 경로가404이며 기존 홈·목록·본문에 링크를 추가하지 않는다. 런타임에서 `HUB_ENABLED=true`이면 `/hub`의 제목·본문·태그 검색을 켠다. 검색어와 카테고리는 URL에 남는다. `HUB_SERIES_ENABLED=true`와 `POSTS_SOURCE=mocco`를 함께 쓰면 새 공개 연재 API로 목차를 읽는다. 연재의 글은 기존 고정 주소로 연결하며 초안·비공개 글은 받지 않는다. 컬렉션은 현재 M1공개 계약에 없으므로 별도 모델을 만들지 않았다.
+기본값에서는 새 경로가 404이며 기존 홈·목록·본문에 링크를 추가하지 않는다. 런타임에서 `HUB_ENABLED=true`이면 `/hub`의 제목·본문·태그 검색을 켠다. 검색어와 카테고리는 URL에 남는다. `HUB_SERIES_ENABLED=true`와 `POSTS_SOURCE=mocco`를 함께 쓰면 새 공개 연재 API로 목차를 읽는다. 연재의 글은 기존 고정 주소로 연결하며 초안·비공개 글은 받지 않는다. 컬렉션은 현재 M1 공개 계약에 없으므로 별도 모델을 만들지 않았다.
 
-`NEWSLETTER_ENABLED=true`, `MOCCO_API_URL`, `MOCCO_NEWSLETTER_KEY`를 설정하면 `/subscribe`를 켠다. 키는 같은 발행물의 `newsletter:subscribe`범위인 `mk_pub_…`만 사용하고 프로젝트의 허용 웹 origin을 설정한다. 서버 read key는 브라우저로 보내지 않는다. 확인·해지는 Mocco M6의 서명 링크가 담당하며 GET은 확인만 한다. 실메일·운영 노출은 별도 출시 결정으로 남긴다.
+`NEWSLETTER_ENABLED=true`, `MOCCO_API_URL`, `MOCCO_NEWSLETTER_KEY`를 설정하면 `/subscribe`를 켠다. 키는 같은 발행물의 `newsletter:subscribe` 범위인 `mk_pub_…`만 사용하고 프로젝트의 허용 웹 origin을 설정한다. 서버 read key는 브라우저로 보내지 않는다. 확인·해지는 Mocco M6의 서명 링크가 담당하며 GET은 확인만 한다. 실메일·운영 노출은 별도 출시 결정으로 남긴다.
 
-검증: `yarn test:hub`는 합성 API만 사용해 데스크톱·모바일의 게이트, 검색, 구독 오류·중복 제출, JS없는 폼의 이메일 URL유출 방지, 연재·신규 글의 고정 주소를 검사한다. 다른 글 원천을 쓰는 서버는 ISR캐시를 별도 복사해 서로 섞이지 않게 한다. 기존 회귀 검사는 오래된 서버를 자동 재사용하지 않는다.3100이 사용 중이면 `PLAYWRIGHT_PORT=3170 yarn test:legacy`처럼 별도 포트를 쓴다. 운영 읽기 검사는 기존 `BASE_URL`방식을 유지한다.
+검증: `yarn test:hub`는 합성 API만 사용해 데스크톱·모바일의 게이트, 검색, 구독 오류·중복 제출, JS 없는 폼의 이메일 URL 유출 방지, 연재·신규 글의 고정 주소를 검사한다. 다른 글 원천을 쓰는 서버는 ISR 캐시를 별도 복사해 서로 섞이지 않게 한다. 기존 회귀 검사는 오래된 서버를 자동 재사용하지 않는다. 3100이 사용 중이면 `PLAYWRIGHT_PORT=3170 yarn test:legacy`처럼 별도 포트를 쓴다. 운영 읽기 검사는 기존 `BASE_URL` 방식을 유지한다.
