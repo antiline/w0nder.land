@@ -6,7 +6,10 @@ import { defineConfig, devices } from '@playwright/test';
  * - 기본: `next build` 결과를 운영과 같은 standalone 서버(scripts/start-standalone.sh)로 3100 포트에 띄워 검사한다.
  * - BASE_URL 을 주면 그 서버를 검사한다(예: 운영 읽기 전용 확인). 시각 비교는 로컬에서만 의미가 있다.
  */
-const port = 3100;
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 3100);
+if (!Number.isInteger(port) || port < 1 || port > 65535) {
+  throw new Error('PLAYWRIGHT_PORT가 유효한 포트 번호여야 한다');
+}
 const baseURL = process.env.BASE_URL ?? `http://127.0.0.1:${port}`;
 
 export default defineConfig({
@@ -47,9 +50,9 @@ export default defineConfig({
     ? undefined
     : {
         // 운영 Docker 와 같은 standalone 서버로 검사한다(next start 는 output: standalone 과 맞지 않는다).
-        command: `PORT=${port} sh scripts/start-standalone.sh`,
+        command: `PORT=${port} POSTS_SOURCE=file POSTS_SHADOW= SITE_PROFILE_SOURCE=file HUB_ENABLED=false HUB_SERIES_ENABLED=false NEWSLETTER_ENABLED=false node scripts/start-test-isolated.mjs`,
         url: `${baseURL}/robots.txt`,
-        reuseExistingServer: !process.env.CI,
-        timeout: 60_000,
+        reuseExistingServer: false,
+        timeout: 120_000,
       },
 });

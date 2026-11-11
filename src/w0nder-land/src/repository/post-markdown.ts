@@ -8,6 +8,14 @@ import { Post, PostType } from '@/repository/post-types';
  */
 export function postFromMarkdown(uuid: string, text: string): Post {
   const { data, content } = matter(text);
+  const native = data.moccoNative === true;
+  if (native && (typeof data.moccoPermalink !== 'string' || !/^\/posts\/[^/\\\s?#]+$/.test(data.moccoPermalink))) {
+    throw new Error('신규 글 롤백 파일의 고정 주소가 잘못됐다');
+  }
+  if (native) {
+    // 잘못된 퍼센트 인코딩은 경로 해석 단계 전에 거부한다.
+    decodeURIComponent(data.moccoPermalink);
+  }
 
   return {
     type: PostType.Markdown,
@@ -20,8 +28,8 @@ export function postFromMarkdown(uuid: string, text: string): Post {
     article: content,
     createdAt: data.createdAt || '',
     updatedAt: data.updatedAt || '',
-    url: getPostUrl(uuid, data.title || ''),
-    shortUrl: `/s/${data.shortUrl || ''}`,
+    url: native ? data.moccoPermalink : getPostUrl(uuid, data.title || ''),
+    shortUrl: native && !data.shortUrl ? '' : `/s/${data.shortUrl || ''}`,
     tags: data.tags || [],
   } satisfies Post;
 }

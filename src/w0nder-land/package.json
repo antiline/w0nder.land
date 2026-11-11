@@ -14,6 +14,7 @@
     "baseline:check": "node scripts/baseline/build-manifest.mjs --check",
     "test:legacy": "playwright test --project=legacy",
     "test:visual": "playwright test --project=visual-pc --project=visual-mobile",
+    "test:hub": "playwright test -c playwright.hub.config.ts",
     "test": "yarn baseline:check && yarn test:unit && playwright test",
     "test:unit": "playwright test -c playwright.unit.config.ts"
   },

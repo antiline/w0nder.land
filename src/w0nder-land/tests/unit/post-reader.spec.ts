@@ -82,6 +82,59 @@ test('모코 원천은 82개 글 모두 파일 원천과 같은 Post 를 같은 
   expect(mocco).toEqual(file);
 });
 
+test('모코에서 새로 쓴 글은 legacyId·frontmatter 없이도 고정 주소와 공개 메타데이터로 읽힌다', async () => {
+  const id = 'f6885bc7-0b48-446e-8c5b-c78499ba5c47';
+  const native = {
+    id,
+    legacyId: null,
+    status: 'public',
+    permalink: '/posts/새 글',
+    frontmatter: null,
+    bodyMd: '새 본문',
+    title: '새 제목',
+    category: '개발',
+    tags: ['새 태그'],
+    createdAtText: null,
+    updatedAtText: null,
+    firstMadePublicAt: '2026-11-10T00:00:00.000Z',
+    author: { displayName: '작성자', avatar: '/images/profile_image.png' },
+    aliases: [],
+  };
+  const transport: typeof fetch = async url => {
+    const path = new URL(String(url)).pathname;
+    return Response.json(
+      path === '/v1/blog/posts' ? { items: [{ id, legacyId: null, status: 'public' }], nextCursor: null } : native,
+    );
+  };
+  const posts = await new MoccoPostReader(config(transport)).listPublished();
+  expect(posts).toHaveLength(1);
+  expect(posts[0]).toMatchObject({
+    uuid: id,
+    title: '새 제목',
+    article: '새 본문',
+    author: '작성자',
+    authorProfile: '/images/profile_image.png',
+    createdAt: native.firstMadePublicAt,
+    updatedAt: native.firstMadePublicAt,
+    shortUrl: '',
+    tags: native.tags,
+    url: '/posts/%EC%83%88%20%EA%B8%80',
+  });
+});
+
+test('반복되는 페이지 커서는 무한 요청 대신 전체 실패로 처리한다', async () => {
+  let calls = 0;
+  const transport: typeof fetch = async () => {
+    calls += 1;
+    if (calls > 4) {
+      throw new Error('무한 페이지');
+    }
+    return Response.json({ items: [], nextCursor: 'same' });
+  };
+  await expect(new MoccoPostReader(config(transport)).listPublished()).rejects.toThrow(/커서/);
+  expect(calls).toBe(2);
+});
+
 test('커서로 모든 페이지를 읽는다', async () => {
   const { fetchFn, calls } = fakeMocco();
   await new MoccoPostReader(config(fetchFn, { pageSize: 30 })).listPublished();

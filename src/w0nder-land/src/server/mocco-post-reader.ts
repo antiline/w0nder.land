@@ -11,7 +11,7 @@
  * - 주소(url)는 모코의 고정 permalink 를 쓴다. 제목에서 다시 만들지 않는다(W4 #9).
  *   모코는 permalink 를 디코딩된 경로로 준다. `/posts/` 뒤를 encodeURIComponent 로 인코딩해 href 를 만든다.
  *   기존 주소는 `/posts/{id}-{encodeURIComponent(제목)}` 이었으므로 같은 문자열이 나온다.
- * - legacyId 가 없는 새 글은 단축 주소·bare ID 규칙이 아직 없다. 조용히 빼지 않고 오류로 알린다.
+ * - 신규 글은 공개 API의 제목·날짜·작가로 렌더하고 고정 permalink를 쓴다. 이관 글의 파싱은 바꾸지 않는다.
  * - 타임아웃·HTTP 오류·페이지 중간 실패·형식이 틀린 응답(mocco-wire)은 전체 실패다. 부분 결과를 돌려주지 않는다.
  * - 목록과 상세가 서로 맞지 않거나(id·legacyId), 같은 legacyId 가 두 번 나오면 거부한다.
  * - 동시에 들어온 요청은 진행 중인 읽기 하나를 같이 기다린다(캐시가 비었을 때 모코에 같은 요청이 몰리지 않게).
@@ -19,6 +19,8 @@
  */
 import type { z } from 'zod';
 import type { Post } from '@/repository/post-types';
+import { PostType } from '@/repository/post-types';
+import { safeHref } from '@/libs/site/safe-href';
 import { postFromMarkdown, sortPostsForList } from '@/repository/post-markdown';
 import { MoccoReadError } from '@/server/mocco-read-error';
 import {
@@ -26,6 +28,7 @@ import {
   type MoccoPostSummary,
   moccoPostDetailSchema,
   moccoPostListSchema,
+  moccoNativePostSchema,
   parseWire,
 } from '@/server/mocco-wire';
 
@@ -103,6 +106,7 @@ export class MoccoPostReader {
 
   private async listSummaries(): Promise<MoccoPostSummary[]> {
     const items: MoccoPostSummary[] = [];
+    const cursors = new Set<string>();
     let cursor: string | null = null;
     do {
       const query: string = `?limit=${this.config.pageSize}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
@@ -110,6 +114,12 @@ export class MoccoPostReader {
       const page = await this.get(`/v1/blog/posts${query}`, moccoPostListSchema);
       items.push(...page.items);
       cursor = page.nextCursor;
+      if (cursor && cursors.has(cursor)) {
+        throw new MoccoReadError('목록 페이지의 커서가 반복된다');
+      }
+      if (cursor) {
+        cursors.add(cursor);
+      }
     } while (cursor);
     return items;
   }
@@ -149,14 +159,7 @@ export class MoccoPostReader {
     if (notPublic.length) {
       throw new MoccoReadError(`공개가 아닌 글이 응답에 있다: ${notPublic.map(s => s.id).join(',')}`);
     }
-    const withoutLegacy = summaries.filter(s => !s.legacyId);
-    if (withoutLegacy.length) {
-      throw new MoccoReadError(
-        `legacyId 없는 글의 주소 규칙이 아직 없다(W4 #9): ${withoutLegacy.map(s => s.id).join(',')}`,
-      );
-    }
-
-    const legacyIds = summaries.map(s => s.legacyId!);
+    const legacyIds = summaries.map(s => s.legacyId ?? s.id);
     const duplicated = legacyIds.filter((id, i) => legacyIds.indexOf(id) !== i);
     if (duplicated.length) {
       throw new MoccoReadError(`같은 legacyId 가 여러 글에 있다: ${Array.from(new Set(duplicated)).join(',')}`);
@@ -170,11 +173,30 @@ export class MoccoPostReader {
       if (d.status !== 'public') {
         throw new MoccoReadError(`공개가 아닌 글: ${d.id}`);
       }
-      if (d.frontmatter == null) {
+      if (d.frontmatter == null && d.legacyId !== null) {
         throw new MoccoReadError(`frontmatter 없는 글은 아직 지원하지 않는다: ${d.id}`);
       }
-      if (!d.permalink.startsWith(POSTS_PREFIX)) {
+      if (!d.permalink.startsWith(POSTS_PREFIX) || d.permalink.length === POSTS_PREFIX.length) {
         throw new MoccoReadError(`글 permalink 형식이 아니다 ${d.id}: ${d.permalink}`);
+      }
+      if (d.legacyId === null) {
+        const native = parseWire(moccoNativePostSchema, d, '신규 글');
+        const short = native.aliases.find(alias => alias.kind === 'short' && /^\/s\/[^/?#]+$/.test(alias.path));
+        return {
+          type: PostType.Markdown,
+          uuid: native.id,
+          title: native.title,
+          article: native.bodyMd,
+          author: native.author?.displayName ?? '',
+          authorProfile: safeHref(native.author?.avatar ?? '') ?? '',
+          keywords: native.tags,
+          tags: native.tags,
+          category: native.category ?? '',
+          createdAt: native.createdAtText ?? native.firstMadePublicAt,
+          updatedAt: native.updatedAtText ?? native.createdAtText ?? native.firstMadePublicAt,
+          shortUrl: short?.path ?? '',
+          url: hrefOfPermalink(native.permalink),
+        } satisfies Post;
       }
       // 주소는 모코가 고정한 permalink 다(W4 #9). 제목이 바뀌어도 처음 공개된 주소를 유지한다.
       return { ...postFromMarkdown(d.legacyId!, `${d.frontmatter}${d.bodyMd}`), url: hrefOfPermalink(d.permalink) };

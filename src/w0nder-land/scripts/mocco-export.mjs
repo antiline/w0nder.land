@@ -12,12 +12,23 @@
  * 규칙
  * - post.md = frontmatter + bodyMd. 모코는 이관 때 원문을 바이트 그대로 나눠 저장했으므로 sha256 으로 대조한다.
  * - 파일은 지우지 않는다. 모코에 없는 파일 글은 보고만 한다(비공개 전환일 수도, 사고일 수도 있어 사람이 판단).
- * - legacyId 없는 새 글은 파일 원천에 주소 규칙이 없어 되돌릴 수 없다. 보고하고 exit 1.
+ * - 신규 글은 UUID 폴더와 명시적 고정 주소를 가진 frontmatter로 옮긴다. 기존 이관 글은 바이트 그대로다.
  * - 자산: /v1 은 바이트를 주지 않는다. 모코 manifest(path·sha256)와 로컬 파일을 대조해 없거나 다르면 보고하고 exit 1.
  * - 키·본문은 출력하지 않는다. 글 번호와 개수만 출력한다.
  */
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -34,6 +45,106 @@ if (!base || !key) {
 
 const sha = buf => createHash('sha256').update(buf).digest('hex');
 const isStr = v => typeof v === 'string';
+
+/** 새 파일과 백업을 모두 준비한 후 교체한다. 교체 도중 실패하면 이미 바꾼 파일도 복구한다. */
+function applyWrites(items) {
+  if (items.length === 0) {
+    return;
+  }
+  mkdirSync(postsDir, { recursive: true });
+  const stage = mkdtempSync(join(postsDir, '.mocco-export-'));
+  const prepared = [];
+  const published = [];
+  let retainRecovery = false;
+  try {
+    for (const [index, item] of items.entries()) {
+      const folder = dirname(item.file);
+      if (existsSync(folder) && (!lstatSync(folder).isDirectory() || lstatSync(folder).isSymbolicLink())) {
+        throw new Error('글 폴더가 디렉터리가 아니거나 심볼릭 링크다');
+      }
+      mkdirSync(folder, { recursive: true });
+      if (existsSync(item.file) && (!lstatSync(item.file).isFile() || lstatSync(item.file).isSymbolicLink())) {
+        throw new Error('글 파일이 일반 파일이 아니다');
+      }
+      const staged = join(stage, `new-${index}`);
+      writeFileSync(staged, item.text);
+      const backup = existsSync(item.file) ? join(stage, `old-${index}`) : null;
+      if (backup) {
+        copyFileSync(item.file, backup);
+      }
+      prepared.push({ ...item, staged, backup });
+    }
+    for (const item of prepared) {
+      renameSync(item.staged, item.file);
+      published.push(item);
+    }
+  } catch (error) {
+    const recoveryErrors = [];
+    for (const item of published.reverse()) {
+      try {
+        if (item.backup) {
+          renameSync(item.backup, item.file);
+        } else {
+          rmSync(item.file, { force: true });
+        }
+      } catch (recoveryError) {
+        recoveryErrors.push(recoveryError);
+      }
+    }
+    if (recoveryErrors.length) {
+      retainRecovery = true;
+      throw new AggregateError([error, ...recoveryErrors], `복구 실패. 원본 백업을 보존했다: ${stage}`);
+    }
+    throw error;
+  } finally {
+    if (!retainRecovery) {
+      rmSync(stage, { recursive: true, force: true });
+    }
+  }
+}
+
+/** 신규 글의 메타데이터를 JSON 값으로 인코딩한 YAML에 담는다. 본문 바이트는 바꾸지 않는다. */
+function nativeText(d) {
+  if (
+    !isStr(d.title) ||
+    !isStr(d.permalink) ||
+    !d.permalink.startsWith('/posts/') ||
+    d.permalink === '/posts/' ||
+    !isStr(d.firstMadePublicAt) ||
+    !Number.isFinite(Date.parse(d.firstMadePublicAt)) ||
+    !Array.isArray(d.tags) ||
+    !d.tags.every(isStr) ||
+    !(d.category === null || isStr(d.category)) ||
+    !(d.createdAtText === null || isStr(d.createdAtText)) ||
+    !(d.updatedAtText === null || isStr(d.updatedAtText)) ||
+    !(
+      d.author === null ||
+      (d.author && isStr(d.author.displayName) && (d.author.avatar === null || isStr(d.author.avatar)))
+    ) ||
+    !Array.isArray(d.aliases)
+  ) {
+    throw new Error(`신규 글의 공개 메타데이터 형식이 틀렸다: ${d.id}`);
+  }
+  const short = d.aliases.find(a => a.kind === 'short' && isStr(a.path) && /^\/s\/[^/?#]+$/.test(a.path));
+  const avatar = d.author?.avatar ?? '';
+  const safeAvatar = /^(?:https?:\/\/|\/(?![\/\\]))/.test(avatar) ? avatar : '';
+  const data = {
+    moccoNative: true,
+    moccoPermalink: `/posts/${encodeURIComponent(d.permalink.slice('/posts/'.length))}`,
+    title: d.title,
+    author: d.author?.displayName ?? '',
+    authorProfile: safeAvatar,
+    createdAt: d.createdAtText ?? d.firstMadePublicAt,
+    updatedAt: d.updatedAtText ?? d.createdAtText ?? d.firstMadePublicAt,
+    category: d.category ?? '',
+    tags: d.tags,
+    keywords: d.tags,
+    shortUrl: short?.path.slice('/s/'.length) ?? '',
+  };
+  return `---\n${Object.entries(data)
+    .map(([name, value]) => `${name}: ${JSON.stringify(value)}`)
+    .join('\n')}\n---\n${d.bodyMd}`;
+}
 
 async function get(path) {
   const res = await fetch(base + path, {
@@ -62,6 +173,7 @@ function assetFile(legacyId, path) {
 }
 
 const summaries = [];
+const cursors = new Set();
 let cursor = null;
 do {
   // eslint-disable-next-line no-await-in-loop -- 커서는 앞 페이지 응답에서만 나온다
@@ -71,21 +183,37 @@ do {
   }
   summaries.push(...page.items);
   cursor = page.nextCursor;
+  if (cursor && cursors.has(cursor)) {
+    throw new Error('목록 페이지 커서가 반복된다');
+  }
+  if (cursor) {
+    cursors.add(cursor);
+  }
 } while (cursor);
 
-const report = { mocco: summaries.length, same: [], changed: [], created: [], noLegacyId: [], notInMocco: [], assetProblems: [] };
+const report = {
+  mocco: summaries.length,
+  same: [],
+  changed: [],
+  created: [],
+  noLegacyId: [],
+  notInMocco: [],
+  assetProblems: [],
+};
 const seen = new Set();
 let assetsChecked = 0;
+const writes = [];
 
 for (const s of summaries) {
-  if (!s.legacyId) {
-    report.noLegacyId.push(s.id);
-    continue;
+  if (s.status !== 'public') {
+    throw new Error('공개가 아닌 글이 목록에 있다');
   }
-  if (!/^\d+$/.test(s.legacyId) || seen.has(s.legacyId)) {
-    throw new Error(`legacyId 가 숫자가 아니거나 겹친다: ${s.legacyId}`);
+  const id = s.legacyId ?? s.id;
+  const validId = s.legacyId === null ? /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(id) : /^\d+$/.test(id);
+  if (!validId || seen.has(id)) {
+    throw new Error('글 폴더 ID가 유효하지 않거나 겹친다');
   }
-  seen.add(s.legacyId);
+  seen.add(id);
   // eslint-disable-next-line no-await-in-loop -- 82개 정도라 순서대로 읽는다(모코 부하를 늘리지 않는다)
   const d = await get(`/v1/blog/posts/${encodeURIComponent(s.id)}`);
   if (d.id !== s.id || d.legacyId !== s.legacyId || d.status !== 'public' || !isStr(d.bodyMd)) {
@@ -94,26 +222,28 @@ for (const s of summaries) {
   if (!(d.frontmatter === null || isStr(d.frontmatter))) {
     throw new Error(`frontmatter 형식이 틀렸다: ${s.legacyId}`);
   }
-  const text = Buffer.from(`${d.frontmatter ?? ''}${d.bodyMd}`, 'utf8');
-  const file = join(postsDir, s.legacyId, 'post.md');
-  if (!existsSync(file)) {
-    report.created.push(s.legacyId);
-  } else if (sha(readFileSync(file)) === sha(text)) {
-    report.same.push(s.legacyId);
-  } else {
-    report.changed.push(s.legacyId);
+  if (s.legacyId !== null && d.frontmatter === null) {
+    throw new Error(`이관 글의 frontmatter가 없다: ${id}`);
   }
-  if (write && !report.same.includes(s.legacyId)) {
-    mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, text);
+  const text = Buffer.from(s.legacyId === null ? nativeText(d) : `${d.frontmatter}${d.bodyMd}`, 'utf8');
+  const file = join(postsDir, id, 'post.md');
+  if (!existsSync(file)) {
+    report.created.push(id);
+  } else if (sha(readFileSync(file)) === sha(text)) {
+    report.same.push(id);
+  } else {
+    report.changed.push(id);
+  }
+  if (!report.same.includes(id)) {
+    writes.push({ file, text });
   }
   for (const a of Array.isArray(d.assets) ? d.assets : []) {
     assetsChecked += 1;
-    const local = assetFile(s.legacyId, a.path);
+    const local = assetFile(id, a.path);
     if (!existsSync(local)) {
-      report.assetProblems.push(`${s.legacyId}:${a.path}:없음`);
+      report.assetProblems.push(`${id}:${a.path}:없음`);
     } else if (sha(readFileSync(local)) !== a.sha256) {
-      report.assetProblems.push(`${s.legacyId}:${a.path}:해시다름`);
+      report.assetProblems.push(`${id}:${a.path}:해시다름`);
     }
   }
 }
@@ -131,5 +261,9 @@ for (const k of ['changed', 'created', 'noLegacyId', 'notInMocco', 'assetProblem
 }
 
 const blocking = report.noLegacyId.length + report.assetProblems.length;
+// 전부 읽고 자산도 검사한 뒤에만 쓴다. 중간 실패가 부분 롤백 파일을 남기지 않게 한다.
+if (write && blocking === 0 && report.notInMocco.length === 0) {
+  applyWrites(writes);
+}
 const pending = write ? 0 : report.changed.length + report.created.length;
 process.exit(blocking + pending + report.notInMocco.length > 0 ? 1 : 0);
