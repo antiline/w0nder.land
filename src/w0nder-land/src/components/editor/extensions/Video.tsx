@@ -1,5 +1,6 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
+import { safeHref } from '@/libs/site/safe-href';
 import type { NodeViewProps, HTMLAttributes } from './types';
 
 type VideoAttrs = {
@@ -53,8 +54,9 @@ export const Video = Node.create({
 export const VideoView = (props: NodeViewProps) => {
   const { node } = props;
   const attrs = node.attrs as VideoAttrs;
+  const url = safeHref(attrs.url ?? '');
 
-  if (!attrs.url) {
+  if (!url) {
     return null;
   }
 
@@ -63,7 +65,7 @@ export const VideoView = (props: NodeViewProps) => {
       <div className="w-full overflow-hidden bg-white rounded-lg border border-gray-200">
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video controls loop autoPlay className="w-full">
-          <source src={attrs.url} type="video/mp4" title={attrs.title || undefined} />
+          <source src={url} type="video/mp4" title={attrs.title || undefined} />
           Your browser does not support the video tag.
         </video>
       </div>

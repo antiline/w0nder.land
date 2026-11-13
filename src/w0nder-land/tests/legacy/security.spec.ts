@@ -34,7 +34,5 @@ test('클라이언트 번들에 서버 전용 비밀 값이 없다', () => {
   expect(leaks).toEqual([]);
 });
 
-// 아래는 모코 Publishing 연결 뒤 채울 공통 fixture 경계다(W3·M4). 지금은 데이터 원천이 파일이라 대상이 없다.
-test.fixme('외부에서 작성된 본문의 스크립트·이벤트 속성이 실행되지 않는다 (XSS fixture)', () => {});
-test.fixme('다른 소유자·미발행 초안이 공개 주소에서 404 다 (draft fixture)', () => {});
-test.fixme('미리보기 응답이 공개 캐시에 섞이지 않는다 (preview cache fixture)', () => {});
+// 모코 원천의 본문 XSS·초안/다른 발행물 노출·미리보기 캐시 fixture 는 모의 모코가 필요해서
+// tests/hub/security.spec.ts(yarn test:hub)에 있다.
