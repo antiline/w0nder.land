@@ -15,9 +15,18 @@ type HubProps = {
   posts: HubPost[];
   series: HubSeriesSummary[];
   seriesEnabled: boolean;
+  subscribeEnabled: boolean;
 };
 
-export default function HubPage({ query, category, categories, posts, series, seriesEnabled }: HubProps) {
+export default function HubPage({
+  query,
+  category,
+  categories,
+  posts,
+  series,
+  seriesEnabled,
+  subscribeEnabled,
+}: HubProps) {
   return (
     <HubShell title="글 찾기" description="제목, 본문, 태그에서 글을 찾아보세요.">
       <form
@@ -52,6 +61,14 @@ export default function HubPage({ query, category, categories, posts, series, se
           검색
         </button>
       </form>
+      {subscribeEnabled && (
+        <p className="mb-10 border-2 border-black bg-yellow-100 p-5">
+          새 글이 올라오면 메일로 알려 드립니다.{' '}
+          <Link href="/subscribe" className="font-bold underline underline-offset-4">
+            새 글 받아보기
+          </Link>
+        </p>
+      )}
       {seriesEnabled && (
         <section aria-labelledby="hub-series-title" className="mb-10 border-2 border-black bg-white p-5">
           <h2 id="hub-series-title" className="mb-4 text-2xl font-black">
@@ -126,6 +143,7 @@ export const getServerSideProps: GetServerSideProps<HubProps> = async ({ query, 
       category,
       series,
       seriesEnabled,
+      subscribeEnabled: process.env.NEWSLETTER_ENABLED === 'true',
       categories: Array.from(new Set(all.map(post => post.category).filter((value): value is string => !!value))),
       posts: discoverPosts(all, text, category).map(post => ({
         id: post.uuid,
