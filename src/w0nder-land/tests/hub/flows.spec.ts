@@ -9,6 +9,18 @@ test('off 상태에서는 새 경로가 404이고 기존 화면에는 새 링크
   await expect(page.locator('a[href="/hub"], a[href="/subscribe"]')).toHaveCount(0);
 });
 
+test('구독이 켜져 있으면 허브에서 구독 화면으로 갈 수 있다', async ({ page }) => {
+  await page.goto('/hub');
+  await page.getByRole('link', { name: '새 글 받아보기', exact: true }).click();
+  await expect(page).toHaveURL(/\/subscribe$/);
+  await expect(page.getByRole('heading', { name: '새 글 받아보기', exact: true })).toBeVisible();
+});
+
+test('구독이 꺼져 있으면 허브에 구독 링크가 없다', async ({ page }) => {
+  await page.goto('http://127.0.0.1:3104/hub');
+  await expect(page.locator('a[href="/subscribe"]')).toHaveCount(0);
+});
+
 test('검색 조건은 URL에 남고 새로고침해도 고정 주소로 연결된다', async ({ page }) => {
   await page.goto('/hub');
   await expect(page.getByRole('heading', { name: '글 찾기', exact: true })).toBeVisible();
